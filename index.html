@@ -1,330 +1,663 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
-<title>Sistem Keuangan Pesantren</title>
-
+<title>Sistem Keuangan Pesantren Modern</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-
-body{
-font-family:Arial;
-background:#f2f2f2;
-margin:0;
-padding:20px;
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --success: #10b981;
+    --danger: #ef4444;
+    --bg-main: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
 }
 
-.container{
-max-width:900px;
-margin:auto;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-main);
+    margin: 0;
+    padding: 0;
+    color: var(--text-main);
 }
 
-.card{
-background:white;
-padding:20px;
-margin:10px 0;
-border-radius:10px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+/* Container utama */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
 }
 
-input,select{
-width:100%;
-padding:10px;
-margin-top:10px;
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeInDown 0.5s ease;
 }
 
-button{
-padding:10px;
-background:green;
-color:white;
-border:none;
-margin-top:10px;
-width:100%;
+header h1 {
+    margin: 0;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
-.nav{
-display:flex;
-gap:10px;
-margin-bottom:20px;
+header p {
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-size: 14px;
 }
 
-.nav button{
-flex:1;
+/* Card Modern */
+.card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+    animation: fadeIn 0.6s ease;
 }
 
-.hidden{
-display:none;
+.card:hover {
+    transform: translateY(-2px);
 }
 
-.stat{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+/* Login Page */
+#loginPage {
+    max-width: 400px;
+    margin: 100px auto;
+    text-align: center;
+    border-top: 5px solid var(--primary);
 }
 
-.stat .card{
-flex:1;
-min-width:150px;
-text-align:center;
+#loginPage h2 {
+    margin-top: 0;
+    color: var(--text-main);
 }
 
-.filter{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+/* Form Elements */
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--text-muted);
 }
 
-.filter input{
-flex:1;
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: border 0.3s;
+    background: #fff;
 }
 
+input:focus, select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+input:disabled {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+}
+
+/* Button Modern */
+button {
+    cursor: pointer;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-main {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+}
+
+.btn-main:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Navigasi Tab */
+.nav {
+    display: flex;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.nav button {
+    flex: 1;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 8px;
+    min-width: 100px;
+}
+
+.nav button.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+/* Dashboard Stats */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card.saldo { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+.stat-card.masuk { background: linear-gradient(135deg, #10b981, #34d399); }
+.stat-card.keluar { background: linear-gradient(135deg, #ef4444, #f87171); }
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.stat-card p {
+    margin: 10px 0 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.stat-icon {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    font-size: 40px;
+    opacity: 0.2;
+}
+
+/* Tabel Riwayat */
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+}
+
+th {
+    background: #f9fafb;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+tr:hover {
+    background: #f9fafb;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.badge-success { background: #d1fae5; color: #065f46; }
+.badge-danger { background: #fee2e2; color: #991b1b; }
+
+/* Filter Layout */
+.filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+@media (max-width: 600px) {
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden { display: none; }
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
+    
+    <header>
+        <h1><i class="fas fa-mosque"></i> Keuangan Pesantren</h1>
+        <p>Sistem Manajemen Keuangan & Inventaris Modern</p>
+    </header>
 
-<h1>Sistem Keuangan Pesantren</h1>
+    <!-- Halaman Login -->
+    <div id="loginPage" class="card">
+        <h2><i class="fas fa-lock"></i> Login Admin</h2>
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <button class="btn-main" onclick="login()">Masuk Sistem</button>
+    </div>
 
-<div id="loginPage" class="card">
+    <!-- Aplikasi Utama -->
+    <div id="app" class="hidden">
+        
+        <!-- Navigasi -->
+        <div class="nav">
+            <button onclick="showPage('dashboard')" id="nav-dashboard" class="active">
+                <i class="fas fa-chart-pie"></i> Dashboard
+            </button>
+            <button onclick="showPage('keuangan')" id="nav-keuangan">
+                <i class="fas fa-wallet"></i> Keuangan
+            </button>
+            <button onclick="showPage('inventaris')" id="nav-inventaris">
+                <i class="fas fa-boxes"></i> Inventaris
+            </button>
+        </div>
 
-<h2>Login</h2>
+        <!-- PAGE 1: DASHBOARD -->
+        <div id="dashboard" class="page">
+            
+            <div class="card">
+                <h3><i class="fas fa-filter"></i> Filter Data</h3>
+                <div class="filter-grid">
+                    <div>
+                        <label>Tanggal Mulai</label>
+                        <input type="date" id="tglMulai">
+                    </div>
+                    <div>
+                        <label>Tanggal Akhir</label>
+                        <input type="date" id="tglAkhir">
+                    </div>
+                    <button class="btn-main" onclick="loadDashboard()"><i class="fas fa-search"></i> Filter</button>
+                </div>
+            </div>
 
-<input id="username" placeholder="Username">
-<input id="password" type="password" placeholder="Password">
+            <div class="stat-grid">
+                <div class="stat-card saldo">
+                    <h3>Total Saldo</h3>
+                    <p id="saldo">Rp 0</p>
+                    <i class="fas fa-wallet stat-icon"></i>
+                </div>
+                <div class="stat-card masuk">
+                    <h3>Pemasukan</h3>
+                    <p id="masuk">Rp 0</p>
+                    <i class="fas fa-arrow-down stat-icon"></i>
+                </div>
+                <div class="stat-card keluar">
+                    <h3>Pengeluaran</h3>
+                    <p id="keluar">Rp 0</p>
+                    <i class="fas fa-arrow-up stat-icon"></i>
+                </div>
+            </div>
 
-<button onclick="login()">Login</button>
+            <div class="card">
+                <canvas id="chart"></canvas>
+            </div>
 
-</div>
+        </div>
 
-<div id="app" class="hidden">
+        <!-- PAGE 2: INPUT KEUANGAN -->
+        <div id="keuangan" class="page hidden">
+            
+            <div class="card">
+                <h2 style="margin-top:0;"><i class="fas fa-hand-holding-usd"></i> Input Transaksi</h2>
+                
+                <label>Tanggal</label>
+                <input id="tanggal" type="date">
+                
+                <label>Keterangan</label>
+                <input id="keterangan" placeholder="Contoh: Pembayaran SPP Bulan Januari">
+                
+                <label>Kategori</label>
+                <select id="kategoriKeuangan" onchange="toggleInputKeuangan()">
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Pemasukan">Pemasukan</option>
+                    <option value="Pengeluaran">Pengeluaran</option>
+                </select>
+                
+                <label>Jumlah Uang Masuk</label>
+                <input id="masukInput" placeholder="Otomatis aktif jika kategori Pemasukan" disabled>
+                
+                <label>Jumlah Uang Keluar</label>
+                <input id="keluarInput" placeholder="Otomatis aktif jika kategori Pengeluaran" disabled>
+                
+                <label>Nama Pelapor</label>
+                <input id="pelapor" placeholder="Nama penanggung jawab">
+                
+                <button class="btn-main" onclick="kirimKeuangan()"><i class="fas fa-save"></i> Simpan Transaksi</button>
+            </div>
 
-<div class="nav">
+            <!-- Riwayat Keuangan -->
+            <div class="card">
+                <h3><i class="fas fa-history"></i> Riwayat Transaksi Terakhir</h3>
+                <div class="table-container">
+                    <table id="tableKeuangan">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Keterangan</th>
+                                <th>Kategori</th>
+                                <th>Masuk</th>
+                                <th>Keluar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-<button onclick="showPage('dashboard')">Dashboard</button>
-<button onclick="showPage('keuangan')">Input Keuangan</button>
-<button onclick="showPage('inventaris')">Inventaris</button>
+        </div>
 
-</div>
+        <!-- PAGE 3: INVENTARIS -->
+        <div id="inventaris" class="page hidden">
+            
+            <div class="card">
+                <h2 style="margin-top:0;"><i class="fas fa-boxes"></i> Input Inventaris</h2>
+                
+                <label>Nama Barang</label>
+                <input id="barang" placeholder="Contoh: Beras 5kg">
+                
+                <label>Jumlah</label>
+                <input id="jumlah" type="number" placeholder="Jumlah barang">
+                
+                <label>Tipe Transaksi</label>
+                <select id="tipe">
+                    <option value="Masuk">Stok Masuk</option>
+                    <option value="Keluar">Stok Keluar</option>
+                </select>
+                
+                <button class="btn-main" onclick="kirimInventaris()"><i class="fas fa-save"></i> Simpan Inventaris</button>
+            </div>
 
-<div id="dashboard" class="page">
+            <!-- Riwayat Inventaris -->
+            <div class="card">
+                <h3><i class="fas fa-history"></i> Riwayat Stok Inventaris</h3>
+                <div class="table-container">
+                    <table id="tableInventaris">
+                        <thead>
+                            <tr>
+                                <th>Barang</th>
+                                <th>Jumlah</th>
+                                <th>Tipe</th>
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-<div class="card">
+        </div>
 
-<h3>Filter Tanggal</h3>
-
-<div class="filter">
-
-<input type="date" id="tglMulai">
-<input type="date" id="tglAkhir">
-
-<button onclick="loadDashboard()">Filter</button>
-
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="card">
-<h3>Saldo</h3>
-<p id="saldo">0</p>
-</div>
-
-<div class="card">
-<h3>Pemasukan</h3>
-<p id="masuk">0</p>
-</div>
-
-<div class="card">
-<h3>Pengeluaran</h3>
-<p id="keluar">0</p>
-</div>
-
-</div>
-
-<div class="card">
-
-<canvas id="chart"></canvas>
-
-</div>
-
-</div>
-
-<div id="keuangan" class="page hidden">
-
-<div class="card">
-
-<h2>Input Keuangan</h2>
-
-<input id="tanggal" type="date">
-<input id="keterangan" placeholder="Keterangan">
-<input id="subKategori" placeholder="Kategori">
-<input id="masukInput" placeholder="Uang Masuk">
-<input id="keluarInput" placeholder="Uang Keluar">
-<input id="pelapor" placeholder="Pelapor">
-
-<button onclick="kirimKeuangan()">Simpan</button>
-
-</div>
-
-</div>
-
-<div id="inventaris" class="page hidden">
-
-<div class="card">
-
-<h2>Inventaris Kantin</h2>
-
-<input id="barang" placeholder="Nama Barang">
-<input id="jumlah" placeholder="Jumlah">
-
-<select id="tipe">
-<option>Masuk</option>
-<option>Keluar</option>
-</select>
-
-<button onclick="kirimInventaris()">Simpan</button>
-
-</div>
-
-</div>
-
-</div>
-
+    </div>
 </div>
 
 <script>
-
-const API="https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
+const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
 
 let chart;
 
 function login(){
-
-let u=document.getElementById("username").value;
-let p=document.getElementById("password").value;
-
-if(p=="1111"){
-
-document.getElementById("loginPage").style.display="none";
-document.getElementById("app").classList.remove("hidden");
-
-loadDashboard();
-
-}else{
-
-alert("Password salah");
-
-}
-
+    let p = document.getElementById("password").value;
+    if(p == "1111"){
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").classList.remove("hidden");
+        loadDashboard();
+        loadRiwayatKeuangan();
+        loadRiwayatInventaris();
+    } else {
+        alert("Password salah! Hint: 1111");
+    }
 }
 
 function showPage(page){
+    // Sembunyikan semua page
+    document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+    // Tampilkan page yang dipilih
+    document.getElementById(page).classList.remove("hidden");
 
-document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+    // Update style tombol nav
+    document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+    document.getElementById("nav-" + page).classList.add("active");
+}
 
-document.getElementById(page).classList.remove("hidden");
+// Fungsi Khusus Logika Slide 2
+function toggleInputKeuangan(){
+    const kategori = document.getElementById("kategoriKeuangan").value;
+    const masukInput = document.getElementById("masukInput");
+    const keluarInput = document.getElementById("keluarInput");
 
+    if(kategori === "Pemasukan"){
+        masukInput.disabled = false;
+        keluarInput.disabled = true;
+        keluarInput.value = ""; // Reset nilai
+        masukInput.focus();
+    } else if(kategori === "Pengeluaran"){
+        masukInput.disabled = true;
+        keluarInput.disabled = false;
+        masukInput.value = ""; // Reset nilai
+        keluarInput.focus();
+    } else {
+        masukInput.disabled = true;
+        keluarInput.disabled = true;
+    }
 }
 
 function kirimKeuangan(){
+    const data = {
+        action: "keuangan",
+        tanggal: document.getElementById("tanggal").value,
+        keterangan: document.getElementById("keterangan").value,
+        kategori: document.getElementById("kategoriKeuangan").value, // Diubah dari subKategori
+        masuk: document.getElementById("masukInput").value,
+        keluar: document.getElementById("keluarInput").value,
+        pelapor: document.getElementById("pelapor").value
+    };
 
-const data={
+    if(!data.kategori || !data.tanggal) {
+        alert("Harap lengkapi tanggal dan kategori!");
+        return;
+    }
 
-action:"keuangan",
-tanggal:document.getElementById("tanggal").value,
-keterangan:document.getElementById("keterangan").value,
-subKategori:document.getElementById("subKategori").value,
-masuk:document.getElementById("masukInput").value,
-keluar:document.getElementById("keluarInput").value,
-pelapor:document.getElementById("pelapor").value
-
-};
-
-fetch(API,{
-method:"POST",
-body:JSON.stringify(data)
-})
-.then(res=>res.text())
-.then(res=>{
-alert(res);
-loadDashboard();
-});
-
+    fetch(API, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(res => {
+        alert(res);
+        loadDashboard();
+        loadRiwayatKeuangan(); // Refresh riwayat
+        // Reset form
+        document.getElementById("keterangan").value = "";
+        document.getElementById("masukInput").value = "";
+        document.getElementById("keluarInput").value = "";
+        document.getElementById("kategoriKeuangan").value = "";
+        toggleInputKeuangan();
+    });
 }
 
 function kirimInventaris(){
+    const data = {
+        action: "inventaris",
+        barang: document.getElementById("barang").value,
+        jumlah: document.getElementById("jumlah").value,
+        tipe: document.getElementById("tipe").value
+    };
 
-const data={
-
-action:"inventaris",
-barang:document.getElementById("barang").value,
-jumlah:document.getElementById("jumlah").value,
-tipe:document.getElementById("tipe").value
-
-};
-
-fetch(API,{
-method:"POST",
-body:JSON.stringify(data)
-})
-.then(res=>res.text())
-.then(res=>{
-alert(res);
-});
-
+    fetch(API, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(res => {
+        alert(res);
+        loadRiwayatInventaris();
+        document.getElementById("barang").value = "";
+        document.getElementById("jumlah").value = "";
+    });
 }
 
 function loadDashboard(){
+    fetch(API + "?action=dashboard")
+    .then(res => res.json())
+    .then(data => {
+        let masuk = data.masuk || 0;
+        let keluar = data.keluar || 0;
+        let saldo = masuk - keluar;
 
-fetch(API+"?action=dashboard")
-.then(res=>res.json())
-.then(data=>{
+        // Format Currency
+        const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+        
+        document.getElementById("saldo").innerText = formatter.format(saldo);
+        document.getElementById("masuk").innerText = formatter.format(masuk);
+        document.getElementById("keluar").innerText = formatter.format(keluar);
 
-let mulai=document.getElementById("tglMulai").value;
-let akhir=document.getElementById("tglAkhir").value;
-
-let masuk=data.masuk;
-let keluar=data.keluar;
-
-document.getElementById("saldo").innerText=masuk-keluar;
-document.getElementById("masuk").innerText=masuk;
-document.getElementById("keluar").innerText=keluar;
-
-drawChart(masuk,keluar);
-
-});
-
+        drawChart(masuk, keluar);
+    });
 }
 
-function drawChart(masuk,keluar){
-
-const ctx=document.getElementById("chart");
-
-if(chart){
-chart.destroy();
+function loadRiwayatKeuangan(){
+    // Asumsi API action 'riwayat_keuangan' mengembalikan array JSON
+    fetch(API + "?action=riwayat_keuangan")
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.querySelector("#tableKeuangan tbody");
+        tbody.innerHTML = ""; // Kosongkan dulu
+        
+        if(data && data.length > 0){
+            // Balik urutan agar terbaru di atas (opsional, tergantung data dari sheet)
+            // data.reverse(); 
+            
+            data.forEach(row => {
+                // Asumsi row: [Tanggal, Keterangan, Kategori, Masuk, Keluar]
+                // Sesuaikan index dengan struktur data Google Sheet Anda
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row[0]}</td>
+                    <td>${row[1]}</td>
+                    <td><span class="badge ${row[2] == 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${row[2]}</span></td>
+                    <td style="color:green">${row[3]}</td>
+                    <td style="color:red">${row[4]}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } else {
+             tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Belum ada data</td></tr>";
+        }
+    }).catch(() => {
+        // Jika API belum support, tampilkan dummy atau error
+        const tbody = document.querySelector("#tableKeuangan tbody");
+        tbody.innerHTML = "<tr><td colspan='5' style='text-align:center; color:grey'>Data riwayat belum tersedia atau perlu setup API.</td></tr>";
+    });
 }
 
-chart=new Chart(ctx,{
-type:"pie",
-data:{
-labels:["Pemasukan","Pengeluaran"],
-datasets:[{
-data:[masuk,keluar],
-backgroundColor:["green","red"]
-}]
+function loadRiwayatInventaris(){
+    // Asumsi API action 'riwayat_inventaris'
+    fetch(API + "?action=riwayat_inventaris")
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.querySelector("#tableInventaris tbody");
+        tbody.innerHTML = "";
+        
+        if(data && data.length > 0){
+            data.forEach(row => {
+                // Asumsi row: [Barang, Jumlah, Tipe, Waktu]
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row[0]}</td>
+                    <td>${row[1]}</td>
+                    <td><span class="badge ${row[2] == 'Masuk' ? 'badge-success' : 'badge-danger'}">${row[2]}</span></td>
+                    <td>${row[3]}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } else {
+             tbody.innerHTML = "<tr><td colspan='4' style='text-align:center'>Belum ada data</td></tr>";
+        }
+    }).catch(() => {
+        const tbody = document.querySelector("#tableInventaris tbody");
+        tbody.innerHTML = "<tr><td colspan='4' style='text-align:center; color:grey'>Data riwayat belum tersedia.</td></tr>";
+    });
 }
-});
 
+function drawChart(masuk, keluar){
+    const ctx = document.getElementById("chart").getContext('2d');
+    if(chart) chart.destroy();
+    
+    chart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Pemasukan", "Pengeluaran"],
+            datasets: [{
+                data: [masuk, keluar],
+                backgroundColor: ["#10b981", "#ef4444"],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '70%',
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
 }
-
 </script>
 
 </body>
