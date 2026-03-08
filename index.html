@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Sistem Pesantren</title>
+<title>Sistem Keuangan Pesantren</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,7 +26,7 @@ margin:auto;
 .card{
 background:white;
 padding:20px;
-margin:10px;
+margin:10px 0;
 border-radius:10px;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
@@ -72,6 +72,16 @@ min-width:150px;
 text-align:center;
 }
 
+.filter{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.filter input{
+flex:1;
+}
+
 </style>
 
 </head>
@@ -87,7 +97,6 @@ text-align:center;
 <h2>Login</h2>
 
 <input id="username" placeholder="Username">
-
 <input id="password" type="password" placeholder="Password">
 
 <button onclick="login()">Login</button>
@@ -105,6 +114,21 @@ text-align:center;
 </div>
 
 <div id="dashboard" class="page">
+
+<div class="card">
+
+<h3>Filter Tanggal</h3>
+
+<div class="filter">
+
+<input type="date" id="tglMulai">
+<input type="date" id="tglAkhir">
+
+<button onclick="loadDashboard()">Filter</button>
+
+</div>
+
+</div>
 
 <div class="stat">
 
@@ -140,15 +164,10 @@ text-align:center;
 <h2>Input Keuangan</h2>
 
 <input id="tanggal" type="date">
-
 <input id="keterangan" placeholder="Keterangan">
-
 <input id="subKategori" placeholder="Kategori">
-
 <input id="masukInput" placeholder="Uang Masuk">
-
 <input id="keluarInput" placeholder="Uang Keluar">
-
 <input id="pelapor" placeholder="Pelapor">
 
 <button onclick="kirimKeuangan()">Simpan</button>
@@ -164,14 +183,11 @@ text-align:center;
 <h2>Inventaris Kantin</h2>
 
 <input id="barang" placeholder="Nama Barang">
-
 <input id="jumlah" placeholder="Jumlah">
 
 <select id="tipe">
-
 <option>Masuk</option>
 <option>Keluar</option>
-
 </select>
 
 <button onclick="kirimInventaris()">Simpan</button>
@@ -188,12 +204,14 @@ text-align:center;
 
 const API="https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
 
+let chart;
+
 function login(){
 
 let u=document.getElementById("username").value;
 let p=document.getElementById("password").value;
 
-if((u=="admin" && p=="admin123") || (u=="bendahara" && p=="12345")){
+if(p=="1111"){
 
 document.getElementById("loginPage").style.display="none";
 document.getElementById("app").classList.remove("hidden");
@@ -202,7 +220,7 @@ loadDashboard();
 
 }else{
 
-alert("Login salah");
+alert("Password salah");
 
 }
 
@@ -221,17 +239,11 @@ function kirimKeuangan(){
 const data={
 
 action:"keuangan",
-
 tanggal:document.getElementById("tanggal").value,
-
 keterangan:document.getElementById("keterangan").value,
-
 subKategori:document.getElementById("subKategori").value,
-
 masuk:document.getElementById("masukInput").value,
-
 keluar:document.getElementById("keluarInput").value,
-
 pelapor:document.getElementById("pelapor").value
 
 };
@@ -253,11 +265,8 @@ function kirimInventaris(){
 const data={
 
 action:"inventaris",
-
 barang:document.getElementById("barang").value,
-
 jumlah:document.getElementById("jumlah").value,
-
 tipe:document.getElementById("tipe").value
 
 };
@@ -279,38 +288,39 @@ fetch(API+"?action=dashboard")
 .then(res=>res.json())
 .then(data=>{
 
-document.getElementById("saldo").innerText=data.saldo;
-document.getElementById("masuk").innerText=data.masuk;
-document.getElementById("keluar").innerText=data.keluar;
+let mulai=document.getElementById("tglMulai").value;
+let akhir=document.getElementById("tglAkhir").value;
 
-drawChart(data);
+let masuk=data.masuk;
+let keluar=data.keluar;
+
+document.getElementById("saldo").innerText=masuk-keluar;
+document.getElementById("masuk").innerText=masuk;
+document.getElementById("keluar").innerText=keluar;
+
+drawChart(masuk,keluar);
 
 });
 
 }
 
-function drawChart(data){
+function drawChart(masuk,keluar){
 
 const ctx=document.getElementById("chart");
 
-new Chart(ctx,{
-
-type:"pie",
-
-data:{
-
-labels:["Pemasukan","Pengeluaran"],
-
-datasets:[{
-
-data:[data.masuk,data.keluar],
-
-backgroundColor:["green","red"]
-
-}]
-
+if(chart){
+chart.destroy();
 }
 
+chart=new Chart(ctx,{
+type:"pie",
+data:{
+labels:["Pemasukan","Pengeluaran"],
+datasets:[{
+data:[masuk,keluar],
+backgroundColor:["green","red"]
+}]
+}
 });
 
 }
