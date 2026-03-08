@@ -2,317 +2,320 @@
 <html>
 <head>
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<title>Sistem Pesantren</title>
 
-<title>Keuangan Pesantren</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
 body{
-background:#f3f6fb;
-font-family:system-ui;
+font-family:Arial;
+background:#f2f2f2;
+margin:0;
+padding:20px;
 }
 
-.navbar{
-background:#0f5132;
-}
-
-.slide{
-display:none;
-}
-
-.active{
-display:block;
+.container{
+max-width:900px;
+margin:auto;
 }
 
 .card{
-border-radius:14px;
-box-shadow:0 3px 8px rgba(0,0,0,.08);
+background:white;
+padding:20px;
+margin:10px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin-top:10px;
+}
+
+button{
+padding:10px;
+background:green;
+color:white;
+border:none;
+margin-top:10px;
+width:100%;
+}
+
+.nav{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.nav button{
+flex:1;
+}
+
+.hidden{
+display:none;
 }
 
 .stat{
-font-size:22px;
-font-weight:bold;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.stat .card{
+flex:1;
+min-width:150px;
+text-align:center;
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-<nav class="navbar navbar-dark">
-<div class="container text-center">
+<div class="container">
 
-<button class="btn btn-light" onclick="openSlide('dashboard')">
-Dashboard
-</button>
+<h1>Sistem Keuangan Pesantren</h1>
 
-<button class="btn btn-light" onclick="openSlide('input')">
-Input
-</button>
+<div id="loginPage" class="card">
 
-<button class="btn btn-light" onclick="openSlide('inventaris')">
-Inventaris
-</button>
+<h2>Login</h2>
 
-</div>
-</nav>
+<input id="username" placeholder="Username">
 
+<input id="password" type="password" placeholder="Password">
 
-<div class="container mt-3">
-
-<!-- DASHBOARD -->
-
-<div id="slide-dashboard" class="slide active">
-
-<h5>Dashboard Keuangan</h5>
-
-<div class="row g-2">
-
-<div class="col-6">
-<div class="card p-3 text-center">
-
-Saldo
-
-<div class="stat text-primary" id="saldo">
-0
-</div>
+<button onclick="login()">Login</button>
 
 </div>
+
+<div id="app" class="hidden">
+
+<div class="nav">
+
+<button onclick="showPage('dashboard')">Dashboard</button>
+<button onclick="showPage('keuangan')">Input Keuangan</button>
+<button onclick="showPage('inventaris')">Inventaris</button>
+
 </div>
 
-<div class="col-6">
-<div class="card p-3 text-center">
+<div id="dashboard" class="page">
 
-Pemasukan
+<div class="stat">
 
-<div class="stat text-success" id="masuk">
-0
+<div class="card">
+<h3>Saldo</h3>
+<p id="saldo">0</p>
+</div>
+
+<div class="card">
+<h3>Pemasukan</h3>
+<p id="masuk">0</p>
+</div>
+
+<div class="card">
+<h3>Pengeluaran</h3>
+<p id="keluar">0</p>
 </div>
 
 </div>
-</div>
 
-<div class="col-6">
-<div class="card p-3 text-center">
+<div class="card">
 
-Pengeluaran
-
-<div class="stat text-danger" id="keluar">
-0
-</div>
-
-</div>
-</div>
-
-<div class="col-6">
-<div class="card p-3 text-center">
-
-SPP Wali
-
-<div class="stat text-success" id="spp">
-0
-</div>
-
-</div>
-</div>
-
-<div class="col-12">
-<div class="card p-3 text-center">
-
-Donatur
-
-<div class="stat text-success" id="donatur">
-0
-</div>
-
-</div>
-</div>
+<canvas id="chart"></canvas>
 
 </div>
 
 </div>
 
+<div id="keuangan" class="page hidden">
 
-<!-- INPUT KEUANGAN -->
+<div class="card">
 
-<div id="slide-input" class="slide">
+<h2>Input Keuangan</h2>
 
-<h5>Input Keuangan</h5>
+<input id="tanggal" type="date">
 
-<input id="tanggal" type="date" class="form-control mb-2">
+<input id="keterangan" placeholder="Keterangan">
 
-<input id="pelapor" placeholder="Pelapor" class="form-control mb-2">
+<input id="subKategori" placeholder="Kategori">
 
-<select id="kategori" class="form-control mb-2">
-<option>Pemasukan</option>
-<option>Pengeluaran</option>
-</select>
+<input id="masukInput" placeholder="Uang Masuk">
 
-<select id="sub" class="form-control mb-2">
+<input id="keluarInput" placeholder="Uang Keluar">
 
-<option>Wali Santri</option>
-<option>Donatur</option>
-<option>Usaha Pondok</option>
+<input id="pelapor" placeholder="Pelapor">
 
-</select>
-
-<input id="keterangan" placeholder="Keterangan" class="form-control mb-2">
-
-<input id="jumlah" type="number" placeholder="Jumlah" class="form-control mb-3">
-
-<button class="btn btn-success w-100" onclick="simpan()">
-Simpan
-</button>
+<button onclick="kirimKeuangan()">Simpan</button>
 
 </div>
 
+</div>
 
-<!-- INVENTARIS -->
+<div id="inventaris" class="page hidden">
 
-<div id="slide-inventaris" class="slide">
+<div class="card">
 
-<h5>Inventaris Kantin</h5>
+<h2>Inventaris Kantin</h2>
 
-<input id="tglBarang" type="date" class="form-control mb-2">
+<input id="barang" placeholder="Nama Barang">
 
-<input id="barang" placeholder="Nama Barang" class="form-control mb-2">
+<input id="jumlah" placeholder="Jumlah">
 
-<input id="jumlahBarang" type="number" placeholder="Jumlah" class="form-control mb-2">
-
-<select id="tipeBarang" class="form-control mb-2">
+<select id="tipe">
 
 <option>Masuk</option>
 <option>Keluar</option>
 
 </select>
 
-<input id="ketBarang" placeholder="Keterangan" class="form-control mb-2">
-
-<input id="pelaporBarang" placeholder="Pelapor" class="form-control mb-3">
-
-<button class="btn btn-info w-100" onclick="simpanBarang()">
-Simpan Barang
-</button>
+<button onclick="kirimInventaris()">Simpan</button>
 
 </div>
 
+</div>
 
 </div>
 
-
+</div>
 
 <script>
 
-const url="ISI_WEBAPP_URL_DISINI"
+const API="https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
 
+function login(){
 
-function openSlide(n){
+let u=document.getElementById("username").value;
+let p=document.getElementById("password").value;
 
-document.querySelectorAll(".slide").forEach(s=>{
-s.classList.remove("active")
-})
+if((u=="admin" && p=="admin123") || (u=="bendahara" && p=="12345")){
 
-document.getElementById("slide-"+n).classList.add("active")
+document.getElementById("loginPage").style.display="none";
+document.getElementById("app").classList.remove("hidden");
 
-if(n=="dashboard"){
-loadDashboard()
+loadDashboard();
+
+}else{
+
+alert("Login salah");
+
 }
 
 }
 
+function showPage(page){
 
+document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
 
-function simpan(){
+document.getElementById(page).classList.remove("hidden");
 
-let kategori=document.getElementById("kategori").value
-let jumlah=document.getElementById("jumlah").value
+}
 
-let data={
+function kirimKeuangan(){
+
+const data={
+
+action:"keuangan",
 
 tanggal:document.getElementById("tanggal").value,
 
 keterangan:document.getElementById("keterangan").value,
 
-kategori:kategori,
+subKategori:document.getElementById("subKategori").value,
 
-subKategori:document.getElementById("sub").value,
+masuk:document.getElementById("masukInput").value,
 
-masuk:kategori=="Pemasukan"?jumlah:0,
-
-keluar:kategori=="Pengeluaran"?jumlah:0,
+keluar:document.getElementById("keluarInput").value,
 
 pelapor:document.getElementById("pelapor").value
 
-}
+};
 
-
-fetch(url+"?action=simpan",{
-
+fetch(API,{
 method:"POST",
-
 body:JSON.stringify(data)
-
 })
-
-alert("Data tersimpan")
+.then(res=>res.text())
+.then(res=>{
+alert(res);
+loadDashboard();
+});
 
 }
 
+function kirimInventaris(){
 
+const data={
 
-function simpanBarang(){
-
-let data={
-
-tanggal:document.getElementById("tglBarang").value,
+action:"inventaris",
 
 barang:document.getElementById("barang").value,
 
-jumlah:document.getElementById("jumlahBarang").value,
+jumlah:document.getElementById("jumlah").value,
 
-tipe:document.getElementById("tipeBarang").value,
+tipe:document.getElementById("tipe").value
 
-keterangan:document.getElementById("ketBarang").value,
+};
 
-pelapor:document.getElementById("pelaporBarang").value
-
-}
-
-fetch(url+"?action=inventaris",{
-
+fetch(API,{
 method:"POST",
-
 body:JSON.stringify(data)
-
 })
-
-alert("Barang tersimpan")
+.then(res=>res.text())
+.then(res=>{
+alert(res);
+});
 
 }
-
-
 
 function loadDashboard(){
 
-google.script.run.withSuccessHandler(d=>{
+fetch(API+"?action=dashboard")
+.then(res=>res.json())
+.then(data=>{
 
-document.getElementById("masuk").innerText=d.masuk
-document.getElementById("keluar").innerText=d.keluar
-document.getElementById("saldo").innerText=d.saldo
-document.getElementById("spp").innerText=d.spp
-document.getElementById("donatur").innerText=d.donatur
+document.getElementById("saldo").innerText=data.saldo;
+document.getElementById("masuk").innerText=data.masuk;
+document.getElementById("keluar").innerText=data.keluar;
 
-}).getDashboard()
+drawChart(data);
+
+});
+
+}
+
+function drawChart(data){
+
+const ctx=document.getElementById("chart");
+
+new Chart(ctx,{
+
+type:"pie",
+
+data:{
+
+labels:["Pemasukan","Pengeluaran"],
+
+datasets:[{
+
+data:[data.masuk,data.keluar],
+
+backgroundColor:["green","red"]
+
+}]
+
+}
+
+});
 
 }
 
 </script>
-
 
 </body>
 </html>
