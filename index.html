@@ -5,85 +5,185 @@
 <title>Sistem Keuangan Pesantren Modern</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1e40af;
+    --primary: #0d9488; /* Hijau Tosca */
+    --primary-dark: #0f766e;
+    --accent: #7c3aed; /* Ungu Modern */
+    --accent-light: #a78bfa;
     --success: #10b981;
     --danger: #ef4444;
-    --bg-main: #f3f4f6;
+    --bg-main: #f0fdfa; /* Tosca sangat muda */
     --card-bg: #ffffff;
     --text-main: #1f2937;
     --text-muted: #6b7280;
+    --gold: #f59e0b;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: var(--bg-main);
+    background: linear-gradient(135deg, #0d9488 0%, #7c3aed 100%);
     margin: 0;
     padding: 0;
     color: var(--text-main);
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* Container utama */
+/* Ornamen Background Ramadhan */
+.bg-ornament {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    opacity: 0.1;
+    color: white;
+}
+
+.shape-1 { top: 5%; left: 5%; font-size: 150px; transform: rotate(15deg); }
+.shape-2 { top: 40%; right: -5%; font-size: 200px; transform: rotate(-20deg); }
+.shape-3 { bottom: 10%; left: 10%; font-size: 100px; transform: rotate(45deg); }
+.shape-4 { top: 20%; left: 80%; font-size: 80px; }
+.shape-5 { bottom: 30%; right: 20%; font-size: 120px; }
+
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 20px;
 }
 
-/* Header */
+/* HEADER */
 header {
     text-align: center;
     margin-bottom: 30px;
-    animation: fadeInDown 0.5s ease;
+    animation: fadeInDown 0.8s ease;
+    position: relative;
+    padding: 20px 0;
+}
+
+.logo-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    object-fit: cover;
+    background-color: white;
 }
 
 header h1 {
     margin: 0;
-    color: var(--primary);
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    
+    /* Efek Cahaya Pantulan */
+    background: linear-gradient(90deg, #fff 0%, #fff 40%, #a7f3d0 50%, #fff 60%, #fff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
 }
 
-header p {
-    color: var(--text-muted);
+/* Banner Ramadhan */
+.ramadan-banner {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 500px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.ramadan-text {
+    font-family: 'Amiri', serif;
+    font-size: 2rem;
+    color: #fff;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.ramadan-sub {
+    font-size: 1.1rem;
+    color: #fde68a;
+    font-weight: 600;
     margin-top: 5px;
-    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-/* Card Modern */
+/* Jam & Tanggal */
+.realtime-clock {
+    margin-top: 15px;
+    background: rgba(255,255,255,0.9);
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-weight: 500;
+    color: var(--primary-dark);
+    font-size: 0.95rem;
+}
+
+.hijri-date {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 500;
+    background: rgba(0,0,0,0.2);
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* CARD & CONTENT */
 .card {
     background: var(--card-bg);
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     margin-bottom: 20px;
     transition: transform 0.2s;
     animation: fadeIn 0.6s ease;
+    border: 1px solid rgba(255,255,255,0.5);
 }
 
 .card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
-/* Login Page */
 #loginPage {
     max-width: 400px;
-    margin: 100px auto;
+    margin: 50px auto;
     text-align: center;
-    border-top: 5px solid var(--primary);
 }
 
-#loginPage h2 {
-    margin-top: 0;
-    color: var(--text-main);
-}
-
-/* Form Elements */
 label {
     display: block;
     font-size: 13px;
@@ -113,10 +213,8 @@ input:disabled {
     background-color: #f3f4f6;
     color: #9ca3af;
     cursor: not-allowed;
-    border-color: #e5e7eb;
 }
 
-/* Button Modern */
 button {
     cursor: pointer;
     padding: 12px;
@@ -129,43 +227,45 @@ button {
 }
 
 .btn-main {
-    background: var(--primary);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
     width: 100%;
 }
 
 .btn-main:hover {
-    background: var(--primary-dark);
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+    transform: translateY(-1px);
 }
 
-/* Navigasi Tab */
+/* NAV */
 .nav {
     display: flex;
-    background: white;
-    padding: 10px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px;
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     margin-bottom: 25px;
     gap: 10px;
     overflow-x: auto;
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
 .nav button {
     flex: 1;
     background: transparent;
-    color: var(--text-muted);
+    color: white;
     border-radius: 8px;
     min-width: 100px;
 }
 
 .nav button.active {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    background: white;
+    color: var(--primary);
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Dashboard Stats */
+/* Stats */
 .stat-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -185,101 +285,73 @@ button {
 .stat-card.masuk { background: linear-gradient(135deg, #10b981, #34d399); }
 .stat-card.keluar { background: linear-gradient(135deg, #ef4444, #f87171); }
 
-.stat-card h3 {
-    margin: 0;
-    font-size: 14px;
-    opacity: 0.9;
-}
+.stat-card h3 { margin: 0; font-size: 14px; opacity: 0.9; }
+.stat-card p { margin: 10px 0 0; font-size: 24px; font-weight: 700; }
+.stat-icon { position: absolute; right: 15px; bottom: 15px; font-size: 40px; opacity: 0.2; }
 
-.stat-card p {
-    margin: 10px 0 0;
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.stat-icon {
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
-    font-size: 40px;
-    opacity: 0.2;
-}
-
-/* Tabel Riwayat */
-.table-container {
-    overflow-x: auto;
-    margin-top: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
-}
-
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #f3f4f6;
-    font-size: 14px;
-}
-
-th {
-    background: #f9fafb;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-}
-
-tr:hover {
-    background: #f9fafb;
-}
-
-.badge {
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 500;
-}
-
+/* Table */
+.table-container { overflow-x: auto; margin-top: 20px; }
+table { width: 100%; border-collapse: collapse; min-width: 600px; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #f3f4f6; font-size: 14px; }
+th { background: #f9fafb; color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; }
+tr:hover { background: #f9fafb; }
+.badge { padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; }
 .badge-success { background: #d1fae5; color: #065f46; }
 .badge-danger { background: #fee2e2; color: #991b1b; }
 
-/* Filter Layout */
-.filter-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 15px;
-    align-items: flex-end;
-}
+.filter-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 15px; align-items: flex-end; }
 
 @media (max-width: 600px) {
-    .filter-grid {
-        grid-template-columns: 1fr;
-    }
+    .filter-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.6rem; }
+    .ramadan-text { font-size: 1.5rem; }
 }
 
-/* Animasi */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
 .hidden { display: none; }
 </style>
 </head>
 <body>
 
+<!-- Ornamen Background -->
+<div class="bg-ornament">
+    <i class="fas fa-star-and-crescent shape shape-1"></i>
+    <i class="fas fa-mosque shape shape-2"></i>
+    <i class="fas fa-star shape shape-3"></i>
+    <i class="fas fa-star-and-crescent shape shape-4"></i>
+    <i class="fas fa-hands-praying shape shape-5"></i>
+</div>
+
 <div class="container">
     
     <header>
-        <h1><i class="fas fa-mosque"></i> Keuangan Pesantren</h1>
-        <p>Sistem Manajemen Keuangan & Inventaris Modern</p>
+        <!-- Logo -->
+        <img src="https://drive.google.com/uc?export=view&id=1sk5C0h8uj4a4Uk8oUq09q4RUCnZixEuD" alt="Logo Pesantren" class="logo-img">
+        
+        <!-- Judul dengan Animasi Cahaya -->
+        <h1>Keuangan Pesantren</h1>
+        
+        <!-- Banner Ramadhan -->
+        <div class="ramadan-banner">
+            <p class="ramadan-text">رَمَضَان كَرِيْم</p>
+            <p class="ramadan-sub">Ramadhan Kareem</p>
+        </div>
+
+        <!-- Jam Real-Time -->
+        <div id="clock" class="realtime-clock">
+            <i class="fas fa-clock clock-icon"></i> <span id="time">Loading...</span>
+        </div>
+        
+        <!-- Tanggal Hijriyah -->
+        <div id="hijri" class="hijri-date">
+            <i class="fas fa-moon"></i> <span id="hijriDate">Loading Hijri Date...</span>
+        </div>
     </header>
 
-    <!-- Halaman Login -->
+    <!-- Login Page -->
     <div id="loginPage" class="card">
         <h2><i class="fas fa-lock"></i> Login Admin</h2>
         <input id="username" placeholder="Username">
@@ -290,7 +362,6 @@ tr:hover {
     <!-- Aplikasi Utama -->
     <div id="app" class="hidden">
         
-        <!-- Navigasi -->
         <div class="nav">
             <button onclick="showPage('dashboard')" id="nav-dashboard" class="active">
                 <i class="fas fa-chart-pie"></i> Dashboard
@@ -303,143 +374,75 @@ tr:hover {
             </button>
         </div>
 
-        <!-- PAGE 1: DASHBOARD -->
+        <!-- Dashboard -->
         <div id="dashboard" class="page">
-            
             <div class="card">
                 <h3><i class="fas fa-filter"></i> Filter Data</h3>
                 <div class="filter-grid">
-                    <div>
-                        <label>Tanggal Mulai</label>
-                        <input type="date" id="tglMulai">
-                    </div>
-                    <div>
-                        <label>Tanggal Akhir</label>
-                        <input type="date" id="tglAkhir">
-                    </div>
+                    <div><label>Tanggal Mulai</label><input type="date" id="tglMulai"></div>
+                    <div><label>Tanggal Akhir</label><input type="date" id="tglAkhir"></div>
                     <button class="btn-main" onclick="loadDashboard()"><i class="fas fa-search"></i> Filter</button>
                 </div>
             </div>
 
             <div class="stat-grid">
-                <div class="stat-card saldo">
-                    <h3>Total Saldo</h3>
-                    <p id="saldo">Rp 0</p>
-                    <i class="fas fa-wallet stat-icon"></i>
-                </div>
-                <div class="stat-card masuk">
-                    <h3>Pemasukan</h3>
-                    <p id="masuk">Rp 0</p>
-                    <i class="fas fa-arrow-down stat-icon"></i>
-                </div>
-                <div class="stat-card keluar">
-                    <h3>Pengeluaran</h3>
-                    <p id="keluar">Rp 0</p>
-                    <i class="fas fa-arrow-up stat-icon"></i>
-                </div>
+                <div class="stat-card saldo"><h3>Total Saldo</h3><p id="saldo">Rp 0</p><i class="fas fa-wallet stat-icon"></i></div>
+                <div class="stat-card masuk"><h3>Pemasukan</h3><p id="masuk">Rp 0</p><i class="fas fa-arrow-down stat-icon"></i></div>
+                <div class="stat-card keluar"><h3>Pengeluaran</h3><p id="keluar">Rp 0</p><i class="fas fa-arrow-up stat-icon"></i></div>
             </div>
-
-            <div class="card">
-                <canvas id="chart"></canvas>
-            </div>
-
+            <div class="card"><canvas id="chart"></canvas></div>
         </div>
 
-        <!-- PAGE 2: INPUT KEUANGAN -->
+        <!-- Keuangan -->
         <div id="keuangan" class="page hidden">
-            
             <div class="card">
                 <h2 style="margin-top:0;"><i class="fas fa-hand-holding-usd"></i> Input Transaksi</h2>
-                
-                <label>Tanggal</label>
-                <input id="tanggal" type="date">
-                
-                <label>Keterangan</label>
-                <input id="keterangan" placeholder="Contoh: Pembayaran SPP Bulan Januari">
-                
+                <label>Tanggal</label><input id="tanggal" type="date">
+                <label>Keterangan</label><input id="keterangan" placeholder="Contoh: Pembayaran SPP Bulan Januari">
                 <label>Kategori</label>
                 <select id="kategoriKeuangan" onchange="toggleInputKeuangan()">
                     <option value="">-- Pilih Kategori --</option>
                     <option value="Pemasukan">Pemasukan</option>
                     <option value="Pengeluaran">Pengeluaran</option>
                 </select>
-                
-                <label>Jumlah Uang Masuk</label>
-                <input id="masukInput" placeholder="Otomatis aktif jika kategori Pemasukan" disabled>
-                
-                <label>Jumlah Uang Keluar</label>
-                <input id="keluarInput" placeholder="Otomatis aktif jika kategori Pengeluaran" disabled>
-                
-                <label>Nama Pelapor</label>
-                <input id="pelapor" placeholder="Nama penanggung jawab">
-                
+                <label>Jumlah Uang Masuk</label><input id="masukInput" placeholder="Otomatis aktif jika Pemasukan" disabled>
+                <label>Jumlah Uang Keluar</label><input id="keluarInput" placeholder="Otomatis aktif jika Pengeluaran" disabled>
+                <label>Nama Pelapor</label><input id="pelapor" placeholder="Nama penanggung jawab">
                 <button class="btn-main" onclick="kirimKeuangan()"><i class="fas fa-save"></i> Simpan Transaksi</button>
             </div>
-
-            <!-- Riwayat Keuangan -->
             <div class="card">
                 <h3><i class="fas fa-history"></i> Riwayat Transaksi Terakhir</h3>
                 <div class="table-container">
                     <table id="tableKeuangan">
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Keterangan</th>
-                                <th>Kategori</th>
-                                <th>Masuk</th>
-                                <th>Keluar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Data akan diisi JS -->
-                        </tbody>
+                        <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Masuk</th><th>Keluar</th></tr></thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
-
         </div>
 
-        <!-- PAGE 3: INVENTARIS -->
+        <!-- Inventaris -->
         <div id="inventaris" class="page hidden">
-            
             <div class="card">
                 <h2 style="margin-top:0;"><i class="fas fa-boxes"></i> Input Inventaris</h2>
-                
-                <label>Nama Barang</label>
-                <input id="barang" placeholder="Contoh: Beras 5kg">
-                
-                <label>Jumlah</label>
-                <input id="jumlah" type="number" placeholder="Jumlah barang">
-                
+                <label>Nama Barang</label><input id="barang" placeholder="Contoh: Beras 5kg">
+                <label>Jumlah</label><input id="jumlah" type="number" placeholder="Jumlah barang">
                 <label>Tipe Transaksi</label>
                 <select id="tipe">
                     <option value="Masuk">Stok Masuk</option>
                     <option value="Keluar">Stok Keluar</option>
                 </select>
-                
                 <button class="btn-main" onclick="kirimInventaris()"><i class="fas fa-save"></i> Simpan Inventaris</button>
             </div>
-
-            <!-- Riwayat Inventaris -->
             <div class="card">
                 <h3><i class="fas fa-history"></i> Riwayat Stok Inventaris</h3>
                 <div class="table-container">
                     <table id="tableInventaris">
-                        <thead>
-                            <tr>
-                                <th>Barang</th>
-                                <th>Jumlah</th>
-                                <th>Tipe</th>
-                                <th>Waktu</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Data akan diisi JS -->
-                        </tbody>
+                        <thead><tr><th>Barang</th><th>Jumlah</th><th>Tipe</th><th>Waktu</th></tr></thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
-
         </div>
 
     </div>
@@ -447,8 +450,41 @@ tr:hover {
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
-
 let chart;
+
+// ==========================================
+// FITUR JAM & TANGGAL
+// ==========================================
+function updateClock() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateString = now.toLocaleDateString('id-ID', options);
+    const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    document.getElementById('time').innerText = dateString + " | " + timeString;
+}
+
+function updateHijriDate() {
+    const now = new Date();
+    try {
+        // Teks Arab (Format Arab Saudi)
+        const arabOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', calendar: 'islamic' };
+        const hijriArab = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', arabOptions).format(now);
+        
+        // Teks Indonesia
+        const indoOptions = { day: 'numeric', month: 'long', year: 'numeric', calendar: 'islamic' };
+        const hijriIndo = new Intl.DateTimeFormat('id-u-ca-islamic', indoOptions).format(now);
+        
+        document.getElementById('hijriDate').innerHTML = `${hijriIndo} <br> <span style="font-family:'Amiri', serif; font-size: 1.1em;">${hijriArab}</span>`;
+    } catch (e) {
+        // Fallback jika browser tidak support
+        document.getElementById('hijriDate').innerText = "Tanggal Hijriyah tidak didukung browser ini.";
+    }
+}
+
+// Jalankan Jam & Tanggal
+updateClock(); setInterval(updateClock, 1000);
+updateHijriDate();
+// ==========================================
 
 function login(){
     let p = document.getElementById("password").value;
@@ -464,35 +500,25 @@ function login(){
 }
 
 function showPage(page){
-    // Sembunyikan semua page
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
-    // Tampilkan page yang dipilih
     document.getElementById(page).classList.remove("hidden");
-
-    // Update style tombol nav
     document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
     document.getElementById("nav-" + page).classList.add("active");
 }
 
-// Fungsi Khusus Logika Slide 2
 function toggleInputKeuangan(){
     const kategori = document.getElementById("kategoriKeuangan").value;
     const masukInput = document.getElementById("masukInput");
     const keluarInput = document.getElementById("keluarInput");
 
     if(kategori === "Pemasukan"){
-        masukInput.disabled = false;
-        keluarInput.disabled = true;
-        keluarInput.value = ""; // Reset nilai
-        masukInput.focus();
+        masukInput.disabled = false; keluarInput.disabled = true;
+        keluarInput.value = ""; masukInput.focus();
     } else if(kategori === "Pengeluaran"){
-        masukInput.disabled = true;
-        keluarInput.disabled = false;
-        masukInput.value = ""; // Reset nilai
-        keluarInput.focus();
+        masukInput.disabled = true; keluarInput.disabled = false;
+        masukInput.value = ""; keluarInput.focus();
     } else {
-        masukInput.disabled = true;
-        keluarInput.disabled = true;
+        masukInput.disabled = true; keluarInput.disabled = true;
     }
 }
 
@@ -501,27 +527,19 @@ function kirimKeuangan(){
         action: "keuangan",
         tanggal: document.getElementById("tanggal").value,
         keterangan: document.getElementById("keterangan").value,
-        kategori: document.getElementById("kategoriKeuangan").value, // Diubah dari subKategori
+        kategori: document.getElementById("kategoriKeuangan").value,
         masuk: document.getElementById("masukInput").value,
         keluar: document.getElementById("keluarInput").value,
         pelapor: document.getElementById("pelapor").value
     };
 
-    if(!data.kategori || !data.tanggal) {
-        alert("Harap lengkapi tanggal dan kategori!");
-        return;
-    }
+    if(!data.kategori || !data.tanggal) { alert("Harap lengkapi tanggal dan kategori!"); return; }
 
-    fetch(API, {
-        method: "POST",
-        body: JSON.stringify(data)
-    })
+    fetch(API, { method: "POST", body: JSON.stringify(data) })
     .then(res => res.text())
     .then(res => {
         alert(res);
-        loadDashboard();
-        loadRiwayatKeuangan(); // Refresh riwayat
-        // Reset form
+        loadDashboard(); loadRiwayatKeuangan();
         document.getElementById("keterangan").value = "";
         document.getElementById("masukInput").value = "";
         document.getElementById("keluarInput").value = "";
@@ -538,17 +556,9 @@ function kirimInventaris(){
         tipe: document.getElementById("tipe").value
     };
 
-    fetch(API, {
-        method: "POST",
-        body: JSON.stringify(data)
-    })
+    fetch(API, { method: "POST", body: JSON.stringify(data) })
     .then(res => res.text())
-    .then(res => {
-        alert(res);
-        loadRiwayatInventaris();
-        document.getElementById("barang").value = "";
-        document.getElementById("jumlah").value = "";
-    });
+    .then(res => { alert(res); loadRiwayatInventaris(); });
 }
 
 function loadDashboard(){
@@ -558,107 +568,58 @@ function loadDashboard(){
         let masuk = data.masuk || 0;
         let keluar = data.keluar || 0;
         let saldo = masuk - keluar;
-
-        // Format Currency
         const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
-        
         document.getElementById("saldo").innerText = formatter.format(saldo);
         document.getElementById("masuk").innerText = formatter.format(masuk);
         document.getElementById("keluar").innerText = formatter.format(keluar);
-
         drawChart(masuk, keluar);
     });
 }
 
 function loadRiwayatKeuangan(){
-    // Asumsi API action 'riwayat_keuangan' mengembalikan array JSON
     fetch(API + "?action=riwayat_keuangan")
     .then(res => res.json())
     .then(data => {
         const tbody = document.querySelector("#tableKeuangan tbody");
-        tbody.innerHTML = ""; // Kosongkan dulu
-        
+        tbody.innerHTML = "";
         if(data && data.length > 0){
-            // Balik urutan agar terbaru di atas (opsional, tergantung data dari sheet)
-            // data.reverse(); 
-            
             data.forEach(row => {
-                // Asumsi row: [Tanggal, Keterangan, Kategori, Masuk, Keluar]
-                // Sesuaikan index dengan struktur data Google Sheet Anda
                 const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row[0]}</td>
-                    <td>${row[1]}</td>
-                    <td><span class="badge ${row[2] == 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${row[2]}</span></td>
-                    <td style="color:green">${row[3]}</td>
-                    <td style="color:red">${row[4]}</td>
-                `;
+                tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td><span class="badge ${row[2] == 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${row[2]}</span></td><td style="color:green">${row[3]}</td><td style="color:red">${row[4]}</td>`;
                 tbody.appendChild(tr);
             });
-        } else {
-             tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Belum ada data</td></tr>";
-        }
-    }).catch(() => {
-        // Jika API belum support, tampilkan dummy atau error
-        const tbody = document.querySelector("#tableKeuangan tbody");
-        tbody.innerHTML = "<tr><td colspan='5' style='text-align:center; color:grey'>Data riwayat belum tersedia atau perlu setup API.</td></tr>";
-    });
+        } else { tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Belum ada data</td></tr>"; }
+    }).catch(() => { document.querySelector("#tableKeuangan tbody").innerHTML = "<tr><td colspan='5' style='text-align:center; color:grey'>Data riwayat belum tersedia.</td></tr>"; });
 }
 
 function loadRiwayatInventaris(){
-    // Asumsi API action 'riwayat_inventaris'
     fetch(API + "?action=riwayat_inventaris")
     .then(res => res.json())
     .then(data => {
         const tbody = document.querySelector("#tableInventaris tbody");
         tbody.innerHTML = "";
-        
         if(data && data.length > 0){
             data.forEach(row => {
-                // Asumsi row: [Barang, Jumlah, Tipe, Waktu]
                 const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row[0]}</td>
-                    <td>${row[1]}</td>
-                    <td><span class="badge ${row[2] == 'Masuk' ? 'badge-success' : 'badge-danger'}">${row[2]}</span></td>
-                    <td>${row[3]}</td>
-                `;
+                tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td><span class="badge ${row[2] == 'Masuk' ? 'badge-success' : 'badge-danger'}">${row[2]}</span></td><td>${row[3]}</td>`;
                 tbody.appendChild(tr);
             });
-        } else {
-             tbody.innerHTML = "<tr><td colspan='4' style='text-align:center'>Belum ada data</td></tr>";
-        }
-    }).catch(() => {
-        const tbody = document.querySelector("#tableInventaris tbody");
-        tbody.innerHTML = "<tr><td colspan='4' style='text-align:center; color:grey'>Data riwayat belum tersedia.</td></tr>";
-    });
+        } else { tbody.innerHTML = "<tr><td colspan='4' style='text-align:center'>Belum ada data</td></tr>"; }
+    }).catch(() => { document.querySelector("#tableInventaris tbody").innerHTML = "<tr><td colspan='4' style='text-align:center; color:grey'>Data riwayat belum tersedia.</td></tr>"; });
 }
 
 function drawChart(masuk, keluar){
     const ctx = document.getElementById("chart").getContext('2d');
     if(chart) chart.destroy();
-    
     chart = new Chart(ctx, {
         type: "doughnut",
         data: {
             labels: ["Pemasukan", "Pengeluaran"],
-            datasets: [{
-                data: [masuk, keluar],
-                backgroundColor: ["#10b981", "#ef4444"],
-                borderWidth: 0,
-                hoverOffset: 10
-            }]
+            datasets: [{ data: [masuk, keluar], backgroundColor: ["#10b981", "#ef4444"], borderWidth: 0, hoverOffset: 10 }]
         },
-        options: {
-            responsive: true,
-            cutout: '70%',
-            plugins: {
-                legend: { position: 'bottom' }
-            }
-        }
+        options: { responsive: true, cutout: '70%', plugins: { legend: { position: 'bottom' } } }
     });
 }
 </script>
-
 </body>
 </html>
