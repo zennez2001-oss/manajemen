@@ -395,45 +395,31 @@ function updateClock() {
     document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); 
 }
 
-// Perbaikan Hijriyah: Menggunakan mapping manual agar tidak ada "SM" dan Bulan Masehi
+// FIX: Algoritma Manual Hijriyah (Kuwaiti Algorithm) agar tidak ada undefined
 function updateHijri() {
-    try {
-        const now = new Date();
-        // Gunakan format 'ar-SA' (Arab Saudi) dengan kalender islamic untuk mendapatkan angka yang benar
-        const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric'
-        });
-        
-        const parts = formatter.formatToParts(now);
-        let day, month, year;
-        
-        parts.forEach(({type, value}) => {
-            if (type === 'day') day = value;
-            if (type === 'month') month = value;
-            if (type === 'year') year = value;
-        });
+    const now = new Date();
+    // Konstanta perhitungan
+    var jd = Math.floor((now - new Date(1970, 0, 1)) / 86400000) + 2440588;
+    var l = jd - 1948440 + 10632;
+    var n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    var j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+    l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+    var month = Math.floor((24 * l) / 709);
+    var day = l - Math.floor((709 * month) / 24);
+    var year = 30 * n + j - 30;
 
-        // Map angka bulan ke nama bulan Hijriyah bahasa Indonesia
-        const hijriMonths = ['Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir', 'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Syaban', 'Ramadhan', 'Syawal', 'Dzulqaidah', 'Dzulhijjah'];
-        const monthName = hijriMonths[parseInt(month) - 1];
-
-        // Susun string manual: "24 Ramadhan 1446 H"
-        document.getElementById('hijriDate').innerText = `${day} ${monthName} ${year} H`;
-    } catch(e) {
-        document.getElementById('hijriDate').innerText = "Error Hijriyah";
-    }
+    const hijriMonths = ['Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir', 'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Syaban', 'Ramadhan', 'Syawal', 'Dzulqaidah', 'Dzulhijjah'];
+    
+    document.getElementById('hijriDate').innerText = `${day} ${hijriMonths[month-1]} ${year} H`;
 }
 
-// Perbaikan Masehi: Format Lengkap (Senin, 24 Maret 2025)
 function updateMasehi() {
     const now = new Date();
     const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     document.getElementById('masehiDate').innerText = new Intl.DateTimeFormat('id-ID', options).format(now);
 }
 
-// Jalankan update waktu
 setInterval(updateClock, 1000); 
 updateClock(); 
 updateHijri(); 
@@ -545,6 +531,7 @@ function cancelEdit() {
     document.getElementById("btnCancel").classList.add("hidden");
 }
 
+// --- DASHBOARD LOGIC (FIXED) ---
 function loadDashboard(){
     fetch(API + "?action=dashboard")
     .then(res => res.json())
@@ -554,18 +541,35 @@ function loadDashboard(){
         document.getElementById("masuk").innerText = fmt.format(data.masuk || 0);
         document.getElementById("keluar").innerText = fmt.format(data.keluar || 0);
         
-        const cats = ["Donatur", "Infaq / SPP", "Hasil Usaha", "Operasional", "Dapur", "Outing", "Sosial", "Restok"];
-        cats.forEach(c => {
-            const el = document.getElementById("cat-" + c.toLowerCase().replace("/ ", "").replace(" ", "").replace("kegiatan ", ""));
+        // Mapping ID Kartu HTML dengan Nama Sub Kategori di Sheet
+        const mapIds = {
+            "donatur": "cat-donatur",
+            "infaq / spp": "cat-infaq",
+            "hasil usaha": "cat-usaha",
+            "operasional": "cat-operasional",
+            "dapur": "cat-dapur",
+            "kegiatan outing": "cat-outing",
+            "kegiatan sosial": "cat-sosial",
+            "restok barang": "cat-restok"
+        };
+
+        // Reset semua kartu ke 0 dulu
+        Object.values(mapIds).forEach(id => {
+            const el = document.getElementById(id);
             if(el) el.innerText = "Rp 0";
         });
 
+        // Isi berdasarkan data breakdown dari backend
         if(data.breakdown) {
             data.breakdown.forEach(b => {
-                const key = b.kategori.split(' - ')[1];
-                const idKey = "cat-" + key.toLowerCase().replace("/ ", "").replace(" ", "").replace("kegiatan ", "");
-                const el = document.getElementById(idKey);
-                if(el) el.innerText = fmt.format(b.total);
+                // b.kategori berisi nama sub kategori (misal: "Donatur", "Dapur")
+                const keyLookup = b.kategori.toLowerCase().trim();
+                const elementId = mapIds[keyLookup];
+                
+                if(elementId) {
+                    const el = document.getElementById(elementId);
+                    if(el) el.innerText = fmt.format(b.total);
+                }
             });
         }
         drawChart(data.masuk || 0, data.keluar || 0);
@@ -666,7 +670,6 @@ function printKeuangan() {
 // INIT
 loadProfile();
 showPage('dashboard');
-</script>
 </script>
 </body>
 </html>
