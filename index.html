@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sistem Keuangan Pesantren</title>
+<title>Sistem Keuangan & Pembelajaran Pesantren</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -30,17 +30,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-gradient); margin
 .header-actions { display: flex; gap: 5px; }
 .icon-btn { background: rgba(0,0,0,0.05); border: none; color: #666; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
 .icon-btn:hover { background: var(--primary); color: white; }
-
-/* DATE & TIME META (UPDATED) */
-.header-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ddd; }
-.date-box-container { display: flex; gap: 10px; flex-wrap: wrap; }
-.date-box {
-    background: linear-gradient(135deg, #0f766e, #0d9488); color: white; padding: 4px 12px;
-    border-radius: 6px; font-size: 0.8rem; font-family: 'Tajawal', sans-serif;
-    display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.date-separator { color: var(--primary-dark); font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; }
-.clock-box { font-size: 0.9rem; color: var(--primary-dark); font-weight: 700; background: #f0fdfa; padding: 4px 12px; border-radius: 6px; }
+.header-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ddd; flex-wrap: wrap; gap: 5px; }
+.hijri-box { background: linear-gradient(135deg, #0f766e, #0d9488); color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; font-family: 'Tajawal', sans-serif; display: flex; align-items: center; gap: 8px; }
+.masehi-box { font-size: 0.85rem; color: var(--primary-dark); font-weight: 600; }
+.clock-box { font-size: 0.9rem; color: var(--primary-dark); font-weight: 700; }
 
 /* SLOGAN */
 .slogan-bar { background: var(--accent); color: #333; padding: 6px 0; font-size: 0.8rem; font-weight: 700; overflow: hidden; white-space: nowrap; border-bottom: 2px solid rgba(0,0,0,0.1); }
@@ -92,9 +85,15 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 .chart-box { width: 60%; margin: 0 auto; height: 200px; position: relative; padding: 10px; filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); }
 
 /* CUSTOM STYLE FOR ARAB PAGE */
-.arab-card { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 5px solid var(--primary); }
+.arab-card {
+    background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; padding: 15px;
+    margin-bottom: 15px; border-left: 5px solid var(--primary);
+    transition: all 0.2s;
+}
 .arab-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
 .arab-title { font-family: 'Tajawal', sans-serif; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+
+/* Dialogue Styling */
 .dialogue-box { margin-top: 10px; }
 .dialogue-item { margin-bottom: 10px; padding: 8px; background: rgba(255,255,255,0.8); border-radius: 6px; }
 .speaker-name { font-weight: 700; color: var(--secondary); font-size: 0.8rem; margin-bottom: 2px; display: block; }
@@ -121,7 +120,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             <img id="previewLogo" src="https://via.placeholder.com/100?text=Logo" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--primary);">
         </center>
         <input type="file" id="logoFileInput" class="hidden-input" accept="image/*" onchange="previewImage(this)">
-        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo</button>
+        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo (Internal)</button>
         
         <label>Nama Lembaga</label>
         <input type="text" id="inputNamaLembaga" placeholder="Nama Lembaga">
@@ -133,7 +132,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             <button class="btn-3d full" onclick="saveProfile()"><i class="fas fa-save"></i> Simpan</button>
         </div>
         <hr style="margin: 15px 0; border-style: dashed;">
-        <button class="btn-3d accent full" onclick="shareProfileLink()"><i class="fas fa-share-alt"></i> Share Profil</button>
+        <button class="btn-3d accent full" onclick="shareProfileLink()"><i class="fas fa-share-alt"></i> Share Profil ke Orang Lain</button>
     </div>
 </div>
 
@@ -152,24 +151,10 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
         </div>
     </div>
 
-    <!-- DATE & TIME SECTION -->
     <div class="header-meta">
-        <div class="date-box-container">
-            <!-- Box Hijriyah -->
-            <div class="date-box">
-                <i class="fas fa-moon"></i> <span id="hijriDate">Memuat...</span>
-            </div>
-            <div class="date-separator">|</div>
-            <!-- Box Masehi -->
-            <div class="date-box" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
-                <i class="fas fa-calendar-alt"></i> <span id="masehiDate">Memuat...</span>
-            </div>
-        </div>
-        
-        <!-- Jam -->
-        <div class="clock-box">
-            <i class="fas fa-clock"></i> <span id="time">--:--</span>
-        </div>
+        <div class="hijri-box"><i class="fas fa-moon"></i> <span id="hijriDate">Memuat...</span></div>
+        <div class="masehi-box"><i class="fas fa-calendar-day"></i> <span id="masehiDate">Memuat...</span></div>
+        <div class="clock-box"><i class="fas fa-clock"></i> <span id="time">--:--</span></div>
     </div>
 </header>
 
@@ -263,7 +248,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             <input type="hidden" id="editIdKeuangan">
             <div style="display:flex; gap:10px; margin-top:10px;">
                 <button class="btn-3d full" onclick="kirimKeuangan()"><i class="fas fa-save"></i> Simpan</button>
-                <button class="btn-3d danger hidden" id="btnCancel" onclick="cancelEdit()"><i class="fas fa-times"></i></button>
+                <button class="btn-3d secondary hidden" id="btnCancel" onclick="cancelEdit()"><i class="fas fa-times"></i></button>
             </div>
         </div>
         <div class="card">
@@ -305,20 +290,23 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
     <div id="arab" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Percakapan Bahasa Arab</h2>
-            <p style="font-size:0.85rem; color:#666;">Klik teks Arab untuk mendengar bacaan.</p>
+            <p style="font-size:0.85rem; color:#666;">Data diambil dari file <b>percakapan.json</b>. Klik teks Arab untuk mendengar bacaan.</p>
             <hr style="border-style: dashed; margin: 15px 0;">
-            <div id="arabContainer"><div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat...</div></div>
+            
+            <div id="arabContainer">
+                <div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat data JSON...</div>
+            </div>
         </div>
     </div>
 
     <!-- INFO -->
     <div id="info" class="page hidden">
         <div class="card" style="text-align:center;">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzFmMjkzNyIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjQwIiBmaWxsPSIjZmJiZjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JVzwvdGV4dD48L3N2Zz4=" style="width:80px; border-radius:50%; margin-bottom:10px;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzFmMjkzNyIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjQwIiBmaWxsPSIjZmJiZjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JVzwvdGV4dD48L3N2Zz4=" alt="Dev Logo" style="width:80px; border-radius:50%; margin-bottom:10px;">
             <h2 style="margin:10px 0 5px; font-family:'Tajawal';">Iman Waluyo</h2>
-            <p style="color:#666; font-size:0.9rem;">Pengembang Sistem</p>
+            <p style="color:#666; font-size:0.9rem;">Pengembang Sistem Informasi Keuangan Pesantren</p>
             <div style="background:#f0fdfa; padding:15px; border-radius:8px; margin-top:15px; border:1px dashed var(--primary);">
-                <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak</p>
+                <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak Pengembang</p>
                 <a href="tel:087812203039" style="font-size:1.2rem; color:var(--text-main); text-decoration:none; font-weight:800;">0878-1220-3039</a>
             </div>
         </div>
@@ -327,7 +315,8 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
-const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajement/main/percakakan.json"; 
+// URL JSON YANG SUDAH DIPERBAIKI
+const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajemen/refs/heads/main/percakapan.json"; 
 
 let chart;
 
@@ -395,10 +384,9 @@ function updateClock() {
     document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); 
 }
 
-// FIX: Algoritma Manual Hijriyah (Kuwaiti Algorithm) agar tidak ada undefined
+// FIX: Algoritma Manual Hijriyah (Kuwaiti Algorithm)
 function updateHijri() {
     const now = new Date();
-    // Konstanta perhitungan
     var jd = Math.floor((now - new Date(1970, 0, 1)) / 86400000) + 2440588;
     var l = jd - 1948440 + 10632;
     var n = Math.floor((l - 1) / 10631);
@@ -464,7 +452,7 @@ function loadPercakapan() {
             card.innerHTML = html;
             container.appendChild(card);
         });
-    }).catch(err => { container.innerHTML = `<div class="status-loading" style="color:red;">Gagal memuat data JSON.</div>`; });
+    }).catch(err => { container.innerHTML = `<div class="status-loading" style="color:red;">Gagal memuat data JSON. Pastikan URL benar.</div>`; });
 }
 
 // --- KEUANGAN LOGIC ---
