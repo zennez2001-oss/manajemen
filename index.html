@@ -30,9 +30,17 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-gradient); margin
 .header-actions { display: flex; gap: 5px; }
 .icon-btn { background: rgba(0,0,0,0.05); border: none; color: #666; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
 .icon-btn:hover { background: var(--primary); color: white; }
+
+/* DATE & TIME META (UPDATED) */
 .header-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ddd; }
-.hijri-box { background: linear-gradient(135deg, #0f766e, #0d9488); color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; font-family: 'Tajawal', sans-serif; display: flex; align-items: center; gap: 8px; }
-.clock-box { font-size: 0.9rem; color: var(--primary-dark); font-weight: 700; }
+.date-box-container { display: flex; gap: 10px; flex-wrap: wrap; }
+.date-box {
+    background: linear-gradient(135deg, #0f766e, #0d9488); color: white; padding: 4px 12px;
+    border-radius: 6px; font-size: 0.8rem; font-family: 'Tajawal', sans-serif;
+    display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.date-separator { color: var(--primary-dark); font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; }
+.clock-box { font-size: 0.9rem; color: var(--primary-dark); font-weight: 700; background: #f0fdfa; padding: 4px 12px; border-radius: 6px; }
 
 /* SLOGAN */
 .slogan-bar { background: var(--accent); color: #333; padding: 6px 0; font-size: 0.8rem; font-weight: 700; overflow: hidden; white-space: nowrap; border-bottom: 2px solid rgba(0,0,0,0.1); }
@@ -83,16 +91,10 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 .chart-box { width: 60%; margin: 0 auto; height: 200px; position: relative; padding: 10px; filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); }
 
-/* CUSTOM STYLE FOR ARAB PAGE (UPDATED) */
-.arab-card {
-    background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; padding: 15px;
-    margin-bottom: 15px; border-left: 5px solid var(--primary);
-    transition: all 0.2s;
-}
+/* CUSTOM STYLE FOR ARAB PAGE */
+.arab-card { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 5px solid var(--primary); }
 .arab-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
 .arab-title { font-family: 'Tajawal', sans-serif; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-
-/* Dialogue Styling */
 .dialogue-box { margin-top: 10px; }
 .dialogue-item { margin-bottom: 10px; padding: 8px; background: rgba(255,255,255,0.8); border-radius: 6px; }
 .speaker-name { font-weight: 700; color: var(--secondary); font-size: 0.8rem; margin-bottom: 2px; display: block; }
@@ -119,7 +121,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             <img id="previewLogo" src="https://via.placeholder.com/100?text=Logo" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--primary);">
         </center>
         <input type="file" id="logoFileInput" class="hidden-input" accept="image/*" onchange="previewImage(this)">
-        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo (Internal)</button>
+        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo</button>
         
         <label>Nama Lembaga</label>
         <input type="text" id="inputNamaLembaga" placeholder="Nama Lembaga">
@@ -131,7 +133,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             <button class="btn-3d full" onclick="saveProfile()"><i class="fas fa-save"></i> Simpan</button>
         </div>
         <hr style="margin: 15px 0; border-style: dashed;">
-        <button class="btn-3d accent full" onclick="shareProfileLink()"><i class="fas fa-share-alt"></i> Share Profil ke Orang Lain</button>
+        <button class="btn-3d accent full" onclick="shareProfileLink()"><i class="fas fa-share-alt"></i> Share Profil</button>
     </div>
 </div>
 
@@ -150,9 +152,24 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
         </div>
     </div>
 
+    <!-- DATE & TIME SECTION -->
     <div class="header-meta">
-        <div class="hijri-box"><i class="fas fa-moon"></i> <span id="hijriDate">Memuat...</span></div>
-        <div class="clock-box"><i class="fas fa-clock"></i> <span id="time">--:--</span></div>
+        <div class="date-box-container">
+            <!-- Box Hijriyah -->
+            <div class="date-box">
+                <i class="fas fa-moon"></i> <span id="hijriDate">Memuat...</span>
+            </div>
+            <div class="date-separator">|</div>
+            <!-- Box Masehi -->
+            <div class="date-box" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
+                <i class="fas fa-calendar-alt"></i> <span id="masehiDate">Memuat...</span>
+            </div>
+        </div>
+        
+        <!-- Jam -->
+        <div class="clock-box">
+            <i class="fas fa-clock"></i> <span id="time">--:--</span>
+        </div>
     </div>
 </header>
 
@@ -284,27 +301,24 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
         </div>
     </div>
 
-    <!-- ARAB PAGE (UPDATED) -->
+    <!-- ARAB PAGE -->
     <div id="arab" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Percakapan Bahasa Arab</h2>
-            <p style="font-size:0.85rem; color:#666;">Data diambil dari file <b>percakapan.json</b>. Klik teks Arab untuk mendengar bacaan.</p>
+            <p style="font-size:0.85rem; color:#666;">Klik teks Arab untuk mendengar bacaan.</p>
             <hr style="border-style: dashed; margin: 15px 0;">
-            
-            <div id="arabContainer">
-                <div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat data JSON...</div>
-            </div>
+            <div id="arabContainer"><div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat...</div></div>
         </div>
     </div>
 
     <!-- INFO -->
     <div id="info" class="page hidden">
         <div class="card" style="text-align:center;">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzFmMjkzNyIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjQwIiBmaWxsPSIjZmJiZjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JVzwvdGV4dD48L3N2Zz4=" alt="Dev Logo" style="width:80px; border-radius:50%; margin-bottom:10px;">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzFmMjkzNyIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjQwIiBmaWxsPSIjZmJiZjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JVzwvdGV4dD48L3N2Zz4=" style="width:80px; border-radius:50%; margin-bottom:10px;">
             <h2 style="margin:10px 0 5px; font-family:'Tajawal';">Iman Waluyo</h2>
-            <p style="color:#666; font-size:0.9rem;">Pengembang Sistem Informasi Keuangan Pesantren</p>
+            <p style="color:#666; font-size:0.9rem;">Pengembang Sistem</p>
             <div style="background:#f0fdfa; padding:15px; border-radius:8px; margin-top:15px; border:1px dashed var(--primary);">
-                <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak Pengembang</p>
+                <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak</p>
                 <a href="tel:087812203039" style="font-size:1.2rem; color:var(--text-main); text-decoration:none; font-weight:800;">0878-1220-3039</a>
             </div>
         </div>
@@ -313,8 +327,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
-// URL JSON ANDA
-const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajemen/refs/heads/main/percakapan.json"; 
+const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajement/main/percakakan.json"; // Sesuaikan jika path berbeda
 
 let chart;
 
@@ -329,7 +342,6 @@ function loadProfile() {
     const urlParams = new URLSearchParams(window.location.search);
     const sharedName = urlParams.get('n');
     const sharedAddr = urlParams.get('a');
-
     if(sharedName) localStorage.setItem('namaLembaga', decodeURIComponent(sharedName));
     if(sharedAddr) localStorage.setItem('alamat', decodeURIComponent(sharedAddr));
 
@@ -342,9 +354,7 @@ function loadProfile() {
     document.getElementById('inputNamaLembaga').value = nama;
     document.getElementById('inputAlamat').value = alamat;
     
-    if(!logo) {
-        logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODQiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
-    }
+    if(!logo) logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODQiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
     
     document.getElementById('imgLogo').src = logo;
     document.getElementById('previewLogo').src = logo;
@@ -353,27 +363,22 @@ function loadProfile() {
 function previewImage(input) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
-        reader.onload = function (e) {
-            document.getElementById('previewLogo').src = e.target.result;
-        };
+        reader.onload = function (e) { document.getElementById('previewLogo').src = e.target.result; };
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-function openModal() { document.getElementById('editModal').style.display = 'flex'; speak("Buka pengaturan profil."); }
+function openModal() { document.getElementById('editModal').style.display = 'flex'; speak("Buka pengaturan."); }
 function closeModal() { document.getElementById('editModal').style.display = 'none'; }
 
 function saveProfile() {
     const nama = document.getElementById('inputNamaLembaga').value;
     const alamat = document.getElementById('inputAlamat').value;
     const logoSrc = document.getElementById('previewLogo').src;
-    
     localStorage.setItem('namaLembaga', nama);
     localStorage.setItem('alamat', alamat);
     localStorage.setItem('logoBase64', logoSrc);
-    
-    loadProfile();
-    closeModal();
+    loadProfile(); closeModal();
     speak("Profil disimpan.");
 }
 
@@ -381,45 +386,33 @@ function shareProfileLink() {
     const nama = encodeURIComponent(document.getElementById('inputNamaLembaga').value);
     const alamat = encodeURIComponent(document.getElementById('inputAlamat').value);
     const link = window.location.origin + window.location.pathname + "?n=" + nama + "&a=" + alamat;
-    
-    if (navigator.share) {
-        navigator.share({ title: 'Profil Keuangan Pesantren', text: 'Gunakan data profil ini:', url: link }).catch(console.error);
-    } else {
-        prompt("Salin link ini:", link);
-    }
-    speak("Link profil disalin.");
+    if (navigator.share) { navigator.share({ title: 'Profil', text: 'Gunakan profil ini:', url: link }).catch(console.error); }
+    else { prompt("Salin link:", link); }
 }
 
-// --- CLOCK & HIJRI ---
+// --- DATE & TIME FUNCTIONS ---
 function updateClock() { document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
+
 function updateHijri() {
     try {
         const opt = { calendar: 'islamic', day: 'numeric', month: 'long', year: 'numeric' };
-        const hijri = new Intl.DateTimeFormat('id-u-ca-islamic', opt).format(new Date());
-        document.getElementById('hijriDate').innerText = hijri;
+        document.getElementById('hijriDate').innerText = new Intl.DateTimeFormat('id-u-ca-islamic', opt).format(new Date());
     } catch(e) { document.getElementById('hijriDate').innerText = "Error"; }
 }
-setInterval(updateClock, 1000); updateClock(); updateHijri();
+
+function updateMasehi() {
+    const opt = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('masehiDate').innerText = new Intl.DateTimeFormat('id-ID', opt).format(new Date());
+}
+
+setInterval(updateClock, 1000); 
+updateClock(); 
+updateHijri(); 
+updateMasehi(); // Panggil fungsi baru
 
 // --- SPEECH ---
-function speak(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'id-ID';
-        window.speechSynthesis.speak(u);
-    }
-}
-
-function speakArabic(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'ar-SA'; // Arabic Saudi Arabia
-        u.rate = 0.9;
-        window.speechSynthesis.speak(u);
-    }
-}
+function speak(text) { if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'id-ID'; window.speechSynthesis.speak(u); } }
+function speakArabic(text) { if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'ar-SA'; u.rate = 0.9; window.speechSynthesis.speak(u); } }
 
 // --- NAVIGATION ---
 function showPage(page){
@@ -428,67 +421,35 @@ function showPage(page){
     document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
     document.getElementById("nav-" + page).classList.add("active");
 
-    if(page === 'dashboard') { loadDashboard(); speak("Halaman Dashboard."); }
-    else if(page === 'keuangan') { loadRiwayatKeuangan(); speak("Halaman Keuangan."); }
-    else if(page === 'inventaris') { loadRiwayatInventaris(); speak("Halaman Inventaris."); }
-    else if(page === 'arab') { loadPercakapan(); speak("Percakapan Bahasa Arab."); }
-    else if(page === 'info') { speak("Informasi Pengembang."); }
+    if(page === 'dashboard') { loadDashboard(); speak("Dashboard."); }
+    else if(page === 'keuangan') { loadRiwayatKeuangan(); speak("Keuangan."); }
+    else if(page === 'inventaris') { loadRiwayatInventaris(); speak("Inventaris."); }
+    else if(page === 'arab') { loadPercakapan(); speak("Bahasa Arab."); }
+    else if(page === 'info') { speak("Info."); }
 }
 
-// --- LOAD JSON PERCAKAPAN (UPDATED) ---
+// --- LOAD JSON PERCAKAPAN ---
 function loadPercakapan() {
     const container = document.getElementById('arabContainer');
-    container.innerHTML = `<div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat data JSON...</div>`;
-
+    container.innerHTML = `<div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat...</div>`;
     fetch(JSON_URL)
-    .then(res => {
-        if(!res.ok) throw new Error("Gagal memuat file");
-        return res.json();
-    })
+    .then(res => { if(!res.ok) throw new Error("Gagal"); return res.json(); })
     .then(data => {
         container.innerHTML = "";
-        
-        // Loop Utama (Setiap Item Percakapan)
         data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'arab-card';
-
-            // Header Kartu
-            let htmlContent = `
-                <div class="arab-header">
-                    <span class="badge bg-teal">${item.kategori}</span>
-                    <span class="badge bg-blue">${item.level}</span>
-                </div>
-                <div class="arab-title">${item.id}. ${item.judul}</div>
-                <div class="dialogue-box">
-            `;
-
-            // Loop Percakapan (Dialog)
-            if(item.percakapan && Array.isArray(item.percakapan)) {
+            let html = `<div class="arab-header"><span class="badge bg-teal">${item.kategori}</span><span class="badge bg-blue">${item.level}</span></div><div class="arab-title">${item.id}. ${item.judul}</div><div class="dialogue-box">`;
+            if(item.percakapan) {
                 item.percakapan.forEach(line => {
-                    htmlContent += `
-                        <div class="dialogue-item">
-                            <span class="speaker-name"><i class="fas fa-user"></i> ${line.pelaku}</span>
-                            <div class="arab-text" onclick="speakArabic(\`${line.arab}\`)">${line.arab}</div>
-                            <div class="harakat-text">${line.harakat}</div>
-                            <div class="translation-text">${line.terjemahan}</div>
-                        </div>
-                    `;
+                    html += `<div class="dialogue-item"><span class="speaker-name"><i class="fas fa-user"></i> ${line.pelaku}</span><div class="arab-text" onclick="speakArabic(\`${line.arab}\`)">${line.arab}</div><div class="harakat-text">${line.harakat}</div><div class="translation-text">${line.terjemahan}</div></div>`;
                 });
             }
-
-            htmlContent += `</div>`;
-            card.innerHTML = htmlContent;
+            html += `</div>`;
+            card.innerHTML = html;
             container.appendChild(card);
         });
-    })
-    .catch(err => {
-        console.error(err);
-        container.innerHTML = `<div class="status-loading" style="color:red;">
-            <i class="fas fa-times-circle"></i><br>
-            Gagal memuat data. Pastikan URL JSON benar dan koneksi internet stabil.
-        </div>`;
-    });
+    }).catch(err => { container.innerHTML = `<div class="status-loading" style="color:red;">Gagal memuat data JSON.</div>`; });
 }
 
 // --- KEUANGAN LOGIC ---
@@ -496,17 +457,14 @@ function updateSubKategori() {
     const main = document.getElementById("kategoriUtama").value;
     const subSelect = document.getElementById("subKategori");
     subSelect.innerHTML = "<option value=''>Pilih Sub Kategori</option>";
-    
     if(main && kategoriData[main]) {
         kategoriData[main].forEach(item => {
-            const opt = document.createElement("option");
-            opt.value = item;
-            opt.innerText = item;
-            subSelect.appendChild(opt);
+            const opt = document.createElement("option"); opt.value = item; opt.innerText = item; subSelect.appendChild(opt);
         });
     }
 }
 
+// UPDATE: Menambahkan subKategori untuk dikirim ke backend
 function kirimKeuangan() {
     const id = document.getElementById("editIdKeuangan").value;
     const mainKat = document.getElementById("kategoriUtama").value;
@@ -518,6 +476,7 @@ function kirimKeuangan() {
         tanggal: document.getElementById("tanggal").value,
         keterangan: document.getElementById("keterangan").value,
         kategori: `${mainKat} - ${subKat}`,
+        subKategori: subKat, // DATA BARU UNTUK KOLOM H
         masuk: mainKat === "Pemasukan" ? document.getElementById("jumlahUang").value : 0,
         keluar: mainKat === "Pengeluaran" ? document.getElementById("jumlahUang").value : 0,
         pelapor: document.getElementById("pelapor").value
@@ -527,16 +486,10 @@ function kirimKeuangan() {
 
     fetch(API, { method: "POST", body: JSON.stringify(data) })
     .then(res => res.text())
-    .then(res => {
-        alert(res);
-        loadDashboard();
-        loadRiwayatKeuangan();
-        cancelEdit();
-        speak("Transaksi disimpan.");
-    });
+    .then(res => { alert(res); loadDashboard(); loadRiwayatKeuangan(); cancelEdit(); speak("Tersimpan."); });
 }
 
-function editKeuangan(id, tgl, ket, kat, jml, type) {
+function editKeuangan(id, tgl, ket, kat, jml) {
     document.getElementById("editIdKeuangan").value = id;
     document.getElementById("tanggal").value = tgl;
     document.getElementById("keterangan").value = ket;
@@ -552,7 +505,7 @@ function editKeuangan(id, tgl, ket, kat, jml, type) {
     
     document.getElementById("btnCancel").classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    speak("Mode edit aktif.");
+    speak("Edit aktif.");
 }
 
 function cancelEdit() {
@@ -569,7 +522,6 @@ function loadDashboard(){
     .then(res => res.json())
     .then(data => {
         const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
-        
         document.getElementById("saldo").innerText = fmt.format(data.saldo || 0);
         document.getElementById("masuk").innerText = fmt.format(data.masuk || 0);
         document.getElementById("keluar").innerText = fmt.format(data.keluar || 0);
@@ -588,7 +540,6 @@ function loadDashboard(){
                 if(el) el.innerText = fmt.format(b.total);
             });
         }
-
         drawChart(data.masuk || 0, data.keluar || 0);
     });
 }
@@ -604,29 +555,24 @@ function loadRiwayatKeuangan(){
                 const isMasuk = row[3].includes("Pemasukan");
                 const jml = isMasuk ? row[4] : row[5];
                 const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${row[1]}</td><td>${row[2]}</td>
-                    <td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td>
-                    <td style="color:${isMasuk ? 'green' : 'red'}; font-weight:bold;">${jml}</td>
-                    <td><button class='btn-3d secondary small' onclick="editKeuangan('${row[0]}','${row[1]}','${row[2]}','${row[3]}','${jml}','${isMasuk ? 'masuk' : 'keluar'}')"><i class='fas fa-edit'></i></button></td>`;
+                tr.innerHTML = `<td>${row[1]}</td><td>${row[2]}</td><td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td><td style="color:${isMasuk ? 'green' : 'red'}; font-weight:bold;">${jml}</td><td><button class='btn-3d secondary small' onclick="editKeuangan('${row[0]}','${row[1]}','${row[2]}','${row[3]}','${jml}')"><i class='fas fa-edit'></i></button></td>`;
                 tbody.appendChild(tr);
             });
-        } else { tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Belum ada data</td></tr>"; }
+        } else { tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Kosong</td></tr>"; }
     });
 }
 
-// --- INVENTARIS ---
+// --- INVENTARIS & OTHERS ---
 function kirimInventaris() {
     const data = { action: "inventaris", barang: document.getElementById("barang").value, jumlah: document.getElementById("jumlah").value, tipe: document.getElementById("tipe").value };
-    fetch(API, { method: "POST", body: JSON.stringify(data) }).then(res => res.text()).then(res => { alert(res); loadRiwayatInventaris(); speak("Inventaris disimpan."); });
+    fetch(API, { method: "POST", body: JSON.stringify(data) }).then(res => res.text()).then(res => { alert(res); loadRiwayatInventaris(); speak("Tersimpan."); });
 }
 
 function loadRiwayatInventaris() {
     fetch(API + "?action=riwayat_inventaris")
     .then(res => res.json())
     .then(data => {
-        const tbody = document.querySelector("#tableInventaris tbody");
-        tbody.innerHTML = "";
+        const tbody = document.querySelector("#tableInventaris tbody"); tbody.innerHTML = "";
         if(data && data.length > 0){
             data.forEach(row => {
                 const tr = document.createElement("tr");
@@ -637,7 +583,6 @@ function loadRiwayatInventaris() {
     });
 }
 
-// --- CHART ---
 function drawChart(masuk, keluar){
     const ctx = document.getElementById("chart").getContext('2d');
     if(chart) chart.destroy();
@@ -651,22 +596,12 @@ function drawChart(masuk, keluar){
 // --- PDF ---
 function addKopSurat(doc) {
     const nama = localStorage.getItem('namaLembaga') || "Nama Pesantren";
-    const alamat = localStorage.getItem('alamat') || "Alamat Pesantren";
+    const alamat = localStorage.getItem('alamat') || "Alamat";
     const logo = localStorage.getItem('logoBase64');
-    
     try { if(logo) doc.addImage(logo, 'PNG', 15, 10, 25, 25); } catch(e) {}
-
-    doc.setFontSize(18);
-    doc.setTextColor(15, 118, 110);
-    doc.text(nama, 45, 20);
-    
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text(alamat, 45, 27);
-    
-    doc.setDrawColor(209, 213, 219);
-    doc.line(15, 40, 195, 40);
-    
+    doc.setFontSize(18); doc.setTextColor(15, 118, 110); doc.text(nama, 45, 20);
+    doc.setFontSize(10); doc.setTextColor(100); doc.text(alamat, 45, 27);
+    doc.setDrawColor(209, 213, 219); doc.line(15, 40, 195, 40);
     return 50;
 }
 
@@ -674,62 +609,29 @@ function printDashboard() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     let y = addKopSurat(doc);
-    
-    doc.setFontSize(14);
-    doc.setTextColor(0);
-    doc.text("Laporan Ringkasan Keuangan", 105, y, null, null, "center");
-    y += 15;
-
+    doc.setFontSize(14); doc.setTextColor(0); doc.text("Laporan Ringkasan Keuangan", 105, y, null, null, "center"); y += 15;
     doc.setFontSize(11);
-    doc.text(`Total Saldo: ${document.getElementById("saldo").innerText}`, 20, y); y+=10;
-    doc.text(`Total Pemasukan: ${document.getElementById("masuk").innerText}`, 20, y); y+=10;
-    doc.text(`Total Pengeluaran: ${document.getElementById("keluar").innerText}`, 20, y); y+=10;
-    
-    y += 10;
-    doc.setFontSize(12).setTextColor(15, 118, 110).text("Rincian:", 20, y); y+=7;
-    doc.setFontSize(10).setTextColor(0);
-    
-    document.querySelectorAll('#pemasukanCards .stat-card, #pengeluaranCards .stat-card').forEach(card => {
-        const title = card.querySelector('h3').innerText;
-        const val = card.querySelector('p').innerText;
-        doc.text(`${title}: ${val}`, 20, y);
-        y+=7;
-    });
-
-    doc.save("Dashboard-Laporan.pdf");
-    speak("PDF diunduh.");
+    doc.text(`Saldo: ${document.getElementById("saldo").innerText}`, 20, y); y+=10;
+    doc.text(`Pemasukan: ${document.getElementById("masuk").innerText}`, 20, y); y+=10;
+    doc.text(`Pengeluaran: ${document.getElementById("keluar").innerText}`, 20, y); y+=10;
+    doc.save("Dashboard.pdf"); speak("PDF diunduh.");
 }
 
 function printKeuangan() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     let y = addKopSurat(doc);
-    
-    doc.setFontSize(14);
-    doc.text("Laporan Riwayat Transaksi", 105, y, null, null, "center");
-    y += 10;
-    
+    doc.setFontSize(14); doc.text("Laporan Riwayat Transaksi", 105, y, null, null, "center"); y += 10;
     doc.setFontSize(9);
-    doc.setTextColor(255).setFillColor(15, 118, 110);
-    doc.rect(15, y, 180, 7, 'F');
-    doc.text("Tanggal", 17, y+5);
-    doc.text("Keterangan", 45, y+5);
-    doc.text("Kategori", 110, y+5);
-    doc.text("Jumlah", 160, y+5);
-    y += 7;
-
+    doc.setTextColor(255).setFillColor(15, 118, 110); doc.rect(15, y, 180, 7, 'F');
+    doc.text("Tanggal", 17, y+5); doc.text("Keterangan", 45, y+5); doc.text("Kategori", 110, y+5); doc.text("Jumlah", 160, y+5); y += 7;
     doc.setTextColor(0);
     fetch(API + "?action=riwayat_keuangan").then(r=>r.json()).then(data=>{
         data.forEach(r=>{
             if(y > 270){ doc.addPage(); y = 20; }
-            doc.text(`${r[1]}`, 17, y);
-            doc.text(`${String(r[2]).substring(0, 25)}`, 45, y);
-            doc.text(`${String(r[3]).substring(0, 20)}`, 110, y);
-            doc.text(`${r[4] || r[5]}`, 160, y);
-            y+=7;
+            doc.text(`${r[1]}`, 17, y); doc.text(`${String(r[2]).substring(0, 25)}`, 45, y); doc.text(`${String(r[3]).substring(0, 20)}`, 110, y); doc.text(`${r[4] || r[5]}`, 160, y); y+=7;
         });
-        doc.save("Riwayat-Transaksi.pdf");
-        speak("PDF Riwayat diunduh.");
+        doc.save("Riwayat.pdf"); speak("PDF diunduh.");
     });
 }
 
