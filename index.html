@@ -83,17 +83,23 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 .chart-box { width: 60%; margin: 0 auto; height: 200px; position: relative; padding: 10px; filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); }
 
-/* CUSTOM STYLE FOR ARAB PAGE */
+/* CUSTOM STYLE FOR ARAB PAGE (UPDATED) */
 .arab-card {
     background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; padding: 15px;
-    margin-bottom: 12px; border-left: 5px solid var(--primary);
-    cursor: pointer; transition: all 0.2s;
+    margin-bottom: 15px; border-left: 5px solid var(--primary);
+    transition: all 0.2s;
 }
-.arab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.arab-title { font-family: 'Tajawal', sans-serif; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; font-size: 1.1rem; }
-.arab-text { font-family: 'Tajawal', sans-serif; font-size: 1.3rem; color: #000; text-align: right; direction: rtl; line-height: 1.6; margin-bottom: 5px; }
-.arab-latin { font-size: 0.85rem; color: #555; font-style: italic; margin-bottom: 2px; }
-.arab-indo { font-size: 0.9rem; color: var(--secondary); font-weight: 600; }
+.arab-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.arab-title { font-family: 'Tajawal', sans-serif; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+
+/* Dialogue Styling */
+.dialogue-box { margin-top: 10px; }
+.dialogue-item { margin-bottom: 10px; padding: 8px; background: rgba(255,255,255,0.8); border-radius: 6px; }
+.speaker-name { font-weight: 700; color: var(--secondary); font-size: 0.8rem; margin-bottom: 2px; display: block; }
+.arab-text { font-family: 'Tajawal', sans-serif; font-size: 1.2rem; color: #000; text-align: right; direction: rtl; line-height: 1.5; cursor: pointer; transition: color 0.2s; }
+.arab-text:hover { color: var(--primary-dark); }
+.harakat-text { font-size: 0.85rem; color: #666; font-style: italic; text-align: right; direction: rtl; margin-top: 2px; }
+.translation-text { font-size: 0.85rem; color: #333; margin-top: 4px; font-style: normal; }
 .status-loading { text-align: center; padding: 20px; color: #666; }
 
 .hidden { display: none; }
@@ -132,7 +138,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 <!-- HEADER -->
 <header class="main-header">
     <div class="header-content">
-        <img id="imgLogo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODAiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Logo" class="profile-logo" onclick="openModal()">
+        <img id="imgLogo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODQiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Logo" class="profile-logo" onclick="openModal()">
         
         <div class="profile-info">
             <h1 id="txtNamaLembaga" class="institution-name">Nama Pesantren Anda</h1>
@@ -282,7 +288,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
     <div id="arab" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Percakapan Bahasa Arab</h2>
-            <p style="font-size:0.85rem; color:#666;">Data diambil dari file <b>percakapan.json</b>. Klik kartu untuk mendengar bacaan.</p>
+            <p style="font-size:0.85rem; color:#666;">Data diambil dari file <b>percakapan.json</b>. Klik teks Arab untuk mendengar bacaan.</p>
             <hr style="border-style: dashed; margin: 15px 0;">
             
             <div id="arabContainer">
@@ -307,10 +313,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
-// ==============================================
-// PENTING: GANTI URL DI BAWAH INI DENGAN URL RAW FILE JSON ANDA DARI GITHUB
-// Contoh: https://raw.githubusercontent.com/username/repo/main/percakapan.json
-// ==============================================
+// URL JSON ANDA
 const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajemen/refs/heads/main/percakapan.json"; 
 
 let chart;
@@ -340,7 +343,7 @@ function loadProfile() {
     document.getElementById('inputAlamat').value = alamat;
     
     if(!logo) {
-        logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODAiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
+        logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODQiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
     }
     
     document.getElementById('imgLogo').src = logo;
@@ -432,17 +435,10 @@ function showPage(page){
     else if(page === 'info') { speak("Informasi Pengembang."); }
 }
 
-// --- LOAD JSON PERCAKAPAN ---
+// --- LOAD JSON PERCAKAPAN (UPDATED) ---
 function loadPercakapan() {
     const container = document.getElementById('arabContainer');
-    // Cek jika URL masih default
-    if(JSON_URL.includes("USERNAME/REPO")) {
-        container.innerHTML = `<div class="status-loading" style="color:red;">
-            <i class="fas fa-exclamation-triangle"></i><br>
-            URL JSON belum diatur. Silakan edit variabel <b>JSON_URL</b> di dalam kode.
-        </div>`;
-        return;
-    }
+    container.innerHTML = `<div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat data JSON...</div>`;
 
     fetch(JSON_URL)
     .then(res => {
@@ -451,19 +447,38 @@ function loadPercakapan() {
     })
     .then(data => {
         container.innerHTML = "";
-        // Asumsi struktur JSON adalah array of objects: [{judul:"", arab:"", latin:"", indo:""}, ...]
-        // Sesuaikan jika struktur JSON Anda berbeda
+        
+        // Loop Utama (Setiap Item Percakapan)
         data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'arab-card';
-            card.onclick = () => speakArabic(item.arab); // Klik untuk bicara
 
-            card.innerHTML = `
-                <div class="arab-title">${item.judul || item.topic || 'Percakapan'}</div>
-                <div class="arab-text">${item.arab}</div>
-                <div class="arab-latin">${item.latin || ''}</div>
-                <div class="arab-indo">${item.indo || item.arti || ''}</div>
+            // Header Kartu
+            let htmlContent = `
+                <div class="arab-header">
+                    <span class="badge bg-teal">${item.kategori}</span>
+                    <span class="badge bg-blue">${item.level}</span>
+                </div>
+                <div class="arab-title">${item.id}. ${item.judul}</div>
+                <div class="dialogue-box">
             `;
+
+            // Loop Percakapan (Dialog)
+            if(item.percakapan && Array.isArray(item.percakapan)) {
+                item.percakapan.forEach(line => {
+                    htmlContent += `
+                        <div class="dialogue-item">
+                            <span class="speaker-name"><i class="fas fa-user"></i> ${line.pelaku}</span>
+                            <div class="arab-text" onclick="speakArabic(\`${line.arab}\`)">${line.arab}</div>
+                            <div class="harakat-text">${line.harakat}</div>
+                            <div class="translation-text">${line.terjemahan}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            htmlContent += `</div>`;
+            card.innerHTML = htmlContent;
             container.appendChild(card);
         });
     })
@@ -471,7 +486,7 @@ function loadPercakapan() {
         console.error(err);
         container.innerHTML = `<div class="status-loading" style="color:red;">
             <i class="fas fa-times-circle"></i><br>
-            Gagal memuat data. Pastikan URL benar dan file valid.
+            Gagal memuat data. Pastikan URL JSON benar dan koneksi internet stabil.
         </div>`;
     });
 }
