@@ -327,11 +327,11 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
-const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajement/main/percakakan.json"; // Sesuaikan jika path berbeda
+const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajement/main/percakakan.json"; 
 
 let chart;
 
-// --- KATEGORI DATA ---
+// --- DATA KATEGORI ---
 const kategoriData = {
     "Pemasukan": ["Donatur", "Infaq / SPP", "Hasil Usaha"],
     "Pengeluaran": ["Operasional", "Dapur", "Kegiatan Outing", "Kegiatan Sosial", "Restok Barang"]
@@ -390,25 +390,54 @@ function shareProfileLink() {
     else { prompt("Salin link:", link); }
 }
 
-// --- DATE & TIME FUNCTIONS ---
-function updateClock() { document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
+// --- DATE & TIME FUNCTIONS (FIXED) ---
+function updateClock() { 
+    document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); 
+}
 
+// Perbaikan Hijriyah: Menggunakan mapping manual agar tidak ada "SM" dan Bulan Masehi
 function updateHijri() {
     try {
-        const opt = { calendar: 'islamic', day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('hijriDate').innerText = new Intl.DateTimeFormat('id-u-ca-islamic', opt).format(new Date());
-    } catch(e) { document.getElementById('hijriDate').innerText = "Error"; }
+        const now = new Date();
+        // Gunakan format 'ar-SA' (Arab Saudi) dengan kalender islamic untuk mendapatkan angka yang benar
+        const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric'
+        });
+        
+        const parts = formatter.formatToParts(now);
+        let day, month, year;
+        
+        parts.forEach(({type, value}) => {
+            if (type === 'day') day = value;
+            if (type === 'month') month = value;
+            if (type === 'year') year = value;
+        });
+
+        // Map angka bulan ke nama bulan Hijriyah bahasa Indonesia
+        const hijriMonths = ['Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir', 'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Syaban', 'Ramadhan', 'Syawal', 'Dzulqaidah', 'Dzulhijjah'];
+        const monthName = hijriMonths[parseInt(month) - 1];
+
+        // Susun string manual: "24 Ramadhan 1446 H"
+        document.getElementById('hijriDate').innerText = `${day} ${monthName} ${year} H`;
+    } catch(e) {
+        document.getElementById('hijriDate').innerText = "Error Hijriyah";
+    }
 }
 
+// Perbaikan Masehi: Format Lengkap (Senin, 24 Maret 2025)
 function updateMasehi() {
-    const opt = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-    document.getElementById('masehiDate').innerText = new Intl.DateTimeFormat('id-ID', opt).format(new Date());
+    const now = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('masehiDate').innerText = new Intl.DateTimeFormat('id-ID', options).format(now);
 }
 
+// Jalankan update waktu
 setInterval(updateClock, 1000); 
 updateClock(); 
 updateHijri(); 
-updateMasehi(); // Panggil fungsi baru
+updateMasehi(); 
 
 // --- SPEECH ---
 function speak(text) { if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'id-ID'; window.speechSynthesis.speak(u); } }
@@ -464,7 +493,6 @@ function updateSubKategori() {
     }
 }
 
-// UPDATE: Menambahkan subKategori untuk dikirim ke backend
 function kirimKeuangan() {
     const id = document.getElementById("editIdKeuangan").value;
     const mainKat = document.getElementById("kategoriUtama").value;
@@ -476,7 +504,7 @@ function kirimKeuangan() {
         tanggal: document.getElementById("tanggal").value,
         keterangan: document.getElementById("keterangan").value,
         kategori: `${mainKat} - ${subKat}`,
-        subKategori: subKat, // DATA BARU UNTUK KOLOM H
+        subKategori: subKat, 
         masuk: mainKat === "Pemasukan" ? document.getElementById("jumlahUang").value : 0,
         keluar: mainKat === "Pengeluaran" ? document.getElementById("jumlahUang").value : 0,
         pelapor: document.getElementById("pelapor").value
@@ -638,6 +666,7 @@ function printKeuangan() {
 // INIT
 loadProfile();
 showPage('dashboard');
+</script>
 </script>
 </body>
 </html>
