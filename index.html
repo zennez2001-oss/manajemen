@@ -57,19 +57,16 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-gradient); margin
 .stat-card { padding: 12px; border-radius: 10px; color: white; position: relative; overflow: hidden; border-bottom: 4px solid rgba(0,0,0,0.2); }
 .stat-card h3 { margin: 0; font-size: 11px; opacity: 0.9; font-family: 'Tajawal', sans-serif; }
 .stat-card p { margin: 5px 0 0; font-size: 14px; font-weight: 700; }
-/* Warna Spesifik */
 .bg-blue { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
 .bg-green { background: linear-gradient(135deg, #0f766e, #10b981); }
 .bg-red { background: linear-gradient(135deg, #b91c1c, #ef4444); }
 .bg-orange { background: linear-gradient(135deg, #c2410c, #fb923c); }
-.bg-purple { background: linear-gradient(135deg, #6b21a8, #a855f7); }
 .bg-teal { background: linear-gradient(135deg, #115e59, #2dd4bf); }
 
 .btn-3d { cursor: pointer; padding: 10px 15px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; color: white; background: var(--primary); border-bottom: 4px solid #0a6b61; transition: all 0.1s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
 .btn-3d:active { transform: translateY(4px); }
 .btn-3d.secondary { background: var(--secondary); border-color: #1e3a8a; }
 .btn-3d.accent { background: var(--accent); color: #000; border-color: #d97706; }
-.btn-3d.danger { background: #ef4444; border-color: #b91c1c; }
 .btn-3d.full { width: 100%; justify-content: center; }
 .btn-3d.small { padding: 6px 10px; font-size: 11px; }
 
@@ -86,10 +83,18 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 .chart-box { width: 60%; margin: 0 auto; height: 200px; position: relative; padding: 10px; filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); }
 
-.link-card { display: block; background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 8px; padding: 12px; margin-bottom: 10px; text-decoration: none; color: var(--text-main); transition: all 0.2s; border-left: 4px solid var(--primary); }
-.link-card:hover { background: white; transform: translateX(5px); }
-.link-card h4 { margin: 0 0 5px 0; color: var(--primary-dark); font-size: 1rem; font-family: 'Tajawal', sans-serif; }
-.link-card p { margin: 0; font-size: 0.8rem; color: #666; }
+/* CUSTOM STYLE FOR ARAB PAGE */
+.arab-card {
+    background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; padding: 15px;
+    margin-bottom: 12px; border-left: 5px solid var(--primary);
+    cursor: pointer; transition: all 0.2s;
+}
+.arab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.arab-title { font-family: 'Tajawal', sans-serif; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; font-size: 1.1rem; }
+.arab-text { font-family: 'Tajawal', sans-serif; font-size: 1.3rem; color: #000; text-align: right; direction: rtl; line-height: 1.6; margin-bottom: 5px; }
+.arab-latin { font-size: 0.85rem; color: #555; font-style: italic; margin-bottom: 2px; }
+.arab-indo { font-size: 0.9rem; color: var(--secondary); font-weight: 600; }
+.status-loading { text-align: center; padding: 20px; color: #666; }
 
 .hidden { display: none; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
@@ -178,14 +183,12 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             </div>
         </div>
         
-        <!-- RINGKASAN UTAMA -->
         <div class="stat-grid">
             <div class="stat-card bg-blue"><h3>Total Saldo</h3><p id="saldo">Rp 0</p></div>
             <div class="stat-card bg-green"><h3>Total Pemasukan</h3><p id="masuk">Rp 0</p></div>
             <div class="stat-card bg-red"><h3>Total Pengeluaran</h3><p id="keluar">Rp 0</p></div>
         </div>
 
-        <!-- RINCIAN KATEGORI -->
         <h4 style="color:white; margin:10px 0;">Rincian Pemasukan</h4>
         <div class="stat-grid" id="pemasukanCards">
             <div class="stat-card bg-teal"><h3>Donatur</h3><p id="cat-donatur">Rp 0</p></div>
@@ -275,16 +278,16 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
         </div>
     </div>
 
-    <!-- ARAB -->
+    <!-- ARAB PAGE (UPDATED) -->
     <div id="arab" class="page hidden">
         <div class="card">
-            <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Pusat Bahasa Arab</h2>
-            <p>Belajar dan mengembangkan kemampuan bahasa Arab untuk keperluan muamalah dan sehari-hari.</p>
-            <a href="https://www.almaany.com/" target="_blank" class="link-card"><h4><i class="fas fa-globe"></i> Almaany Arabic Dictionary</h4><p>Kamus Arab terlengkap.</p></a>
-            <a href="https://www.loecsen.com/id/unduh-mp3-dan-pdf-bahasa-arab" target="_blank" class="link-card"><h4><i class="fas fa-headphones"></i> Loecsen Arabic Course</h4><p>Kursus dengan MP3 dan PDF.</p></a>
-            <a href="https://perpustakaan.iaiskjmalang.ac.id/wp-content/uploads/2023/08/10-Percakapan-Sehari-hari_-Berbahasa-Indonesia-Arab.pdf" target="_blank" class="link-card"><h4><i class="fas fa-file-pdf"></i> PDF Percakapan Sehari-hari</h4><p>Panduan praktis.</p></a>
-            <a href="https://repository.uin-malang.ac.id/1468/" target="_blank" class="link-card"><h4><i class="fas fa-briefcase"></i> Percakapan Arab Muamalah</h4><p>Materi bisnis dan kerja.</p></a>
-            <a href="https://hidupkita.com/kosakata-bahasa-arab-sehari-hari-pdf/" target="_blank" class="link-card"><h4><i class="fas fa-book"></i> Kosakata Arab Sehari-hari</h4><p>Kumpulan kosakata esensial.</p></a>
+            <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Percakapan Bahasa Arab</h2>
+            <p style="font-size:0.85rem; color:#666;">Data diambil dari file <b>percakapan.json</b>. Klik kartu untuk mendengar bacaan.</p>
+            <hr style="border-style: dashed; margin: 15px 0;">
+            
+            <div id="arabContainer">
+                <div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat data JSON...</div>
+            </div>
         </div>
     </div>
 
@@ -304,6 +307,12 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
+// ==============================================
+// PENTING: GANTI URL DI BAWAH INI DENGAN URL RAW FILE JSON ANDA DARI GITHUB
+// Contoh: https://raw.githubusercontent.com/username/repo/main/percakapan.json
+// ==============================================
+const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajemen/refs/heads/main/percakapan.json"; 
+
 let chart;
 
 // --- KATEGORI DATA ---
@@ -314,7 +323,6 @@ const kategoriData = {
 
 // --- UTILS & PROFILE ---
 function loadProfile() {
-    // Cek URL Params dulu (untuk Share)
     const urlParams = new URLSearchParams(window.location.search);
     const sharedName = urlParams.get('n');
     const sharedAddr = urlParams.get('a');
@@ -331,7 +339,6 @@ function loadProfile() {
     document.getElementById('inputNamaLembaga').value = nama;
     document.getElementById('inputAlamat').value = alamat;
     
-    // Default logo if null
     if(!logo) {
         logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODAiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
     }
@@ -345,7 +352,6 @@ function previewImage(input) {
         const reader = new FileReader();
         reader.onload = function (e) {
             document.getElementById('previewLogo').src = e.target.result;
-            // Simpan sementara di hidden input atau langsung update saat simpan
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -374,14 +380,9 @@ function shareProfileLink() {
     const link = window.location.origin + window.location.pathname + "?n=" + nama + "&a=" + alamat;
     
     if (navigator.share) {
-        navigator.share({
-            title: 'Profil Keuangan Pesantren',
-            text: 'Gunakan data profil ini untuk input keuangan:',
-            url: link
-        }).catch(console.error);
+        navigator.share({ title: 'Profil Keuangan Pesantren', text: 'Gunakan data profil ini:', url: link }).catch(console.error);
     } else {
-        // Fallback copy to clipboard
-        prompt("Salin link ini dan kirim ke orang lain:", link);
+        prompt("Salin link ini:", link);
     }
     speak("Link profil disalin.");
 }
@@ -407,6 +408,16 @@ function speak(text) {
     }
 }
 
+function speakArabic(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'ar-SA'; // Arabic Saudi Arabia
+        u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+    }
+}
+
 // --- NAVIGATION ---
 function showPage(page){
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
@@ -417,8 +428,52 @@ function showPage(page){
     if(page === 'dashboard') { loadDashboard(); speak("Halaman Dashboard."); }
     else if(page === 'keuangan') { loadRiwayatKeuangan(); speak("Halaman Keuangan."); }
     else if(page === 'inventaris') { loadRiwayatInventaris(); speak("Halaman Inventaris."); }
-    else if(page === 'arab') { speak("Pusat Bahasa Arab."); }
+    else if(page === 'arab') { loadPercakapan(); speak("Percakapan Bahasa Arab."); }
     else if(page === 'info') { speak("Informasi Pengembang."); }
+}
+
+// --- LOAD JSON PERCAKAPAN ---
+function loadPercakapan() {
+    const container = document.getElementById('arabContainer');
+    // Cek jika URL masih default
+    if(JSON_URL.includes("USERNAME/REPO")) {
+        container.innerHTML = `<div class="status-loading" style="color:red;">
+            <i class="fas fa-exclamation-triangle"></i><br>
+            URL JSON belum diatur. Silakan edit variabel <b>JSON_URL</b> di dalam kode.
+        </div>`;
+        return;
+    }
+
+    fetch(JSON_URL)
+    .then(res => {
+        if(!res.ok) throw new Error("Gagal memuat file");
+        return res.json();
+    })
+    .then(data => {
+        container.innerHTML = "";
+        // Asumsi struktur JSON adalah array of objects: [{judul:"", arab:"", latin:"", indo:""}, ...]
+        // Sesuaikan jika struktur JSON Anda berbeda
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'arab-card';
+            card.onclick = () => speakArabic(item.arab); // Klik untuk bicara
+
+            card.innerHTML = `
+                <div class="arab-title">${item.judul || item.topic || 'Percakapan'}</div>
+                <div class="arab-text">${item.arab}</div>
+                <div class="arab-latin">${item.latin || ''}</div>
+                <div class="arab-indo">${item.indo || item.arti || ''}</div>
+            `;
+            container.appendChild(card);
+        });
+    })
+    .catch(err => {
+        console.error(err);
+        container.innerHTML = `<div class="status-loading" style="color:red;">
+            <i class="fas fa-times-circle"></i><br>
+            Gagal memuat data. Pastikan URL benar dan file valid.
+        </div>`;
+    });
 }
 
 // --- KEUANGAN LOGIC ---
@@ -447,7 +502,7 @@ function kirimKeuangan() {
         id: id,
         tanggal: document.getElementById("tanggal").value,
         keterangan: document.getElementById("keterangan").value,
-        kategori: `${mainKat} - ${subKat}`, // Gabungan
+        kategori: `${mainKat} - ${subKat}`,
         masuk: mainKat === "Pemasukan" ? document.getElementById("jumlahUang").value : 0,
         keluar: mainKat === "Pengeluaran" ? document.getElementById("jumlahUang").value : 0,
         pelapor: document.getElementById("pelapor").value
@@ -471,9 +526,7 @@ function editKeuangan(id, tgl, ket, kat, jml, type) {
     document.getElementById("tanggal").value = tgl;
     document.getElementById("keterangan").value = ket;
     document.getElementById("jumlahUang").value = jml;
-    document.getElementById("pelapor").value = ""; // Reset pelapor or parse from data if available
     
-    // Parse Kategori: "Pemasukan - Donatur"
     const parts = kat.split(' - ');
     const main = parts[0].trim();
     const sub = parts[1] ? parts[1].trim() : "";
@@ -502,24 +555,19 @@ function loadDashboard(){
     .then(data => {
         const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
         
-        // Total Utama
         document.getElementById("saldo").innerText = fmt.format(data.saldo || 0);
         document.getElementById("masuk").innerText = fmt.format(data.masuk || 0);
         document.getElementById("keluar").innerText = fmt.format(data.keluar || 0);
         
-        // Breakdown Kategori
-        // Reset semua dulu
         const cats = ["Donatur", "Infaq / SPP", "Hasil Usaha", "Operasional", "Dapur", "Outing", "Sosial", "Restok"];
         cats.forEach(c => {
-            const el = document.getElementById("cat-" + c.toLowerCase().replace("/ ", "").replace(" ", ""));
+            const el = document.getElementById("cat-" + c.toLowerCase().replace("/ ", "").replace(" ", "").replace("kegiatan ", ""));
             if(el) el.innerText = "Rp 0";
         });
 
-        // Isi dari data breakdown
         if(data.breakdown) {
             data.breakdown.forEach(b => {
-                // b.kategori format: "Pemasukan - Donatur"
-                const key = b.kategori.split(' - ')[1]; // Ambil "Donatur"
+                const key = b.kategori.split(' - ')[1];
                 const idKey = "cat-" + key.toLowerCase().replace("/ ", "").replace(" ", "").replace("kegiatan ", "");
                 const el = document.getElementById(idKey);
                 if(el) el.innerText = fmt.format(b.total);
@@ -585,15 +633,13 @@ function drawChart(masuk, keluar){
     });
 }
 
-// --- PDF WITH KOP SURAT ---
+// --- PDF ---
 function addKopSurat(doc) {
     const nama = localStorage.getItem('namaLembaga') || "Nama Pesantren";
     const alamat = localStorage.getItem('alamat') || "Alamat Pesantren";
     const logo = localStorage.getItem('logoBase64');
     
-    try {
-        if(logo) doc.addImage(logo, 'PNG', 15, 10, 25, 25); // x, y, w, h
-    } catch(e) { console.log("Logo error"); }
+    try { if(logo) doc.addImage(logo, 'PNG', 15, 10, 25, 25); } catch(e) {}
 
     doc.setFontSize(18);
     doc.setTextColor(15, 118, 110);
@@ -604,9 +650,9 @@ function addKopSurat(doc) {
     doc.text(alamat, 45, 27);
     
     doc.setDrawColor(209, 213, 219);
-    doc.line(15, 40, 195, 40); // Garis pembatas
+    doc.line(15, 40, 195, 40);
     
-    return 50; // Return starting Y position after header
+    return 50;
 }
 
 function printDashboard() {
@@ -624,7 +670,6 @@ function printDashboard() {
     doc.text(`Total Pemasukan: ${document.getElementById("masuk").innerText}`, 20, y); y+=10;
     doc.text(`Total Pengeluaran: ${document.getElementById("keluar").innerText}`, 20, y); y+=10;
     
-    // Tambah rincian sederhana
     y += 10;
     doc.setFontSize(12).setTextColor(15, 118, 110).text("Rincian:", 20, y); y+=7;
     doc.setFontSize(10).setTextColor(0);
@@ -650,7 +695,6 @@ function printKeuangan() {
     y += 10;
     
     doc.setFontSize(9);
-    // Table Header Manual
     doc.setTextColor(255).setFillColor(15, 118, 110);
     doc.rect(15, y, 180, 7, 'F');
     doc.text("Tanggal", 17, y+5);
