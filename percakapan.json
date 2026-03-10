@@ -1,0 +1,374 @@
+[
+  {
+    "id": 1,
+    "kategori": "Sapaan & Perkenalan",
+    "level": "Pemula",
+    "judul": "Salam Perjumpaan Pagi",
+    "percakapan": [
+      {
+        "pelaku": "Ahmad",
+        "arab": "اَلسَّلَامُ عَلَيْكُمْ يَا صَدِيقِي",
+        "harakat": "as-salāmu 'alaykum yā ṣadīqī",
+        "terjemahan": "Semoga keselamatan tercurah atasmu, wahai sahabatku."
+      },
+      {
+        "pelaku": "Budi",
+        "arab": "وَعَلَيْكُمُ السَّلَامُ، كَيْفَ حَالُكَ الْيَوْمَ؟",
+        "harakat": "wa 'alaykumus-salām, kaifa ḥālukal-yawm?",
+        "terjemahan": "Dan semoga keselamatan juga atasmu, bagaimana kabarmu hari ini?"
+      },
+      {
+        "pelaku": "Ahmad",
+        "arab": "بِخَيْرٍ، الْحَمْدُ لِلَّهِ. وَأَنْتَ؟",
+        "harakat": "bi-khairin, al-ḥamdu lillāh. wa anta?",
+        "terjemahan": "Baik, alhamdulillah. Dan bagaimana denganmu?"
+      },
+      {
+        "pelaku": "Budi",
+        "arab": "أَنَا بِخَيْرٍ أَيْضًا، شُكْرًا لَكَ",
+        "harakat": "anā bi-khairin ayḍan, shukran laka",
+        "terjemahan": "Aku juga baik, terima kasih."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "kategori": "Sapaan & Perkenalan",
+    "level": "Pemula",
+    "judul": "Meminta Nama",
+    "percakapan": [
+      {
+        "pelaku": "Zaid",
+        "arab": "مَا اسْمُكَ؟",
+        "harakat": "mā ismuka?",
+        "terjemahan": "Siapa namamu?"
+      },
+      {
+        "pelaku": "Umar",
+        "arab": "اِسْمِي عُمَرُ. وَمَا اسْمُكَ؟",
+        "harakat": "ismī 'umar. wa mā ismuka?",
+        "terjemahan": "Namaku Umar. Dan siapa namamu?"
+      },
+      {
+        "pelaku": "Zaid",
+        "arab": "اِسْمِي زَيْدٌ، سُرِرْتُ بِلِقَائِكَ",
+        "harakat": "ismī zaid, surirtu bi-liqā'ika",
+        "terjemahan": "Namaku Zaid, senang berjumpa denganmu."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "kategori": "Keluarga",
+    "level": "Pemula",
+    "judul": "Menanyakan Kabar Keluarga",
+    "percakapan": [
+      {
+        "pelaku": "Sarah",
+        "arab": "كَيْفَ حَالُ أُسْرَتِكَ؟",
+        "harakat": "kaifa ḥālu usratika?",
+        "terjemahan": "Bagaimana kabar keluargamu?"
+      },
+      {
+        "pelaku": "Karim",
+        "arab": "كُلُّهُمْ بِخَيْرٍ. أَبِي فِي الْعَمَلِ وَأُمِّي فِي الْبَيْتِ",
+        "harakat": "kulluhum bi-khair. abī fil-'amal wa ummī fil-bait",
+        "terjemahan": "Semuanya baik. Ayahku di kantor dan ibuku di rumah."
+      },
+      {
+        "pelaku": "Sarah",
+        "arab": "هَلْ لَدَيْكَ إِخْوَةٌ؟",
+        "harakat": "hal ladayka ikhwah?",
+        "terjemahan": "Apakah kamu punya saudara?"
+      },
+      {
+        "pelaku": "Karim",
+        "arab": "نَعَمْ، لَدَيَّ أَخٌ وَاحِدٌ وَأُخْتَانِ",
+        "harakat": "na'am, ladayya akhun wāḥid wa ukhtān",
+        "terjemahan": "Ya, aku punya satu saudara laki-laki dan dua saudara perempuan."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "kategori": "Di Sekolah",
+    "level": "Menengah",
+    "judul": "Bertanya tentang Pelajaran",
+    "percakapan": [
+      {
+        "pelaku": "Murid A",
+        "arab": "مَاذَا دَرَسْتُمْ الْيَوْمَ فِي الصَّفِّ؟",
+        "harakat": "māżā darastumul-yawma fiṣ-ṣaff?",
+        "terjemahan": "Apa yang kalian pelajari hari ini di kelas?"
+      },
+      {
+        "pelaku": "Murid B",
+        "arab": "دَرَسْنَا الرِّيَاضِيَاتِ وَاللُّغَةَ الْعَرَبِيَّةَ",
+        "harakat": "darasnar-riyāḍiyyāti wal-lughatal-'arabiyyah",
+        "terjemahan": "Kami belajar Matematika dan Bahasa Arab."
+      },
+      {
+        "pelaku": "Murid A",
+        "arab": "هَلِ الْوَظِيفَةُ صَعْبَةٌ؟",
+        "harakat": "halil-wazīfatu ṣa'bah?",
+        "terjemahan": "Apakah PR-nya sulit?"
+      },
+      {
+        "pelaku": "Murid B",
+        "arab": "لَا، هِيَ سَهْلَةٌ جِدًّا",
+        "harakat": "lā, hiya sahlatun jiddan",
+        "terjemahan": "Tidak, itu sangat mudah."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "kategori": "Di Pasar / Belanja",
+    "level": "Menengah",
+    "judul": "Membeli Buah-buahan",
+    "percakapan": [
+      {
+        "pelaku": "Pembeli",
+        "arab": "كَمْ سِعْرُ الْكِيلُو غَرَامٍ مِنَ التُّفَّاحِ؟",
+        "harakat": "kam si'rul-kīlū gharamin minat-tuffāḥ?",
+        "terjemahan": "Berapa harga sekilogram apel?"
+      },
+      {
+        "pelaku": "Penjual",
+        "arab": "الْكِيلُو بِعَشَرَةِ رِيَالَاتٍ",
+        "harakat": "al-kīlū bi-'asharati riyālāt",
+        "terjemahan": "Kilonya sepuluh riyal."
+      },
+      {
+        "pelaku": "Pembeli",
+        "arab": "أُرِيدُ كِيلُوَيْنِ مِنْ فَضْلِكَ",
+        "harakat": "urīdu kīlowayni min faḍlik",
+        "terjemahan": "Saya mau dua kilo, tolong."
+      },
+      {
+        "pelaku": "Penjual",
+        "arab": "تَفَضَّلْ، هَذِهِ أَفْضَلُ التُّفَّاحِ",
+        "harakat": "tafaḍḍal, hāżihi afḍalut-tuffāḥ",
+        "terjemahan": "Silakan, ini apel terbaik."
+      },
+      {
+        "pelaku": "Pembeli",
+        "arab": "شُكْرًا، إِلَى اللِّقَاءِ",
+        "harakat": "shukran, ilal-liqā'",
+        "terjemahan": "Terima kasih, sampai jumpa."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "kategori": "Transportasi",
+    "level": "Menengah",
+    "judul": "Naik Taksi",
+    "percakapan": [
+      {
+        "pelaku": "Penumpang",
+        "arab": "أَرْجُوكَ، خُذْنِي إِلَى الْمَطَارِ بِسُرْعَةٍ",
+        "harakat": "arjūka, khudz-nī ilal-maṭāri bi-sur'ah",
+        "terjemahan": "Tolong, antarkan saya ke bandara dengan cepat."
+      },
+      {
+        "pelaku": "Pengemudi",
+        "arab": "لَا تَقْلَقْ، سَنَصِلُ فِي وَقْتٍ قَصِيرٍ",
+        "harakat": "lā taqlaq, sanaṣilu fī waqtin qaṣīr",
+        "terjemahan": "Jangan khawatir, kita akan sampai dalam waktu singkat."
+      },
+      {
+        "pelaku": "Penumpang",
+        "arab": "كَمْ تَسْتَغْرِقُ الرِّحْلَةُ مِنَ الْوَقْتِ؟",
+        "harakat": "kam tastaghriqur-riḥlatu minal-waqt?",
+        "terjemahan": "Berapa lama perjalanannya?"
+      },
+      {
+        "pelaku": "Pengemudi",
+        "arab": "تَقْرِيبًا عِشْرُونَ دَقِيقَةً",
+        "harakat": "taqrīban 'ishrūna daqīqah",
+        "terjemahan": "Sekitar dua puluh menit."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "kategori": "Makanan & Restoran",
+    "level": "Pemula",
+    "judul": "Memesan Makanan",
+    "percakapan": [
+      {
+        "pelaku": "Pelayan",
+        "arab": "أَهْلًا بِكَ، مَاذَا تُرِيدُ أَنْ تَأْكُلَ؟",
+        "harakat": "ahlan bika, māżā turīdu an ta'kula?",
+        "terjemahan": "Selamat datang, apa yang ingin Anda makan?"
+      },
+      {
+        "pelaku": "Tamu",
+        "arab": "أُرِيدُ صَحْنًا مِنَ الْكَبْسَةِ",
+        "harakat": "urīdu ṣaḥḥānan minal-kabsah",
+        "terjemahan": "Saya mau sepiring Kabsa."
+      },
+      {
+        "pelaku": "Pelayan",
+        "arab": "وَمَاذَا تَشْرَبُ؟",
+        "harakat": "wa māżā tasyrabu?",
+        "terjemahan": "Dan apa yang Anda minum?"
+      },
+      {
+        "pelaku": "Tamu",
+        "arab": "كَأْسًا مِنَ الْعَصِيرِ، مِنْ فَضْلِكَ",
+        "harakat": "ka'san minal-'aṣīr, min faḍlik",
+        "terjemahan": "Segelas jus, tolong."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "kategori": "Waktu & Jadwal",
+    "level": "Menengah",
+    "judul": "Menanyakan Waktu Sholat",
+    "percakapan": [
+      {
+        "pelaku": "Ali",
+        "arab": "مَتَى يُؤَذَّنُ لِصَلَاةِ الظُّهْرِ؟",
+        "harakat": "matā yu'adzanu li-ṣalātiẓ-ẓuhr?",
+        "terjemahan": "Kapan azan sholat Dzuhur berkumandang?"
+      },
+      {
+        "pelaku": "Hasan",
+        "arab": "فِي السَّاعَةِ الثَّانِيَةَ عَشْرَةَ وَالنِّصْفِ",
+        "harakat": "fis-sā'atiẓ-ẓāniyata 'ashrata wan-niṣf",
+        "terjemahan": "Pukul dua belas lewat tiga puluh menit."
+      },
+      {
+        "pelaku": "Ali",
+        "arab": "هَلْ بَقِيَ وَقْتٌ لِلرَّاحَةِ قَبْلَ الصَّلَاةِ؟",
+        "harakat": "hal baqiya waqtun lir-rāḥati qablal-ṣalāh?",
+        "terjemahan": "Apakah masih ada waktu istirahat sebelum sholat?"
+      },
+      {
+        "pelaku": "Hasan",
+        "arab": "نَعَمْ، بَقِيَتْ ثُلُثُ سَاعَةٍ",
+        "harakat": "na'am, baqiyat tsuluthu sā'ah",
+        "terjemahan": "Ya, masih tersisa sepertiga jam (20 menit)."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "kategori": "Cuaca & Musim",
+    "level": "Menengah",
+    "judul": "Pergi ke Taman",
+    "percakapan": [
+      {
+        "pelaku": "Anak",
+        "arab": "يَا أَبَتِ، هَلْ نَذْهَبُ إِلَى الْحَدِيقَةِ الْيَوْمَ؟",
+        "harakat": "yā abati, hal nadzhabu ilal-ḥadīqatil-yawm?",
+        "terjemahan": "Ayah, apakah kita pergi ke taman hari ini?"
+      },
+      {
+        "pelaku": "Ayah",
+        "arab": "اَلطَّقْسُ جَمِيلٌ وَالشَّمْسُ مُشْرِقَةٌ، لِنَذْهَبْ",
+        "harakat": "aṭ-ṭaqsū jamīl wasy-syamsu mushriqah, linadzhab",
+        "terjemahan": "Cuacanya bagus dan matahari bersinar terang, ayo kita pergi."
+      },
+      {
+        "pelaku": "Anak",
+        "arab": "رَائِعٌ! سَأَحْضِرُ كُرَةَ الْقَدَمِ",
+        "harakat": "rā'i'! sa-aḥḍiru kuratal-qadam",
+        "terjemahan": "Hebat! Saya akan membawa bola sepak."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "kategori": "Pekerjaan",
+    "level": "Mahir",
+    "judul": "Wawancara Kerja",
+    "percakapan": [
+      {
+        "pelaku": "Pewawancara",
+        "arab": "تَفَضَّلْ اِجْلِسْ. هَلْ تَتَحَدَّثُ اللُّغَةَ الْعَرَبِيَّةَ بِطَلَاقَةٍ؟",
+        "harakat": "tafaḍḍal ijlis. hal tataḥaddaṡul-lughatal-'arabiyyah bi-ṭalāqah?",
+        "terjemahan": "Silakan duduk. Apakah Anda berbicara bahasa Arab dengan lancar?"
+      },
+      {
+        "pelaku": "Pelamar",
+        "arab": "نَعَمْ، أَنَا أَتَحَدَّثُهَا بِطَلَاقَةٍ وَأَكْتُبُهَا بِإِتْقَانٍ",
+        "harakat": "na'am, anā ataḥaddaṡuhā bi-ṭalāqah wa aktubuhā bi-itqān",
+        "terjemahan": "Ya, saya berbicara dengan lancar dan menulisnya dengan baik."
+      },
+      {
+        "pelaku": "Pewawancara",
+        "arab": "مَا هِيَ خِبْرَتُكَ فِي هَذَا الْمَجَالِ؟",
+        "harakat": "mā hiya khibratuka fī hāżal-majāl?",
+        "terjemahan": "Apa pengalaman Anda di bidang ini?"
+      },
+      {
+        "pelaku": "Pelamar",
+        "arab": "أَعْمَلُ فِي هَذَا الْمَجَالِ مُنْذُ خَمْسِ سَنَوَاتٍ",
+        "harakat": "a'malu fī hāżal-majāli mundzu khamsi sanawāt",
+        "terjemahan": "Saya bekerja di bidang ini selama lima tahun."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "kategori": "Kesehatan",
+    "level": "Menengah",
+    "judul": "Di Klinik Dokter",
+    "percakapan": [
+      {
+        "pelaku": "Dokter",
+        "arab": "أَيْنَ يَكُونُ الْأَلَمُ؟",
+        "harakat": "ayna yakūnul-alam?",
+        "terjemahan": "Di mana letak rasa sakitnya?"
+      },
+      {
+        "pelaku": "Pasien",
+        "arab": "أَشْعُرُ بِصُدَاعٍ شَدِيدٍ وَحَرَارَةٍ",
+        "harakat": "asy'uru bi-ṣudā'in shadīd wa ḥarārah",
+        "terjemahan": "Saya merasa sakit kepala parah dan demam."
+      },
+      {
+        "pelaku": "Dokter",
+        "arab": "خُذْ هَذَا الدَّوَاءَ ثَلَاثَ مَرَّاتٍ يَوْمِيًّا وَارْتَحْ",
+        "harakat": "khudz hāżad-dawā'a tsalātha marrātin yawmiyyan war-taḥ",
+        "terjemahan": "Minumlah obat ini tiga kali sehari dan beristirahatlah."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "kategori": "Arah & Lokasi",
+    "level": "Pemula",
+    "judul": "Mencari Masjid",
+    "percakapan": [
+      {
+        "pelaku": "Musafir",
+        "arab": "عَفْوًا، أَيْنَ الْمَسْجِدُ الْجَامِعُ؟",
+        "harakat": "'afwan, ainal-masjidul-jāmi'?",
+        "terjemahan": "Permisi, di mana masjid utama?"
+      },
+      {
+        "pelaku": "Penduduk",
+        "arab": "اِذْهَبْ مُسْتَقِيمًا ثُمَّ اِنْعَطِفْ يَسَارًا",
+        "harakat": "idzhab mustaqīman tumma in'aṭif yasāran",
+        "terjemahan": "Jalan lurus, lalu belok kiri."
+      },
+      {
+        "pelaku": "Musafir",
+        "arab": "هَلْ هُوَ بَعِيدٌ مِنْ هُنَا؟",
+        "harakat": "hal huwa ba'īd min hunā?",
+        "terjemahan": "Apakah jauh dari sini?"
+      },
+      {
+        "pelaku": "Penduduk",
+        "arab": "لَا، إِنَّهُ قَرِيبٌ جِدًّا",
+        "harakat": "lā, innahu qarībun jiddan",
+        "terjemahan": "Tidak, sangat dekat."
+      }
+    ]
+  }
+]
