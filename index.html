@@ -6,215 +6,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- FONT DINAMIS -->
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 :root {
-    --primary: #0d9488;
-    --primary-dark: #0f766e;
-    --secondary: #1e3a8a;
-    --accent: #fbbf24;
+    --primary: #0d9488; --primary-dark: #0f766e; --secondary: #1e3a8a; --accent: #fbbf24;
     --bg-gradient: linear-gradient(135deg, #0d9488 0%, #0f766e 60%, #1e3a8a 100%);
-    --text-main: #1f2937;
-    --shadow-3d: 6px 6px 0px rgba(0,0,0,0.15);
+    --text-main: #1f2937; --shadow-3d: 6px 6px 0px rgba(0,0,0,0.15);
 }
-
-body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--bg-gradient);
-    margin: 0; padding: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
-    color: var(--text-main);
-}
-
-.bg-pattern {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: radial-gradient(#ffffff 1px, transparent 1px);
-    background-size: 30px 30px; opacity: 0.1;
-    z-index: -1;
-}
-
+body { font-family: 'Nunito', sans-serif; background: var(--bg-gradient); margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden; color: var(--text-main); }
+.bg-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px; opacity: 0.1; z-index: -1; }
 .container { max-width: 1000px; margin: auto; padding: 0 15px 50px 15px; }
 
-/* ================= HEADER ================= */
-.main-header {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    padding: 15px 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 4px solid var(--primary);
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    position: relative;
-}
-
-.profile-logo {
-    width: 70px; height: 70px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--primary);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    background: #e5e7eb;
-}
-
+/* HEADER */
+.main-header { background: rgba(255, 255, 255, 0.98); padding: 15px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid var(--primary); }
+.header-content { display: flex; align-items: center; gap: 15px; position: relative; }
+.profile-logo { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: #e5e7eb; cursor: pointer; transition: transform 0.2s; }
+.profile-logo:hover { transform: scale(1.05); }
 .profile-info { flex: 1; }
+.institution-name { font-family: 'Tajawal', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--primary-dark); margin: 0; line-height: 1.2; }
+.institution-address { font-size: 0.85rem; color: #555; margin: 2px 0 0 0; font-weight: 500; }
+.header-actions { display: flex; gap: 5px; }
+.icon-btn { background: rgba(0,0,0,0.05); border: none; color: #666; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+.icon-btn:hover { background: var(--primary); color: white; }
+.header-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ddd; }
+.hijri-box { background: linear-gradient(135deg, #0f766e, #0d9488); color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; font-family: 'Tajawal', sans-serif; display: flex; align-items: center; gap: 8px; }
+.clock-box { font-size: 0.9rem; color: var(--primary-dark); font-weight: 700; }
 
-.institution-name {
-    font-family: 'Tajawal', sans-serif;
-    font-size: 1.4rem; font-weight: 800;
-    color: var(--primary-dark);
-    margin: 0; line-height: 1.2;
-}
-
-.institution-address {
-    font-size: 0.85rem; color: #555;
-    margin: 2px 0 0 0; font-weight: 500;
-}
-
-.edit-btn-header {
-    background: rgba(0,0,0,0.05); border: none;
-    color: #888; padding: 8px;
-    border-radius: 50%; cursor: pointer;
-    transition: all 0.3s;
-    position: absolute; top: 5px; right: 5px;
-}
-.edit-btn-header:hover { background: var(--primary); color: white; }
-
-.header-meta {
-    display: flex; justify-content: space-between;
-    align-items: center;
-    margin-top: 10px; padding-top: 8px;
-    border-top: 1px dashed #ddd;
-}
-
-.hijri-box {
-    background: linear-gradient(135deg, #0f766e, #0d9488);
-    color: white; padding: 4px 12px;
-    border-radius: 6px; font-size: 0.85rem;
-    font-family: 'Tajawal', sans-serif;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex; align-items: center; gap: 8px;
-}
-.hijri-box i { color: var(--accent); }
-
-.clock-box {
-    font-size: 0.9rem; color: var(--primary-dark);
-    font-weight: 700;
-}
-
-/* MARQUEE SLOGAN */
-.slogan-bar {
-    background: var(--accent); color: #333;
-    padding: 6px 0; font-size: 0.8rem; font-weight: 700;
-    overflow: hidden; white-space: nowrap;
-    border-bottom: 2px solid rgba(0,0,0,0.1);
-}
-.marquee-text {
-    display: inline-block; padding-left: 100%;
-    animation: marquee 35s linear infinite;
-}
+/* SLOGAN */
+.slogan-bar { background: var(--accent); color: #333; padding: 6px 0; font-size: 0.8rem; font-weight: 700; overflow: hidden; white-space: nowrap; border-bottom: 2px solid rgba(0,0,0,0.1); }
+.marquee-text { display: inline-block; padding-left: 100%; animation: marquee 35s linear infinite; }
 @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-/* ================= MODAL ================= */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); z-index: 2000;
-    display: none; justify-content: center; align-items: center;
-}
-.modal-content {
-    background: white; padding: 25px;
-    border-radius: 12px; width: 90%; max-width: 400px;
-    position: relative; animation: slideDown 0.3s ease;
-}
+/* MODAL */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; animation: slideDown 0.3s ease; max-height: 90vh; overflow-y: auto; }
 .modal-content h3 { margin-top: 0; color: var(--primary-dark); font-family: 'Tajawal', sans-serif; }
+.hidden-input { display: none; }
 
-/* ================= NAV & CONTENT ================= */
-.nav {
-    display: flex; gap: 8px; margin: 15px 0; 
-    background: rgba(0,0,0,0.1); padding: 5px; border-radius: 12px;
-    flex-wrap: wrap; /* Biar responsive */
-}
-.nav button {
-    flex: 1; background: transparent; color: white;
-    border: none; padding: 10px 5px; border-radius: 8px;
-    font-weight: 700; cursor: pointer; transition: all 0.3s;
-    font-family: 'Tajawal', sans-serif; font-size: 0.9rem;
-}
-.nav button.active {
-    background: white; color: var(--primary-dark);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+/* NAV & CONTENT */
+.nav { display: flex; gap: 8px; margin: 15px 0; background: rgba(0,0,0,0.1); padding: 5px; border-radius: 12px; flex-wrap: wrap; }
+.nav button { flex: 1; background: transparent; color: white; border: none; padding: 10px 5px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: 'Tajawal', sans-serif; font-size: 0.85rem; }
+.nav button.active { background: white; color: var(--primary-dark); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-.card {
-    background: white; padding: 20px; border-radius: 15px;
-    box-shadow: var(--shadow-3d); margin-bottom: 20px;
-    border-bottom: 5px solid #ddd;
-    animation: slideUp 0.5s ease forwards;
-}
+.card { background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow-3d); margin-bottom: 20px; border-bottom: 5px solid #ddd; animation: slideUp 0.5s ease forwards; }
 
-.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
-.stat-card {
-    padding: 15px; border-radius: 12px; color: white; position: relative; overflow: hidden;
-    border-bottom: 4px solid rgba(0,0,0,0.2);
-    box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
-}
-.stat-card.saldo { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
-.stat-card.masuk { background: linear-gradient(135deg, #0f766e, #10b981); }
-.stat-card.keluar { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+/* Dashboard Cards Grid */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.stat-card { padding: 12px; border-radius: 10px; color: white; position: relative; overflow: hidden; border-bottom: 4px solid rgba(0,0,0,0.2); }
 .stat-card h3 { margin: 0; font-size: 11px; opacity: 0.9; font-family: 'Tajawal', sans-serif; }
-.stat-card p { margin: 5px 0 0; font-size: 16px; font-weight: 700; }
+.stat-card p { margin: 5px 0 0; font-size: 14px; font-weight: 700; }
+/* Warna Spesifik */
+.bg-blue { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+.bg-green { background: linear-gradient(135deg, #0f766e, #10b981); }
+.bg-red { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+.bg-orange { background: linear-gradient(135deg, #c2410c, #fb923c); }
+.bg-purple { background: linear-gradient(135deg, #6b21a8, #a855f7); }
+.bg-teal { background: linear-gradient(135deg, #115e59, #2dd4bf); }
 
-.btn-3d {
-    cursor: pointer; padding: 10px 15px; border: none; border-radius: 8px;
-    font-weight: 700; font-size: 12px; color: white;
-    background: var(--primary);
-    border-bottom: 4px solid #0a6b61;
-    transition: all 0.1s;
-    display: inline-flex; align-items: center; gap: 5px;
-    text-decoration: none; /* Biar link bisa pakai class ini */
-}
+.btn-3d { cursor: pointer; padding: 10px 15px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; color: white; background: var(--primary); border-bottom: 4px solid #0a6b61; transition: all 0.1s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
 .btn-3d:active { transform: translateY(4px); }
 .btn-3d.secondary { background: var(--secondary); border-color: #1e3a8a; }
 .btn-3d.accent { background: var(--accent); color: #000; border-color: #d97706; }
 .btn-3d.danger { background: #ef4444; border-color: #b91c1c; }
 .btn-3d.full { width: 100%; justify-content: center; }
-.btn-3d.outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); border-bottom: 2px solid var(--primary); }
-.btn-3d.outline:hover { background: var(--primary); color: white; }
+.btn-3d.small { padding: 6px 10px; font-size: 11px; }
 
-input, select, textarea {
-    width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #e5e7eb;
-    border-radius: 8px; box-sizing: border-box; font-family: 'Nunito', sans-serif; font-size: 13px;
-}
+input, select, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #e5e7eb; border-radius: 8px; box-sizing: border-box; font-family: 'Nunito', sans-serif; font-size: 13px; }
 input:focus, select:focus { border-color: var(--primary); outline: none; }
 
 .table-container { overflow-x: auto; margin-top: 10px; }
 table { width: 100%; border-collapse: collapse; min-width: 600px; }
 th, td { padding: 8px 10px; text-align: left; border-bottom: 2px solid #f3f4f6; font-size: 11px; }
-th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-family: 'Tajawal', sans-serif; }
+th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 .badge { padding: 2px 6px; border-radius: 10px; font-size: 9px; font-weight: 600; }
 .badge-success { background: #d1fae5; color: #065f46; }
 .badge-danger { background: #fee2e2; color: #991b1b; }
 
 .chart-box { width: 60%; margin: 0 auto; height: 200px; position: relative; padding: 10px; filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); }
 
-/* Link Card Style */
-.link-card {
-    display: block; background: #f0fdfa; border: 1px solid #ccfbf1;
-    border-radius: 8px; padding: 12px; margin-bottom: 10px;
-    text-decoration: none; color: var(--text-main);
-    transition: all 0.2s; border-left: 4px solid var(--primary);
-}
-.link-card:hover { background: white; transform: translateX(5px); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.link-card { display: block; background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 8px; padding: 12px; margin-bottom: 10px; text-decoration: none; color: var(--text-main); transition: all 0.2s; border-left: 4px solid var(--primary); }
+.link-card:hover { background: white; transform: translateX(5px); }
 .link-card h4 { margin: 0 0 5px 0; color: var(--primary-dark); font-size: 1rem; font-family: 'Tajawal', sans-serif; }
 .link-card p { margin: 0; font-size: 0.8rem; color: #666; }
 
@@ -230,53 +103,54 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
 <!-- MODAL EDIT PROFIL -->
 <div id="editModal" class="modal-overlay">
     <div class="modal-content">
-        <h3><i class="fas fa-edit"></i> Edit Profil Lembaga</h3>
+        <h3><i class="fas fa-user-cog"></i> Pengaturan Profil</h3>
+        <center>
+            <img id="previewLogo" src="https://via.placeholder.com/100?text=Logo" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--primary);">
+        </center>
+        <input type="file" id="logoFileInput" class="hidden-input" accept="image/*" onchange="previewImage(this)">
+        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo (Internal)</button>
+        
         <label>Nama Lembaga</label>
-        <input type="text" id="inputNamaLembaga" placeholder="Contoh: Ponpes Al-Hikmah">
+        <input type="text" id="inputNamaLembaga" placeholder="Nama Lembaga">
         <label>Alamat</label>
         <textarea id="inputAlamat" rows="2" placeholder="Alamat lengkap..."></textarea>
-        <label>URL Logo (Opsional)</label>
-        <input type="text" id="inputLogoUrl" placeholder="https://.../logo.png">
-        <div style="display:flex; gap:10px;">
+        
+        <div style="display:flex; gap:10px; margin-top:10px;">
             <button class="btn-3d secondary" onclick="closeModal()"><i class="fas fa-times"></i> Batal</button>
             <button class="btn-3d full" onclick="saveProfile()"><i class="fas fa-save"></i> Simpan</button>
         </div>
+        <hr style="margin: 15px 0; border-style: dashed;">
+        <button class="btn-3d accent full" onclick="shareProfileLink()"><i class="fas fa-share-alt"></i> Share Profil ke Orang Lain</button>
     </div>
 </div>
 
-<!-- HEADER UTAMA -->
+<!-- HEADER -->
 <header class="main-header">
     <div class="header-content">
-        <img id="imgLogo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODAiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Logo" class="profile-logo">
+        <img id="imgLogo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODAiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Logo" class="profile-logo" onclick="openModal()">
         
         <div class="profile-info">
             <h1 id="txtNamaLembaga" class="institution-name">Nama Pesantren Anda</h1>
-            <p id="txtAlamat" class="institution-address">Klik icon pensil untuk mengatur profil</p>
+            <p id="txtAlamat" class="institution-address">Klik logo untuk mengatur profil</p>
         </div>
         
-        <button class="edit-btn-header" onclick="openModal()"><i class="fas fa-pencil"></i></button>
+        <div class="header-actions">
+             <button class="icon-btn" onclick="openModal()" title="Edit Profil"><i class="fas fa-pencil"></i></button>
+        </div>
     </div>
 
     <div class="header-meta">
-        <div class="hijri-box">
-            <i class="fas fa-moon"></i>
-            <span id="hijriDate">Memuat Tanggal...</span>
-        </div>
-        <div class="clock-box">
-            <i class="fas fa-clock"></i> <span id="time">--:--</span>
-        </div>
+        <div class="hijri-box"><i class="fas fa-moon"></i> <span id="hijriDate">Memuat...</span></div>
+        <div class="clock-box"><i class="fas fa-clock"></i> <span id="time">--:--</span></div>
     </div>
 </header>
 
-<!-- SLOGAN BAR -->
+<!-- SLOGAN -->
 <div class="slogan-bar">
     <div class="marquee-text">
-        Modern & Akuntabel &nbsp;&nbsp;•&nbsp;&nbsp; 
-        Allah memusnahkan riba dan menyuburkan sedekah (QS. Al-Baqarah: 276) &nbsp;&nbsp;•&nbsp;&nbsp; 
-        Sedekah itu dapat menghapus dosa sebagaimana air memadamkan api (HR. Tirmidzi) &nbsp;&nbsp;•&nbsp;&nbsp;
-        Makanlah yang halal lagi baik dan berbuat kebaikan (QS. Al-Mu'minun: 51) &nbsp;&nbsp;•&nbsp;&nbsp;
-        Tidaklah manusia meletakkan transaksi riba yang lebih besar daripada dosa meletakkan benih zina (HR. Ath-Thabrani) &nbsp;&nbsp;•&nbsp;&nbsp;
-        Setiap amalan kebaikan adalah sedekah (HR. Bukhari) &nbsp;&nbsp;•&nbsp;&nbsp;
+        Modern & Akuntabel &nbsp;&nbsp;•&nbsp;&nbsp; Allah memusnahkan riba dan menyuburkan sedekah (QS. Al-Baqarah: 276) &nbsp;&nbsp;•&nbsp;&nbsp; 
+        Sedekah itu dapat menghapus dosa (HR. Tirmidzi) &nbsp;&nbsp;•&nbsp;&nbsp;
+        Makanlah yang halal lagi baik (QS. Al-Mu'minun: 51) &nbsp;&nbsp;•&nbsp;&nbsp;
     </div>
 </div>
 
@@ -290,7 +164,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
         <button onclick="showPage('info')" id="nav-info"><i class="fas fa-info-circle"></i> Info</button>
     </div>
 
-    <!-- DASHBOARD PAGE -->
+    <!-- DASHBOARD -->
     <div id="dashboard" class="page">
         <div class="card" style="padding:15px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
@@ -304,38 +178,62 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
             </div>
         </div>
         
+        <!-- RINGKASAN UTAMA -->
         <div class="stat-grid">
-            <div class="stat-card saldo"><h3>Total Saldo</h3><p id="saldo">Rp 0</p><i class="fas fa-piggy-bank stat-icon"></i></div>
-            <div class="stat-card masuk"><h3>Pemasukan</h3><p id="masuk">Rp 0</p><i class="fas fa-hand-holding-dollar stat-icon"></i></div>
-            <div class="stat-card keluar"><h3>Pengeluaran</h3><p id="keluar">Rp 0</p><i class="fas fa-receipt stat-icon"></i></div>
+            <div class="stat-card bg-blue"><h3>Total Saldo</h3><p id="saldo">Rp 0</p></div>
+            <div class="stat-card bg-green"><h3>Total Pemasukan</h3><p id="masuk">Rp 0</p></div>
+            <div class="stat-card bg-red"><h3>Total Pengeluaran</h3><p id="keluar">Rp 0</p></div>
+        </div>
+
+        <!-- RINCIAN KATEGORI -->
+        <h4 style="color:white; margin:10px 0;">Rincian Pemasukan</h4>
+        <div class="stat-grid" id="pemasukanCards">
+            <div class="stat-card bg-teal"><h3>Donatur</h3><p id="cat-donatur">Rp 0</p></div>
+            <div class="stat-card bg-teal"><h3>Infaq / SPP</h3><p id="cat-infaq">Rp 0</p></div>
+            <div class="stat-card bg-teal"><h3>Hasil Usaha</h3><p id="cat-usaha">Rp 0</p></div>
+        </div>
+
+        <h4 style="color:white; margin:10px 0;">Rincian Pengeluaran</h4>
+        <div class="stat-grid" id="pengeluaranCards">
+            <div class="stat-card bg-orange"><h3>Operasional</h3><p id="cat-operasional">Rp 0</p></div>
+            <div class="stat-card bg-orange"><h3>Dapur</h3><p id="cat-dapur">Rp 0</p></div>
+            <div class="stat-card bg-orange"><h3>Outing</h3><p id="cat-outing">Rp 0</p></div>
+            <div class="stat-card bg-orange"><h3>Sosial</h3><p id="cat-sosial">Rp 0</p></div>
+            <div class="stat-card bg-orange"><h3>Restok</h3><p id="cat-restok">Rp 0</p></div>
         </div>
         
         <div class="card">
-            <div class="chart-box">
-                <canvas id="chart"></canvas>
-            </div>
+            <div class="chart-box"><canvas id="chart"></canvas></div>
         </div>
     </div>
 
-    <!-- KEUANGAN PAGE -->
+    <!-- KEUANGAN -->
     <div id="keuangan" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-size:1.2rem;"><i class="fas fa-edit"></i> Input Transaksi</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div><label>Tanggal</label><input id="tanggal" type="date"></div>
-                <div><label>Kategori</label>
-                    <select id="kategoriKeuangan" onchange="toggleInput()">
-                        <option value="">Pilih Kategori</option>
+                <div>
+                    <label>Kategori Utama</label>
+                    <select id="kategoriUtama" onchange="updateSubKategori()">
+                        <option value="">Pilih...</option>
                         <option value="Pemasukan">Pemasukan</option>
                         <option value="Pengeluaran">Pengeluaran</option>
                     </select>
                 </div>
             </div>
-            <label>Keterangan</label><input id="keterangan" placeholder="Contoh: SPP Januari">
+            <label>Keterangan</label><input id="keterangan" placeholder="Contoh: Donatur Pak Budi">
+            
+            <label>Sub Kategori</label>
+            <select id="subKategori">
+                <option value="">Pilih Kategori Utama dulu</option>
+            </select>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div><label>Masuk (Rp)</label><input id="masukInput" disabled></div>
-                <div><label>Keluar (Rp)</label><input id="keluarInput" disabled></div>
+                <div><label>Jumlah (Rp)</label><input id="jumlahUang" type="number" placeholder="Masukkan nominal"></div>
+                <div><label>Pelapor</label><input id="pelapor" placeholder="Nama Pelapor"></div>
             </div>
+            
             <input type="hidden" id="editIdKeuangan">
             <div style="display:flex; gap:10px; margin-top:10px;">
                 <button class="btn-3d full" onclick="kirimKeuangan()"><i class="fas fa-save"></i> Simpan</button>
@@ -349,14 +247,14 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
             </div>
             <div class="table-container">
                 <table id="tableKeuangan">
-                    <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Masuk</th><th>Keluar</th><th>Aksi</th></tr></thead>
+                    <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Jumlah</th><th>Aksi</th></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- INVENTARIS PAGE -->
+    <!-- INVENTARIS -->
     <div id="inventaris" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-size:1.2rem;"><i class="fas fa-boxes-stacked"></i> Input Inventaris</h2>
@@ -377,43 +275,20 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
         </div>
     </div>
 
-    <!-- ARAB PAGE (NEW) -->
+    <!-- ARAB -->
     <div id="arab" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Pusat Bahasa Arab</h2>
             <p>Belajar dan mengembangkan kemampuan bahasa Arab untuk keperluan muamalah dan sehari-hari.</p>
-            
-            <h4 style="margin-bottom:10px; color:var(--primary-dark);">Kamus & Terjemah</h4>
-            <a href="https://www.almaany.com/" target="_blank" class="link-card">
-                <h4><i class="fas fa-globe"></i> Almaany Arabic Dictionary</h4>
-                <p>Kamus Arab terlengkap dengan berbagai konteks dan terjemahan multibahasa.</p>
-            </a>
-            
-            <h4 style="margin-top:20px; margin-bottom:10px; color:var(--primary-dark);">Materi Pembelajaran</h4>
-            
-            <a href="https://www.loecsen.com/id/unduh-mp3-dan-pdf-bahasa-arab" target="_blank" class="link-card">
-                <h4><i class="fas fa-headphones"></i> Loecsen Arabic Course</h4>
-                <p>Kursus bahasa Arab dengan fitur unduh MP3 dan PDF untuk latihan mendengar.</p>
-            </a>
-
-            <a href="https://perpustakaan.iaiskjmalang.ac.id/wp-content/uploads/2023/08/10-Percakapan-Sehari-hari_-Berbahasa-Indonesia-Arab.pdf" target="_blank" class="link-card">
-                <h4><i class="fas fa-file-pdf"></i> PDF Percakapan Sehari-hari</h4>
-                <p>Panduan praktis percakapan Arab sehari-hari (Indonesia-Arab).</p>
-            </a>
-
-            <a href="https://repository.uin-malang.ac.id/1468/" target="_blank" class="link-card">
-                <h4><i class="fas fa-briefcase"></i> Percakapan Arab Muamalah/Kerja</h4>
-                <p>Materi percakapan bisnis dan pekerjaan (muamalah) dalam bahasa Arab.</p>
-            </a>
-
-            <a href="https://hidupkita.com/kosakata-bahasa-arab-sehari-hari-pdf/" target="_blank" class="link-card">
-                <h4><i class="fas fa-book"></i> Kosakata Arab Sehari-hari (PDF)</h4>
-                <p>Kumpulan kosakata esensial yang sering digunakan dalam aktivitas sehari-hari.</p>
-            </a>
+            <a href="https://www.almaany.com/" target="_blank" class="link-card"><h4><i class="fas fa-globe"></i> Almaany Arabic Dictionary</h4><p>Kamus Arab terlengkap.</p></a>
+            <a href="https://www.loecsen.com/id/unduh-mp3-dan-pdf-bahasa-arab" target="_blank" class="link-card"><h4><i class="fas fa-headphones"></i> Loecsen Arabic Course</h4><p>Kursus dengan MP3 dan PDF.</p></a>
+            <a href="https://perpustakaan.iaiskjmalang.ac.id/wp-content/uploads/2023/08/10-Percakapan-Sehari-hari_-Berbahasa-Indonesia-Arab.pdf" target="_blank" class="link-card"><h4><i class="fas fa-file-pdf"></i> PDF Percakapan Sehari-hari</h4><p>Panduan praktis.</p></a>
+            <a href="https://repository.uin-malang.ac.id/1468/" target="_blank" class="link-card"><h4><i class="fas fa-briefcase"></i> Percakapan Arab Muamalah</h4><p>Materi bisnis dan kerja.</p></a>
+            <a href="https://hidupkita.com/kosakata-bahasa-arab-sehari-hari-pdf/" target="_blank" class="link-card"><h4><i class="fas fa-book"></i> Kosakata Arab Sehari-hari</h4><p>Kumpulan kosakata esensial.</p></a>
         </div>
     </div>
 
-    <!-- INFO PAGE (NEW) -->
+    <!-- INFO -->
     <div id="info" class="page hidden">
         <div class="card" style="text-align:center;">
             <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzFmMjkzNyIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjQwIiBmaWxsPSIjZmJiZjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JVzwvdGV4dD48L3N2Zz4=" alt="Dev Logo" style="width:80px; border-radius:50%; margin-bottom:10px;">
@@ -423,7 +298,6 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
                 <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak Pengembang</p>
                 <a href="tel:087812203039" style="font-size:1.2rem; color:var(--text-main); text-decoration:none; font-weight:800;">0878-1220-3039</a>
             </div>
-            <p style="margin-top:20px; font-size:0.8rem; color:#999;">Versi 2.0 | Web App Pesantren Modern</p>
         </div>
     </div>
 </div>
@@ -432,56 +306,98 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; font-fam
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
 let chart;
 
+// --- KATEGORI DATA ---
+const kategoriData = {
+    "Pemasukan": ["Donatur", "Infaq / SPP", "Hasil Usaha"],
+    "Pengeluaran": ["Operasional", "Dapur", "Kegiatan Outing", "Kegiatan Sosial", "Restok Barang"]
+};
+
 // --- UTILS & PROFILE ---
 function loadProfile() {
-    const nama = localStorage.getItem('namaLembaga') || 'Pesantren Modern';
-    const alamat = localStorage.getItem('alamat') || 'Silakan edit profil lembaga';
-    const logo = localStorage.getItem('logoUrl');
+    // Cek URL Params dulu (untuk Share)
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedName = urlParams.get('n');
+    const sharedAddr = urlParams.get('a');
+
+    if(sharedName) localStorage.setItem('namaLembaga', decodeURIComponent(sharedName));
+    if(sharedAddr) localStorage.setItem('alamat', decodeURIComponent(sharedAddr));
+
+    const nama = localStorage.getItem('namaLembaga') || 'Nama Pesantren';
+    const alamat = localStorage.getItem('alamat') || 'Alamat Lembaga';
+    let logo = localStorage.getItem('logoBase64');
     
     document.getElementById('txtNamaLembaga').innerText = nama;
     document.getElementById('txtAlamat').innerText = alamat;
-    if(logo) document.getElementById('imgLogo').src = logo;
-    
     document.getElementById('inputNamaLembaga').value = nama;
     document.getElementById('inputAlamat').value = alamat;
-    document.getElementById('inputLogoUrl').value = logo || '';
+    
+    // Default logo if null
+    if(!logo) {
+        logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODAiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
+    }
+    
+    document.getElementById('imgLogo').src = logo;
+    document.getElementById('previewLogo').src = logo;
 }
 
-function openModal() { document.getElementById('editModal').style.display = 'flex'; speak("Membuka pengaturan profil."); }
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('previewLogo').src = e.target.result;
+            // Simpan sementara di hidden input atau langsung update saat simpan
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function openModal() { document.getElementById('editModal').style.display = 'flex'; speak("Buka pengaturan profil."); }
 function closeModal() { document.getElementById('editModal').style.display = 'none'; }
 
 function saveProfile() {
     const nama = document.getElementById('inputNamaLembaga').value;
     const alamat = document.getElementById('inputAlamat').value;
-    const logo = document.getElementById('inputLogoUrl').value;
+    const logoSrc = document.getElementById('previewLogo').src;
     
     localStorage.setItem('namaLembaga', nama);
     localStorage.setItem('alamat', alamat);
-    localStorage.setItem('logoUrl', logo);
+    localStorage.setItem('logoBase64', logoSrc);
     
     loadProfile();
     closeModal();
-    speak("Profil berhasil disimpan.");
+    speak("Profil disimpan.");
+}
+
+function shareProfileLink() {
+    const nama = encodeURIComponent(document.getElementById('inputNamaLembaga').value);
+    const alamat = encodeURIComponent(document.getElementById('inputAlamat').value);
+    const link = window.location.origin + window.location.pathname + "?n=" + nama + "&a=" + alamat;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Profil Keuangan Pesantren',
+            text: 'Gunakan data profil ini untuk input keuangan:',
+            url: link
+        }).catch(console.error);
+    } else {
+        // Fallback copy to clipboard
+        prompt("Salin link ini dan kirim ke orang lain:", link);
+    }
+    speak("Link profil disalin.");
 }
 
 // --- CLOCK & HIJRI ---
-function updateClock() {
-    document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-}
+function updateClock() { document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
 function updateHijri() {
     try {
-        const now = new Date();
         const opt = { calendar: 'islamic', day: 'numeric', month: 'long', year: 'numeric' };
-        const hijri = new Intl.DateTimeFormat('id-u-ca-islamic', opt).format(now);
+        const hijri = new Intl.DateTimeFormat('id-u-ca-islamic', opt).format(new Date());
         document.getElementById('hijriDate').innerText = hijri;
-    } catch(e) {
-        document.getElementById('hijriDate').innerText = "Tanggal Hijriyah";
-    }
+    } catch(e) { document.getElementById('hijriDate').innerText = "Error"; }
 }
-setInterval(updateClock, 1000); updateClock();
-updateHijri();
+setInterval(updateClock, 1000); updateClock(); updateHijri();
 
-// --- SPEECH LOGIC (No Animation) ---
+// --- SPEECH ---
 function speak(text) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -501,33 +417,43 @@ function showPage(page){
     if(page === 'dashboard') { loadDashboard(); speak("Halaman Dashboard."); }
     else if(page === 'keuangan') { loadRiwayatKeuangan(); speak("Halaman Keuangan."); }
     else if(page === 'inventaris') { loadRiwayatInventaris(); speak("Halaman Inventaris."); }
-    else if(page === 'arab') { speak("Pusat pembelajaran bahasa Arab."); }
-    else if(page === 'info') { speak("Informasi pengembang."); }
+    else if(page === 'arab') { speak("Pusat Bahasa Arab."); }
+    else if(page === 'info') { speak("Informasi Pengembang."); }
 }
 
 // --- KEUANGAN LOGIC ---
-function toggleInput(){
-    const k = document.getElementById("kategoriKeuangan").value;
-    document.getElementById("masukInput").disabled = k !== "Pemasukan";
-    document.getElementById("keluarInput").disabled = k !== "Pengeluaran";
-    if(k === "Pemasukan") document.getElementById("keluarInput").value = "";
-    if(k === "Pengeluaran") document.getElementById("masukInput").value = "";
+function updateSubKategori() {
+    const main = document.getElementById("kategoriUtama").value;
+    const subSelect = document.getElementById("subKategori");
+    subSelect.innerHTML = "<option value=''>Pilih Sub Kategori</option>";
+    
+    if(main && kategoriData[main]) {
+        kategoriData[main].forEach(item => {
+            const opt = document.createElement("option");
+            opt.value = item;
+            opt.innerText = item;
+            subSelect.appendChild(opt);
+        });
+    }
 }
 
-function kirimKeuangan(){
+function kirimKeuangan() {
     const id = document.getElementById("editIdKeuangan").value;
+    const mainKat = document.getElementById("kategoriUtama").value;
+    const subKat = document.getElementById("subKategori").value;
+    
     const data = {
         action: id ? "update_keuangan" : "keuangan",
         id: id,
         tanggal: document.getElementById("tanggal").value,
         keterangan: document.getElementById("keterangan").value,
-        kategori: document.getElementById("kategoriKeuangan").value,
-        masuk: document.getElementById("masukInput").value,
-        keluar: document.getElementById("keluarInput").value,
-        pelapor: document.getElementById("inputNamaLembaga").value || "Admin"
+        kategori: `${mainKat} - ${subKat}`, // Gabungan
+        masuk: mainKat === "Pemasukan" ? document.getElementById("jumlahUang").value : 0,
+        keluar: mainKat === "Pengeluaran" ? document.getElementById("jumlahUang").value : 0,
+        pelapor: document.getElementById("pelapor").value
     };
     
-    if(!data.kategori || !data.tanggal) { alert("Lengkapi tanggal & kategori!"); speak("Mohon lengkapi data."); return; }
+    if(!data.kategori || !data.tanggal) { alert("Lengkapi data!"); return; }
 
     fetch(API, { method: "POST", body: JSON.stringify(data) })
     .then(res => res.text())
@@ -536,32 +462,38 @@ function kirimKeuangan(){
         loadDashboard();
         loadRiwayatKeuangan();
         cancelEdit();
-        speak("Data transaksi berhasil disimpan.");
+        speak("Transaksi disimpan.");
     });
 }
 
-function editKeuangan(id, tgl, ket, kat, masuk, keluar) {
+function editKeuangan(id, tgl, ket, kat, jml, type) {
     document.getElementById("editIdKeuangan").value = id;
     document.getElementById("tanggal").value = tgl;
     document.getElementById("keterangan").value = ket;
-    document.getElementById("kategoriKeuangan").value = kat;
-    toggleInput();
-    document.getElementById("masukInput").value = masuk;
-    document.getElementById("keluarInput").value = keluar;
+    document.getElementById("jumlahUang").value = jml;
+    document.getElementById("pelapor").value = ""; // Reset pelapor or parse from data if available
+    
+    // Parse Kategori: "Pemasukan - Donatur"
+    const parts = kat.split(' - ');
+    const main = parts[0].trim();
+    const sub = parts[1] ? parts[1].trim() : "";
+    
+    document.getElementById("kategoriUtama").value = main;
+    updateSubKategori();
+    document.getElementById("subKategori").value = sub;
+    
     document.getElementById("btnCancel").classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    speak("Mode edit data aktif.");
+    speak("Mode edit aktif.");
 }
 
 function cancelEdit() {
     document.getElementById("editIdKeuangan").value = "";
     document.getElementById("keterangan").value = "";
-    document.getElementById("masukInput").value = "";
-    document.getElementById("keluarInput").value = "";
-    document.getElementById("kategoriKeuangan").value = "";
-    toggleInput();
+    document.getElementById("jumlahUang").value = "";
+    document.getElementById("kategoriUtama").value = "";
+    document.getElementById("subKategori").innerHTML = "<option value=''>Pilih dulu</option>";
     document.getElementById("btnCancel").classList.add("hidden");
-    speak("Edit dibatalkan.");
 }
 
 function loadDashboard(){
@@ -569,9 +501,31 @@ function loadDashboard(){
     .then(res => res.json())
     .then(data => {
         const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+        
+        // Total Utama
         document.getElementById("saldo").innerText = fmt.format(data.saldo || 0);
         document.getElementById("masuk").innerText = fmt.format(data.masuk || 0);
         document.getElementById("keluar").innerText = fmt.format(data.keluar || 0);
+        
+        // Breakdown Kategori
+        // Reset semua dulu
+        const cats = ["Donatur", "Infaq / SPP", "Hasil Usaha", "Operasional", "Dapur", "Outing", "Sosial", "Restok"];
+        cats.forEach(c => {
+            const el = document.getElementById("cat-" + c.toLowerCase().replace("/ ", "").replace(" ", ""));
+            if(el) el.innerText = "Rp 0";
+        });
+
+        // Isi dari data breakdown
+        if(data.breakdown) {
+            data.breakdown.forEach(b => {
+                // b.kategori format: "Pemasukan - Donatur"
+                const key = b.kategori.split(' - ')[1]; // Ambil "Donatur"
+                const idKey = "cat-" + key.toLowerCase().replace("/ ", "").replace(" ", "").replace("kegiatan ", "");
+                const el = document.getElementById(idKey);
+                if(el) el.innerText = fmt.format(b.total);
+            });
+        }
+
         drawChart(data.masuk || 0, data.keluar || 0);
     });
 }
@@ -584,19 +538,27 @@ function loadRiwayatKeuangan(){
         tbody.innerHTML = "";
         if(data && data.length > 0){
             data.forEach(row => {
+                const isMasuk = row[3].includes("Pemasukan");
+                const jml = isMasuk ? row[4] : row[5];
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td>${row[1]}</td><td>${row[2]}</td>
-                    <td><span class="badge ${row[3] == 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td>
-                    <td style="color:green">${row[4]}</td><td style="color:red">${row[5]}</td>
-                    <td><button class='btn-3d secondary' style='padding:2px 6px; font-size:9px;' onclick="editKeuangan('${row[0]}','${row[1]}','${row[2]}','${row[3]}','${row[4]}','${row[5]}')"><i class='fas fa-edit'></i></button></td>`;
+                    <td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td>
+                    <td style="color:${isMasuk ? 'green' : 'red'}; font-weight:bold;">${jml}</td>
+                    <td><button class='btn-3d secondary small' onclick="editKeuangan('${row[0]}','${row[1]}','${row[2]}','${row[3]}','${jml}','${isMasuk ? 'masuk' : 'keluar'}')"><i class='fas fa-edit'></i></button></td>`;
                 tbody.appendChild(tr);
             });
-        } else { tbody.innerHTML = "<tr><td colspan='6' style='text-align:center'>Belum ada data</td></tr>"; }
+        } else { tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Belum ada data</td></tr>"; }
     });
 }
 
-function loadRiwayatInventaris(){
+// --- INVENTARIS ---
+function kirimInventaris() {
+    const data = { action: "inventaris", barang: document.getElementById("barang").value, jumlah: document.getElementById("jumlah").value, tipe: document.getElementById("tipe").value };
+    fetch(API, { method: "POST", body: JSON.stringify(data) }).then(res => res.text()).then(res => { alert(res); loadRiwayatInventaris(); speak("Inventaris disimpan."); });
+}
+
+function loadRiwayatInventaris() {
     fetch(API + "?action=riwayat_inventaris")
     .then(res => res.json())
     .then(data => {
@@ -612,13 +574,6 @@ function loadRiwayatInventaris(){
     });
 }
 
-function kirimInventaris(){
-    const data = { action: "inventaris", barang: document.getElementById("barang").value, jumlah: document.getElementById("jumlah").value, tipe: document.getElementById("tipe").value };
-    fetch(API, { method: "POST", body: JSON.stringify(data) })
-    .then(res => res.text())
-    .then(res => { alert(res); loadRiwayatInventaris(); speak("Inventaris berhasil disimpan."); });
-}
-
 // --- CHART ---
 function drawChart(masuk, keluar){
     const ctx = document.getElementById("chart").getContext('2d');
@@ -626,52 +581,102 @@ function drawChart(masuk, keluar){
     chart = new Chart(ctx, {
         type: "doughnut",
         data: { labels: ["Pemasukan", "Pengeluaran"], datasets: [{ data: [masuk, keluar], backgroundColor: ["#0f766e", "#ef4444"], borderWidth: 0 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
 }
 
-// --- PDF ---
+// --- PDF WITH KOP SURAT ---
+function addKopSurat(doc) {
+    const nama = localStorage.getItem('namaLembaga') || "Nama Pesantren";
+    const alamat = localStorage.getItem('alamat') || "Alamat Pesantren";
+    const logo = localStorage.getItem('logoBase64');
+    
+    try {
+        if(logo) doc.addImage(logo, 'PNG', 15, 10, 25, 25); // x, y, w, h
+    } catch(e) { console.log("Logo error"); }
+
+    doc.setFontSize(18);
+    doc.setTextColor(15, 118, 110);
+    doc.text(nama, 45, 20);
+    
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text(alamat, 45, 27);
+    
+    doc.setDrawColor(209, 213, 219);
+    doc.line(15, 40, 195, 40); // Garis pembatas
+    
+    return 50; // Return starting Y position after header
+}
+
 function printDashboard() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const nama = document.getElementById('txtNamaLembaga').innerText;
-    const alamat = document.getElementById('txtAlamat').innerText;
+    let y = addKopSurat(doc);
     
-    doc.setFontSize(20); doc.setTextColor(15, 118, 110);
-    doc.text(nama, 105, 20, null, null, "center");
-    doc.setFontSize(10); doc.setTextColor(100);
-    doc.text(alamat, 105, 26, null, null, "center");
+    doc.setFontSize(14);
+    doc.setTextColor(0);
+    doc.text("Laporan Ringkasan Keuangan", 105, y, null, null, "center");
+    y += 15;
+
+    doc.setFontSize(11);
+    doc.text(`Total Saldo: ${document.getElementById("saldo").innerText}`, 20, y); y+=10;
+    doc.text(`Total Pemasukan: ${document.getElementById("masuk").innerText}`, 20, y); y+=10;
+    doc.text(`Total Pengeluaran: ${document.getElementById("keluar").innerText}`, 20, y); y+=10;
     
-    doc.setFontSize(12); doc.setTextColor(0);
-    doc.text(`Saldo: ${document.getElementById("saldo").innerText}`, 20, 50);
-    doc.text(`Masuk: ${document.getElementById("masuk").innerText}`, 20, 60);
-    doc.text(`Keluar: ${document.getElementById("keluar").innerText}`, 20, 70);
-    doc.save("Dashboard.pdf");
-    speak("Laporan PDF diunduh.");
+    // Tambah rincian sederhana
+    y += 10;
+    doc.setFontSize(12).setTextColor(15, 118, 110).text("Rincian:", 20, y); y+=7;
+    doc.setFontSize(10).setTextColor(0);
+    
+    document.querySelectorAll('#pemasukanCards .stat-card, #pengeluaranCards .stat-card').forEach(card => {
+        const title = card.querySelector('h3').innerText;
+        const val = card.querySelector('p').innerText;
+        doc.text(`${title}: ${val}`, 20, y);
+        y+=7;
+    });
+
+    doc.save("Dashboard-Laporan.pdf");
+    speak("PDF diunduh.");
 }
 
 function printKeuangan() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const nama = document.getElementById('txtNamaLembaga').innerText;
-    doc.text(`Riwayat Keuangan - ${nama}`, 105, 20, null, null, "center");
-    let y=40;
-    doc.setFontSize(10);
-    doc.text("Tgl | Keterangan | Masuk | Keluar", 20, y); y+=10;
+    let y = addKopSurat(doc);
+    
+    doc.setFontSize(14);
+    doc.text("Laporan Riwayat Transaksi", 105, y, null, null, "center");
+    y += 10;
+    
+    doc.setFontSize(9);
+    // Table Header Manual
+    doc.setTextColor(255).setFillColor(15, 118, 110);
+    doc.rect(15, y, 180, 7, 'F');
+    doc.text("Tanggal", 17, y+5);
+    doc.text("Keterangan", 45, y+5);
+    doc.text("Kategori", 110, y+5);
+    doc.text("Jumlah", 160, y+5);
+    y += 7;
+
+    doc.setTextColor(0);
     fetch(API + "?action=riwayat_keuangan").then(r=>r.json()).then(data=>{
         data.forEach(r=>{
-            if(y>280){doc.addPage(); y=20;}
-            doc.text(`${r[1]} | ${r[2]} | ${r[4]} | ${r[5]}`, 20, y); y+=7;
+            if(y > 270){ doc.addPage(); y = 20; }
+            doc.text(`${r[1]}`, 17, y);
+            doc.text(`${String(r[2]).substring(0, 25)}`, 45, y);
+            doc.text(`${String(r[3]).substring(0, 20)}`, 110, y);
+            doc.text(`${r[4] || r[5]}`, 160, y);
+            y+=7;
         });
-        doc.save("Riwayat.pdf");
-        speak("Laporan PDF diunduh.");
+        doc.save("Riwayat-Transaksi.pdf");
+        speak("PDF Riwayat diunduh.");
     });
 }
 
 // INIT
 loadProfile();
 showPage('dashboard');
-
 </script>
 </body>
 </html>
