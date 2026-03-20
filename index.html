@@ -227,8 +227,8 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
         
         <label>Status Pembayaran</label>
         <select id="trStatus">
-            <option value="Lunas">Lunas (Buat Struk)</option>
-            <option value="Hutang">Hutang (Buat Invoice/Tagihan)</option>
+            <option value="Lunas">Lunas</option>
+            <option value="Tagihan">Tagihan (Belum Bayar)</option>
         </select>
         
         <button class="btn-3d purple full" onclick="prosesTransaksi()" style="margin-top:10px;"><i class="fas fa-print"></i> Simpan & Cetak Nota</button>
@@ -542,8 +542,7 @@ function prosesTransaksi() {
         tipe: "Keluar"
     };
 
-    // Tambahkan ke lokal untuk perhitungan stok (jika API lambat)
-    inventoryData.push({ barang: barang, jumlah: -jumlah }); // negative for outgoing
+    inventoryData.push({ barang: barang, jumlah: -jumlah });
 
     fetch(API, { method: "POST", body: JSON.stringify(dataInv) })
     .then(res => res.text())
@@ -558,7 +557,7 @@ function prosesTransaksi() {
             total: total,
             pembeli: pembeli,
             wa: wa,
-            status: status,
+            status: status, // "Lunas" atau "Tagihan"
             tanggal: new Date().toISOString().split('T')[0],
             noNota: 'INV-' + Date.now().toString().slice(-6)
         };
@@ -567,7 +566,7 @@ function prosesTransaksi() {
         renderNotaInventaris(currentNotaData);
         closeTransaksiModal();
         document.getElementById('notaModal').style.display = 'flex';
-        loadInventarisData(); // Refresh ringkasan
+        loadInventarisData();
         speak("Transaksi disimpan.");
     });
 }
@@ -581,9 +580,13 @@ function renderNotaInventaris(data) {
     const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
     const tanggalFmt = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     
-    const isInvoice = data.status === 'Hutang';
+    // Logika Baru: Cek apakah Tagihan
+    const isInvoice = data.status === 'Tagihan';
     const title = isInvoice ? 'INVOICE / TAGIHAN' : 'STRUK PEMBAYARAN';
     const color = isInvoice ? '#dc2626' : '#0f766e';
+    
+    // Tentukan teks status
+    const statusText = isInvoice ? 'BELUM BAYAR' : 'LUNAS';
     
     let logoHtml = logo ? `<img src="${logo}" alt="Logo">` : '';
 
@@ -603,7 +606,10 @@ function renderNotaInventaris(data) {
             <div class="nota-row"><span>No. Nota</span><span>${data.noNota}</span></div>
             <div class="nota-row"><span>Tanggal</span><span>${tanggalFmt}</span></div>
             ${data.pembeli ? `<div class="nota-row"><span>Pembeli</span><span>${data.pembeli}</span></div>` : ''}
-            <div class="nota-row"><span>Status</span><span style="color:${isInvoice ? 'red' : 'green'}; font-weight:800;">${data.status.toUpperCase()}</span></div>
+            <div class="nota-row">
+                <span>Status</span>
+                <span style="color:${isInvoice ? 'red' : 'green'}; font-weight:800;">${statusText}</span>
+            </div>
         </div>
         
         <table class="nota-items-table">
@@ -624,11 +630,11 @@ function renderNotaInventaris(data) {
         
         ${isInvoice ? `
         <div style="margin-top:10px; padding:10px; background:#fef2f2; border-radius:6px; color:#991b1b; text-align:center; font-weight:700;">
-            <i class="fas fa-exclamation-triangle"></i> TAGIHAN BELUM LUNAS
+            <i class="fas fa-exclamation-triangle"></i> STATUS: BELUM BAYAR
         </div>
         ` : `
         <div style="margin-top:10px; padding:10px; background:#ecfdf5; border-radius:6px; color:#065f46; text-align:center; font-weight:700;">
-            <i class="fas fa-check-circle"></i> LUNAS
+            <i class="fas fa-check-circle"></i> STATUS: LUNAS
         </div>
         `}
         
@@ -668,34 +674,33 @@ function downloadNotaPDF() {
     doc.text('Telp: ' + telp, 105, y, { align: 'center' }); y += 6;
     doc.setDrawColor(13, 148, 136).line(20, y, 190, y); y += 10;
     
-    const title = currentNotaData.status === 'Hutang' ? 'INVOICE / TAGIHAN' : 'STRUK PEMBAYARAN';
-    doc.setFontSize(14).setTextColor(currentNotaData.status === 'Hutang' ? 220 : 15, currentNotaData.status === 'Hutang' ? 38 : 118, currentNotaData.status === 'Hutang' ? 38 : 110);
+    const isInvoice = currentNotaData.status === 'Tagihan';
+    const title = isInvoice ? 'INVOICE / TAGIHAN' : 'STRUK PEMBAYARAN';
+    
+    doc.setFontSize(14).setTextColor(isInvoice ? 220 : 15, isInvoice ? 38 : 118, isInvoice ? 38 : 110);
     doc.text(title, 105, y, { align: 'center' }); y += 10;
     
     doc.setFontSize(10).setTextColor(60);
     doc.text('No: ' + currentNotaData.noNota, 20, y); doc.text(new Date().toLocaleDateString('id-ID'), 160, y); y += 10;
     
-    // Table Header
     doc.setFillColor(240, 253, 250).rect(20, y, 170, 8, 'F');
     doc.setTextColor(15, 118, 110).setFont(undefined, 'bold');
     doc.text('Item', 22, y+5); doc.text('Qty', 100, y+5); doc.text('Harga', 150, y+5, {align:'right'}); y += 8;
     
-    // Table Body
     doc.setTextColor(40).setFont(undefined, 'normal');
     doc.text(currentNotaData.barang, 22, y+5); 
     doc.text(String(currentNotaData.qty), 100, y+5); 
     doc.text(fmt.format(currentNotaData.price), 150, y+5, {align:'right'}); y += 15;
     
-    // Total
     doc.setFillColor(236, 253, 245).rect(100, y, 90, 10, 'F');
     doc.setFontSize(12).setTextColor(15, 118, 110).setFont(undefined, 'bold');
     doc.text('TOTAL', 102, y+7);
     doc.text(fmt.format(currentNotaData.total), 188, y+7, {align:'right'}); y += 20;
     
-    // Status
-    if(currentNotaData.status === 'Hutang') {
+    // Status PDF
+    if(isInvoice) {
         doc.setFontSize(12).setTextColor(220, 38, 38);
-        doc.text('STATUS: BELUM LUNAS', 105, y, {align:'center'});
+        doc.text('STATUS: BELUM BAYAR', 105, y, {align:'center'});
     } else {
         doc.setFontSize(12).setTextColor(5, 150, 105);
         doc.text('STATUS: LUNAS', 105, y, {align:'center'});
@@ -710,7 +715,9 @@ function shareToWhatsApp() {
     const nama = localStorage.getItem('namaLembaga') || 'Pesantren';
     const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
     
-    const title = currentNotaData.status === 'Hutang' ? '*INVOICE TAGIHAN*' : '*STRUK PEMBAYARAN*';
+    const isInvoice = currentNotaData.status === 'Tagihan';
+    const title = isInvoice ? '*INVOICE TAGIHAN*' : '*STRUK PEMBAYARAN*';
+    const statusText = isInvoice ? 'BELUM BAYAR' : 'LUNAS';
     
     let msg = `${title}\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
@@ -722,7 +729,7 @@ function shareToWhatsApp() {
     msg += `Qty: ${currentNotaData.qty} x ${fmt.format(currentNotaData.price)}\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
     msg += `*TOTAL: ${fmt.format(currentNotaData.total)}*\n`;
-    msg += `Status: *${currentNotaData.status.toUpperCase()}*\n\n`;
+    msg += `Status: *${statusText}*\n\n`;
     msg += `Terima kasih.`;
     
     let waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
@@ -756,7 +763,7 @@ function loadInventarisData() {
     fetch(API + "?action=riwayat_inventaris")
     .then(res => res.json())
     .then(data => {
-        inventoryData = data || []; // Save for local calculation
+        inventoryData = data || [];
         renderStockSummary(data);
         renderRiwayatInventaris(data);
     });
@@ -769,12 +776,11 @@ function renderStockSummary(data) {
         return;
     }
     
-    // Calculate totals
     const stockCount = {};
     data.forEach(row => {
-        const name = row[1]; // Barang
-        const qty = parseInt(row[2]) || 0; // Jumlah
-        const type = row[3]; // Tipe
+        const name = row[1];
+        const qty = parseInt(row[2]) || 0;
+        const type = row[3];
         
         if(!stockCount[name]) stockCount[name] = 0;
         stockCount[name] += (type === 'Masuk') ? qty : -qty;
@@ -797,8 +803,6 @@ function renderRiwayatInventaris(data) {
     const tbody = document.querySelector("#tableInventaris tbody");
     tbody.innerHTML = "";
     if(data && data.length > 0){
-        // Sort by latest first (assuming data has timestamp at index 4 or similar)
-        // If not, we just display as is.
         data.forEach(row => {
             const tr = document.createElement("tr");
             const isMasuk = row[3] == 'Masuk';
@@ -808,17 +812,15 @@ function renderRiwayatInventaris(data) {
                 <td>${row[2]}</td>
                 <td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td>
                 <td>
-                    ${!isMasuk ? `<button class='btn-3d accent tiny' onclick="cetakUlang('${row[1]}','${row[2]}','${row[4]}')"><i class='fas fa-print'></i></button>` : ''}
+                    ${!isMasuk ? `<button class='btn-3d accent tiny' onclick="cetakUlang('${row[1]}')"><i class='fas fa-print'></i></button>` : ''}
                 </td>`;
             tbody.appendChild(tr);
         });
     }
 }
 
-function cetakUlang(barang, qty, waktu) {
-    // Simple reprint logic - prompt user
-    // In real app, you'd store transaction details in a separate sheet
-    alert("Fitur cetak ulang memerlukan detail transaksi (harga, pembeli) yang disimpan di database terpisah. Untuk saat ini, gunakan fitur 'Buat Nota' untuk transaksi baru.");
+function cetakUlang(barang) {
+    alert("Untuk cetak ulang detail transaksi lengkap, gunakan fitur Bukti Transaksi di sistem utama. Riwayat ini hanya mencatat pergerakan stok.");
 }
 
 // --- KEUANGAN LOGIC ---
