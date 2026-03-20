@@ -41,10 +41,43 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-gradient); margin
 @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
 /* MODAL */
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; justify-content: center; align-items: center; }
-.modal-content { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; animation: slideDown 0.3s ease; max-height: 90vh; overflow-y: auto; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 15px; }
+.modal-content { background: white; padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; position: relative; animation: slideDown 0.3s ease; max-height: 90vh; overflow-y: auto; }
 .modal-content h3 { margin-top: 0; color: var(--primary-dark); font-family: 'Tajawal', sans-serif; }
 .hidden-input { display: none; }
+
+/* MODAL NOTA & TRANSAKSI */
+.modal-nota { max-width: 500px; }
+.modal-transaksi { max-width: 450px; }
+
+/* NOTA PREVIEW STYLES */
+.nota-preview {
+    background: #fff;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    font-size: 12px;
+}
+.nota-kop {
+    text-align: center;
+    border-bottom: 2px solid #0d9488;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.nota-kop img { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 8px; }
+.nota-kop h2 { margin: 0; font-size: 16px; color: #0f766e; font-family: 'Tajawal', sans-serif; }
+.nota-kop p { margin: 3px 0 0; font-size: 10px; color: #666; }
+.nota-title { text-align: center; font-weight: 800; font-size: 14px; margin: 15px 0; padding: 8px; background: #f0fdfa; border-radius: 6px; }
+.nota-row { display: flex; justify-content: space-between; margin: 6px 0; }
+.nota-row span:first-child { color: #666; }
+.nota-row span:last-child { font-weight: 600; }
+.nota-box { background: #f9fafb; padding: 12px; border-radius: 8px; margin: 10px 0; }
+.nota-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: #0f766e; padding: 10px; background: #ecfdf5; border-radius: 8px; margin-top: 15px; }
+.nota-footer { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; font-size: 10px; color: #888; }
+.nota-items-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 11px; }
+.nota-items-table th, .nota-items-table td { border-bottom: 1px solid #eee; padding: 6px; text-align: left; }
+.nota-items-table th { color: #666; font-weight: 600; }
 
 /* NAV & CONTENT */
 .nav { display: flex; gap: 8px; margin: 15px 0; background: rgba(0,0,0,0.1); padding: 5px; border-radius: 12px; flex-wrap: wrap; }
@@ -63,13 +96,17 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg-gradient); margin
 .bg-red { background: linear-gradient(135deg, #b91c1c, #ef4444); }
 .bg-orange { background: linear-gradient(135deg, #c2410c, #fb923c); }
 .bg-teal { background: linear-gradient(135deg, #115e59, #2dd4bf); }
+.bg-purple { background: linear-gradient(135deg, #6b21a8, #a855f7); }
 
 .btn-3d { cursor: pointer; padding: 10px 15px; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; color: white; background: var(--primary); border-bottom: 4px solid #0a6b61; transition: all 0.1s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
 .btn-3d:active { transform: translateY(4px); }
 .btn-3d.secondary { background: var(--secondary); border-color: #1e3a8a; }
 .btn-3d.accent { background: var(--accent); color: #000; border-color: #d97706; }
+.btn-3d.whatsapp { background: #25d366; border-color: #128c7e; }
+.btn-3d.purple { background: #7c3aed; border-color: #5b21b6; }
 .btn-3d.full { width: 100%; justify-content: center; }
 .btn-3d.small { padding: 6px 10px; font-size: 11px; }
+.btn-3d.tiny { padding: 4px 8px; font-size: 10px; }
 
 input, select, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 2px solid #e5e7eb; border-radius: 8px; box-sizing: border-box; font-family: 'Nunito', sans-serif; font-size: 13px; }
 input:focus, select:focus { border-color: var(--primary); outline: none; }
@@ -81,6 +118,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 .badge { padding: 2px 6px; border-radius: 10px; font-size: 9px; font-weight: 600; }
 .badge-success { background: #d1fae5; color: #065f46; }
 .badge-danger { background: #fee2e2; color: #991b1b; }
+.badge-purple { background: #f3e8ff; color: #6b21a8; }
 
 .chart-box { width: 60%; margin: 0 auto; height: 200px; position: relative; padding: 10px; filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); }
 
@@ -103,9 +141,30 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 .translation-text { font-size: 0.85rem; color: #333; margin-top: 4px; font-style: normal; }
 .status-loading { text-align: center; padding: 20px; color: #666; }
 
+/* STOK SUMMARY */
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--primary);
+}
+.stock-item .name { font-weight: 600; }
+.stock-item .qty { font-weight: 800; color: var(--primary-dark); }
+
 .hidden { display: none; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .modal-nota, .modal-transaksi { max-width: 95%; padding: 15px; }
+    .nota-preview { padding: 15px; }
+    .btn-3d { padding: 8px 12px; font-size: 11px; }
+}
 </style>
 </head>
 <body>
@@ -120,19 +179,76 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
             <img id="previewLogo" src="https://via.placeholder.com/100?text=Logo" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--primary);">
         </center>
         <input type="file" id="logoFileInput" class="hidden-input" accept="image/*" onchange="previewImage(this)">
-        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo (Internal)</button>
+        <button class="btn-3d secondary full" style="margin-bottom:15px;" onclick="document.getElementById('logoFileInput').click()"><i class="fas fa-camera"></i> Ganti Logo</button>
         
         <label>Nama Lembaga</label>
         <input type="text" id="inputNamaLembaga" placeholder="Nama Lembaga">
         <label>Alamat</label>
         <textarea id="inputAlamat" rows="2" placeholder="Alamat lengkap..."></textarea>
+        <label>Nomor Telepon</label>
+        <input type="text" id="inputTelp" placeholder="08xxxxxxxxxx">
         
         <div style="display:flex; gap:10px; margin-top:10px;">
             <button class="btn-3d secondary" onclick="closeModal()"><i class="fas fa-times"></i> Batal</button>
             <button class="btn-3d full" onclick="saveProfile()"><i class="fas fa-save"></i> Simpan</button>
         </div>
-        <hr style="margin: 15px 0; border-style: dashed;">
-        <button class="btn-3d accent full" onclick="shareProfileLink()"><i class="fas fa-share-alt"></i> Share Profil ke Orang Lain</button>
+    </div>
+</div>
+
+<!-- MODAL TRANSAKSI INVENTARIS (NOTA) -->
+<div id="transaksiModal" class="modal-overlay">
+    <div class="modal-content modal-transaksi">
+        <button class="icon-btn" style="position:absolute; top:10px; right:10px;" onclick="closeTransaksiModal()"><i class="fas fa-times"></i></button>
+        <h3 style="color:var(--primary-dark);"><i class="fas fa-cash-register"></i> Transaksi Penjualan / Keluar</h3>
+        <p style="font-size:11px; color:#666; margin:0 0 10px;">Transaksi ini akan mengurangi stok dan mencetak nota.</p>
+        
+        <label>Nama Barang</label>
+        <input type="text" id="trBarang" placeholder="Contoh: Buku Tulis">
+        
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div>
+                <label>Jumlah</label>
+                <input type="number" id="trJumlah" placeholder="0" oninput="hitungTotalTransaksi()">
+            </div>
+            <div>
+                <label>Harga Satuan (Rp)</label>
+                <input type="number" id="trHarga" placeholder="0" oninput="hitungTotalTransaksi()">
+            </div>
+        </div>
+        
+        <label>Total Harga</label>
+        <input type="text" id="trTotal" readonly style="background:#f0fdfa; font-weight:800; color:var(--primary-dark);">
+        
+        <label>Nama Pembeli</label>
+        <input type="text" id="trPembeli" placeholder="Nama Pembeli / Instansi">
+        
+        <label>Nomor WA Pembeli</label>
+        <input type="text" id="trWA" placeholder="08xxxxxxxxxx">
+        
+        <label>Status Pembayaran</label>
+        <select id="trStatus">
+            <option value="Lunas">Lunas (Buat Struk)</option>
+            <option value="Hutang">Hutang (Buat Invoice/Tagihan)</option>
+        </select>
+        
+        <button class="btn-3d purple full" onclick="prosesTransaksi()" style="margin-top:10px;"><i class="fas fa-print"></i> Simpan & Cetak Nota</button>
+    </div>
+</div>
+
+<!-- MODAL PREVIEW NOTA -->
+<div id="notaModal" class="modal-overlay">
+    <div class="modal-content modal-nota">
+        <button class="icon-btn" style="position:absolute; top:10px; right:10px;" onclick="closeNotaModal()"><i class="fas fa-times"></i></button>
+        <h3 style="text-align:center; color:var(--primary-dark);"><i class="fas fa-receipt"></i> Preview Nota</h3>
+        
+        <div id="notaPreviewContent" class="nota-preview">
+            <!-- Nota content will be generated here -->
+        </div>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px;">
+            <button class="btn-3d secondary full" onclick="downloadNotaPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+            <button class="btn-3d whatsapp full" onclick="shareToWhatsApp()"><i class="fab fa-whatsapp"></i> Kirim WA</button>
+        </div>
     </div>
 </div>
 
@@ -179,40 +295,11 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
     <!-- DASHBOARD -->
     <div id="dashboard" class="page">
-        <div class="card" style="padding:15px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                <h3 style="margin:0;"><i class="fas fa-calendar-alt"></i> Periode</h3>
-                <div style="display:flex; gap:10px;">
-                    <input type="date" id="tglMulai" style="width:120px; margin:0; padding:8px;">
-                    <input type="date" id="tglAkhir" style="width:120px; margin:0; padding:8px;">
-                    <button class="btn-3d secondary" onclick="loadDashboard()"><i class="fas fa-search"></i></button>
-                </div>
-                <button class="btn-3d accent" onclick="printDashboard()"><i class="fas fa-file-pdf"></i> PDF</button>
-            </div>
-        </div>
-        
         <div class="stat-grid">
             <div class="stat-card bg-blue"><h3>Total Saldo</h3><p id="saldo">Rp 0</p></div>
             <div class="stat-card bg-green"><h3>Total Pemasukan</h3><p id="masuk">Rp 0</p></div>
             <div class="stat-card bg-red"><h3>Total Pengeluaran</h3><p id="keluar">Rp 0</p></div>
         </div>
-
-        <h4 style="color:white; margin:10px 0;">Rincian Pemasukan</h4>
-        <div class="stat-grid" id="pemasukanCards">
-            <div class="stat-card bg-teal"><h3>Donatur</h3><p id="cat-donatur">Rp 0</p></div>
-            <div class="stat-card bg-teal"><h3>Infaq / SPP</h3><p id="cat-infaq">Rp 0</p></div>
-            <div class="stat-card bg-teal"><h3>Hasil Usaha</h3><p id="cat-usaha">Rp 0</p></div>
-        </div>
-
-        <h4 style="color:white; margin:10px 0;">Rincian Pengeluaran</h4>
-        <div class="stat-grid" id="pengeluaranCards">
-            <div class="stat-card bg-orange"><h3>Operasional</h3><p id="cat-operasional">Rp 0</p></div>
-            <div class="stat-card bg-orange"><h3>Dapur</h3><p id="cat-dapur">Rp 0</p></div>
-            <div class="stat-card bg-orange"><h3>Outing</h3><p id="cat-outing">Rp 0</p></div>
-            <div class="stat-card bg-orange"><h3>Sosial</h3><p id="cat-sosial">Rp 0</p></div>
-            <div class="stat-card bg-orange"><h3>Restok</h3><p id="cat-restok">Rp 0</p></div>
-        </div>
-        
         <div class="card">
             <div class="chart-box"><canvas id="chart"></canvas></div>
         </div>
@@ -221,7 +308,7 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
     <!-- KEUANGAN -->
     <div id="keuangan" class="page hidden">
         <div class="card">
-            <h2 style="margin-top:0; font-size:1.2rem;"><i class="fas fa-edit"></i> Input Transaksi</h2>
+            <h2 style="margin-top:0; font-size:1.2rem;"><i class="fas fa-edit"></i> Input Transaksi Keuangan</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div><label>Tanggal</label><input id="tanggal" type="date"></div>
                 <div>
@@ -234,54 +321,56 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
                 </div>
             </div>
             <label>Keterangan</label><input id="keterangan" placeholder="Contoh: Donatur Pak Budi">
-            
             <label>Sub Kategori</label>
-            <select id="subKategori">
-                <option value="">Pilih Kategori Utama dulu</option>
-            </select>
-
+            <select id="subKategori"><option value="">Pilih Kategori Utama dulu</option></select>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div><label>Jumlah (Rp)</label><input id="jumlahUang" type="number" placeholder="Masukkan nominal"></div>
                 <div><label>Pelapor</label><input id="pelapor" placeholder="Nama Pelapor"></div>
             </div>
-            
-            <input type="hidden" id="editIdKeuangan">
-            <div style="display:flex; gap:10px; margin-top:10px;">
-                <button class="btn-3d full" onclick="kirimKeuangan()"><i class="fas fa-save"></i> Simpan</button>
-                <button class="btn-3d secondary hidden" id="btnCancel" onclick="cancelEdit()"><i class="fas fa-times"></i></button>
-            </div>
+            <button class="btn-3d full" onclick="kirimKeuangan()"><i class="fas fa-save"></i> Simpan</button>
         </div>
         <div class="card">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; align-items:center;">
-                <h3 style="margin:0;">Riwayat Transaksi</h3>
-                <button class="btn-3d accent" onclick="printKeuangan()"><i class="fas fa-print"></i> Cetak</button>
-            </div>
+            <h3>Riwayat Transaksi</h3>
             <div class="table-container">
-                <table id="tableKeuangan">
-                    <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Jumlah</th><th>Aksi</th></tr></thead>
-                    <tbody></tbody>
-                </table>
+                <table id="tableKeuangan"><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th>Jumlah</th></tr></thead><tbody></tbody></table>
             </div>
         </div>
     </div>
 
     <!-- INVENTARIS -->
     <div id="inventaris" class="page hidden">
+        <!-- Card 1: Stok Masuk -->
         <div class="card">
-            <h2 style="margin-top:0; font-size:1.2rem;"><i class="fas fa-boxes-stacked"></i> Input Inventaris</h2>
+            <h2 style="margin-top:0; font-size:1.2rem;"><i class="fas fa-boxes-stacked"></i> Input Stok Masuk</h2>
             <label>Nama Barang</label><input id="barang">
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                 <div><label>Jumlah</label><input id="jumlah" type="number"></div>
-                <div><label>Tipe</label>
-                    <select id="tipe"><option value="Masuk">Masuk</option><option value="Keluar">Keluar</option></select>
-                </div>
             </div>
-            <button class="btn-3d full" onclick="kirimInventaris()" style="margin-top:10px;"><i class="fas fa-save"></i> Simpan</button>
+            <button class="btn-3d full" onclick="tambahStok()" style="margin-top:10px;"><i class="fas fa-plus"></i> Tambah Stok</button>
         </div>
+
+        <!-- Card 2: Transaksi Keluar (Nota) -->
+        <div class="card" style="border-bottom-color: #7c3aed;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="margin:0; font-size:1.2rem; color:#7c3aed;"><i class="fas fa-cash-register"></i> Transaksi Penjualan</h2>
+                <button class="btn-3d purple" onclick="openTransaksiModal()"><i class="fas fa-receipt"></i> Buat Nota</button>
+            </div>
+            <p style="font-size:0.8rem; color:#666; margin:5px 0 0;">Gunakan fitur ini untuk menjual barang. Stok akan berkurang otomatis.</p>
+        </div>
+
+        <!-- Card 3: Ringkasan Stok -->
         <div class="card">
-            <h3>Riwayat Stok</h3>
+            <h3><i class="fas fa-warehouse"></i> Ringkasan Stok Saat Ini</h3>
+            <div id="stockSummary">
+                <p style="color:#666; text-align:center;">Memuat data stok...</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Riwayat -->
+        <div class="card">
+            <h3>Riwayat Inventaris</h3>
             <div class="table-container">
-                <table id="tableInventaris"><thead><tr><th>Barang</th><th>Jumlah</th><th>Tipe</th><th>Waktu</th></tr></thead><tbody></tbody></table>
+                <table id="tableInventaris"><thead><tr><th>Waktu</th><th>Barang</th><th>Jumlah</th><th>Tipe</th><th>Aksi</th></tr></thead><tbody></tbody></table>
             </div>
         </div>
     </div>
@@ -290,12 +379,9 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
     <div id="arab" class="page hidden">
         <div class="card">
             <h2 style="margin-top:0; font-family:'Tajawal';"><i class="fas fa-language"></i> Percakapan Bahasa Arab</h2>
-            <p style="font-size:0.85rem; color:#666;">Data diambil dari file <b>percakapan.json</b>. Klik teks Arab untuk mendengar bacaan.</p>
+            <p style="font-size:0.85rem; color:#666;">Klik teks Arab untuk mendengar bacaan.</p>
             <hr style="border-style: dashed; margin: 15px 0;">
-            
-            <div id="arabContainer">
-                <div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat data JSON...</div>
-            </div>
+            <div id="arabContainer"><div class="status-loading">Memuat...</div></div>
         </div>
     </div>
 
@@ -304,9 +390,9 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
         <div class="card" style="text-align:center;">
             <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzFmMjkzNyIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48dGV4dCB4PSI1MCIgeT0iNjUiIGZvbnQtZmFtaWx5PSJQb3BwaW5zIiBmb250LXNpemU9IjQwIiBmaWxsPSIjZmJiZjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JVzwvdGV4dD48L3N2Zz4=" alt="Dev Logo" style="width:80px; border-radius:50%; margin-bottom:10px;">
             <h2 style="margin:10px 0 5px; font-family:'Tajawal';">Iman Waluyo</h2>
-            <p style="color:#666; font-size:0.9rem;">Pengembang Sistem Informasi Keuangan Pesantren</p>
+            <p style="color:#666; font-size:0.9rem;">Pengembang Sistem</p>
             <div style="background:#f0fdfa; padding:15px; border-radius:8px; margin-top:15px; border:1px dashed var(--primary);">
-                <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak Pengembang</p>
+                <p style="margin:0; font-weight:bold; color:var(--primary-dark);"><i class="fas fa-phone"></i> Kontak</p>
                 <a href="tel:087812203039" style="font-size:1.2rem; color:var(--text-main); text-decoration:none; font-weight:800;">0878-1220-3039</a>
             </div>
         </div>
@@ -315,33 +401,30 @@ th { background: #f0fdfa; color: var(--primary-dark); font-weight: 700; }
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbyH8SiNroAgjnhvI0Izw-VBG_xkBUq4FaQ3IyB18LqWeE1-1Yi9ogFjJH26FolP5rw5ig/exec";
-// URL JSON YANG SUDAH DIPERBAIKI
 const JSON_URL = "https://raw.githubusercontent.com/zennez2001-oss/manajemen/refs/heads/main/percakapan.json"; 
 
 let chart;
+let currentNotaData = null;
+let inventoryData = [];
 
 // --- DATA KATEGORI ---
 const kategoriData = {
-    "Pemasukan": ["Donatur", "Infaq / SPP", "Hasil Usaha"],
+    "Pemasukan": ["Donatur", "Infaq / SPP", "Hasil Usaha", "Penjualan Barang"],
     "Pengeluaran": ["Operasional", "Dapur", "Kegiatan Outing", "Kegiatan Sosial", "Restok Barang"]
 };
 
 // --- UTILS & PROFILE ---
 function loadProfile() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sharedName = urlParams.get('n');
-    const sharedAddr = urlParams.get('a');
-    if(sharedName) localStorage.setItem('namaLembaga', decodeURIComponent(sharedName));
-    if(sharedAddr) localStorage.setItem('alamat', decodeURIComponent(sharedAddr));
-
     const nama = localStorage.getItem('namaLembaga') || 'Nama Pesantren';
     const alamat = localStorage.getItem('alamat') || 'Alamat Lembaga';
+    const telp = localStorage.getItem('telepon') || '-';
     let logo = localStorage.getItem('logoBase64');
     
     document.getElementById('txtNamaLembaga').innerText = nama;
     document.getElementById('txtAlamat').innerText = alamat;
     document.getElementById('inputNamaLembaga').value = nama;
     document.getElementById('inputAlamat').value = alamat;
+    document.getElementById('inputTelp').value = telp === '-' ? '' : telp;
     
     if(!logo) logo = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iIzBmNzY2ZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJNNTAgMTAgUTgwIDQwIDUwIDkwIFExMCA0MCA1MCAxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmJiZjI0IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSIxMCIgZmlsbD0iI2ZiYmYyNCIvPjxwYXRoIGQ9Ik0zNSA4MCBRNTAgNjAgNjUgODQiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+";
     
@@ -357,34 +440,24 @@ function previewImage(input) {
     }
 }
 
-function openModal() { document.getElementById('editModal').style.display = 'flex'; speak("Buka pengaturan."); }
+function openModal() { document.getElementById('editModal').style.display = 'flex'; }
 function closeModal() { document.getElementById('editModal').style.display = 'none'; }
 
 function saveProfile() {
     const nama = document.getElementById('inputNamaLembaga').value;
     const alamat = document.getElementById('inputAlamat').value;
+    const telp = document.getElementById('inputTelp').value;
     const logoSrc = document.getElementById('previewLogo').src;
     localStorage.setItem('namaLembaga', nama);
     localStorage.setItem('alamat', alamat);
+    localStorage.setItem('telepon', telp);
     localStorage.setItem('logoBase64', logoSrc);
     loadProfile(); closeModal();
     speak("Profil disimpan.");
 }
 
-function shareProfileLink() {
-    const nama = encodeURIComponent(document.getElementById('inputNamaLembaga').value);
-    const alamat = encodeURIComponent(document.getElementById('inputAlamat').value);
-    const link = window.location.origin + window.location.pathname + "?n=" + nama + "&a=" + alamat;
-    if (navigator.share) { navigator.share({ title: 'Profil', text: 'Gunakan profil ini:', url: link }).catch(console.error); }
-    else { prompt("Salin link:", link); }
-}
-
-// --- DATE & TIME FUNCTIONS (FIXED) ---
-function updateClock() { 
-    document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); 
-}
-
-// FIX: Algoritma Manual Hijriyah (Kuwaiti Algorithm)
+// --- DATE & TIME FUNCTIONS ---
+function updateClock() { document.getElementById('time').innerText = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
 function updateHijri() {
     const now = new Date();
     var jd = Math.floor((now - new Date(1970, 0, 1)) / 86400000) + 2440588;
@@ -396,16 +469,12 @@ function updateHijri() {
     var month = Math.floor((24 * l) / 709);
     var day = l - Math.floor((709 * month) / 24);
     var year = 30 * n + j - 30;
-
     const hijriMonths = ['Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir', 'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Syaban', 'Ramadhan', 'Syawal', 'Dzulqaidah', 'Dzulhijjah'];
-    
     document.getElementById('hijriDate').innerText = `${day} ${hijriMonths[month-1]} ${year} H`;
 }
-
 function updateMasehi() {
     const now = new Date();
-    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-    document.getElementById('masehiDate').innerText = new Intl.DateTimeFormat('id-ID', options).format(now);
+    document.getElementById('masehiDate').innerText = new Intl.DateTimeFormat('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now);
 }
 
 setInterval(updateClock, 1000); 
@@ -424,35 +493,332 @@ function showPage(page){
     document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
     document.getElementById("nav-" + page).classList.add("active");
 
-    if(page === 'dashboard') { loadDashboard(); speak("Dashboard."); }
-    else if(page === 'keuangan') { loadRiwayatKeuangan(); speak("Keuangan."); }
-    else if(page === 'inventaris') { loadRiwayatInventaris(); speak("Inventaris."); }
-    else if(page === 'arab') { loadPercakapan(); speak("Bahasa Arab."); }
-    else if(page === 'info') { speak("Info."); }
+    if(page === 'dashboard') { loadDashboard(); }
+    else if(page === 'keuangan') { loadRiwayatKeuangan(); }
+    else if(page === 'inventaris') { loadInventarisData(); }
+    else if(page === 'arab') { loadPercakapan(); }
 }
 
-// --- LOAD JSON PERCAKAPAN ---
-function loadPercakapan() {
-    const container = document.getElementById('arabContainer');
-    container.innerHTML = `<div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat...</div>`;
-    fetch(JSON_URL)
-    .then(res => { if(!res.ok) throw new Error("Gagal"); return res.json(); })
+// --- TRANSAKSI & NOTA LOGIC ---
+function openTransaksiModal() {
+    document.getElementById('trBarang').value = '';
+    document.getElementById('trJumlah').value = '';
+    document.getElementById('trHarga').value = '';
+    document.getElementById('trTotal').value = 'Rp 0';
+    document.getElementById('trPembeli').value = '';
+    document.getElementById('trWA').value = '';
+    document.getElementById('trStatus').value = 'Lunas';
+    document.getElementById('transaksiModal').style.display = 'flex';
+}
+
+function closeTransaksiModal() {
+    document.getElementById('transaksiModal').style.display = 'none';
+}
+
+function hitungTotalTransaksi() {
+    const jml = parseInt(document.getElementById('trJumlah').value) || 0;
+    const hrg = parseInt(document.getElementById('trHarga').value) || 0;
+    const total = jml * hrg;
+    const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+    document.getElementById('trTotal').value = fmt.format(total);
+}
+
+function prosesTransaksi() {
+    const barang = document.getElementById('trBarang').value;
+    const jumlah = parseInt(document.getElementById('trJumlah').value) || 0;
+    const harga = parseInt(document.getElementById('trHarga').value) || 0;
+    const total = jumlah * harga;
+    const pembeli = document.getElementById('trPembeli').value;
+    const wa = document.getElementById('trWA').value;
+    const status = document.getElementById('trStatus').value;
+
+    if(!barang || !jumlah) { alert("Nama barang dan jumlah wajib diisi!"); return; }
+
+    // 1. Kirim ke API sebagai "Keluar" (Mengurangi Stok)
+    const dataInv = {
+        action: "inventaris",
+        barang: barang,
+        jumlah: jumlah,
+        tipe: "Keluar"
+    };
+
+    // Tambahkan ke lokal untuk perhitungan stok (jika API lambat)
+    inventoryData.push({ barang: barang, jumlah: -jumlah }); // negative for outgoing
+
+    fetch(API, { method: "POST", body: JSON.stringify(dataInv) })
+    .then(res => res.text())
+    .then(res => {
+        console.log(res);
+        
+        // 2. Siapkan data Nota
+        currentNotaData = {
+            barang: barang,
+            qty: jumlah,
+            price: harga,
+            total: total,
+            pembeli: pembeli,
+            wa: wa,
+            status: status,
+            tanggal: new Date().toISOString().split('T')[0],
+            noNota: 'INV-' + Date.now().toString().slice(-6)
+        };
+
+        // 3. Buka Preview Nota
+        renderNotaInventaris(currentNotaData);
+        closeTransaksiModal();
+        document.getElementById('notaModal').style.display = 'flex';
+        loadInventarisData(); // Refresh ringkasan
+        speak("Transaksi disimpan.");
+    });
+}
+
+function renderNotaInventaris(data) {
+    const nama = localStorage.getItem('namaLembaga') || 'Nama Pesantren';
+    const alamat = localStorage.getItem('alamat') || 'Alamat';
+    const telp = localStorage.getItem('telepon') || '-';
+    const logo = localStorage.getItem('logoBase64');
+    
+    const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+    const tanggalFmt = new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    
+    const isInvoice = data.status === 'Hutang';
+    const title = isInvoice ? 'INVOICE / TAGIHAN' : 'STRUK PEMBAYARAN';
+    const color = isInvoice ? '#dc2626' : '#0f766e';
+    
+    let logoHtml = logo ? `<img src="${logo}" alt="Logo">` : '';
+
+    const html = `
+        <div class="nota-kop">
+            ${logoHtml}
+            <h2>${nama}</h2>
+            <p>${alamat}</p>
+            <p><i class="fas fa-phone"></i> ${telp}</p>
+        </div>
+        
+        <div class="nota-title" style="color: ${color};">
+            ${title}
+        </div>
+        
+        <div class="nota-box">
+            <div class="nota-row"><span>No. Nota</span><span>${data.noNota}</span></div>
+            <div class="nota-row"><span>Tanggal</span><span>${tanggalFmt}</span></div>
+            ${data.pembeli ? `<div class="nota-row"><span>Pembeli</span><span>${data.pembeli}</span></div>` : ''}
+            <div class="nota-row"><span>Status</span><span style="color:${isInvoice ? 'red' : 'green'}; font-weight:800;">${data.status.toUpperCase()}</span></div>
+        </div>
+        
+        <table class="nota-items-table">
+            <thead><tr><th>Item</th><th>Qty</th><th style="text-align:right">Harga</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>${data.barang}</td>
+                    <td>${data.qty}</td>
+                    <td style="text-align:right">${fmt.format(data.price)}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="nota-total">
+            <span>TOTAL</span>
+            <span>${fmt.format(data.total)}</span>
+        </div>
+        
+        ${isInvoice ? `
+        <div style="margin-top:10px; padding:10px; background:#fef2f2; border-radius:6px; color:#991b1b; text-align:center; font-weight:700;">
+            <i class="fas fa-exclamation-triangle"></i> TAGIHAN BELUM LUNAS
+        </div>
+        ` : `
+        <div style="margin-top:10px; padding:10px; background:#ecfdf5; border-radius:6px; color:#065f46; text-align:center; font-weight:700;">
+            <i class="fas fa-check-circle"></i> LUNAS
+        </div>
+        `}
+        
+        <div class="nota-footer">
+            <p>Barang yang sudah dibeli tidak dapat dikembalikan.</p>
+            <p style="margin-top: 5px; color: #0d9488;">Terima kasih atas kepercayaan Anda</p>
+        </div>
+    `;
+    
+    document.getElementById('notaPreviewContent').innerHTML = html;
+}
+
+function closeNotaModal() {
+    document.getElementById('notaModal').style.display = 'none';
+}
+
+function downloadNotaPDF() {
+    if(!currentNotaData) return;
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    const nama = localStorage.getItem('namaLembaga') || 'Pesantren';
+    const alamat = localStorage.getItem('alamat') || '';
+    const telp = localStorage.getItem('telepon') || '-';
+    const logo = localStorage.getItem('logoBase64');
+    const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+    
+    let y = 20;
+    
+    try { if(logo) doc.addImage(logo, 'PNG', 85, 10, 40, 40); } catch(e) {}
+    y = 55;
+    
+    doc.setFontSize(16).setTextColor(15, 118, 110);
+    doc.text(nama, 105, y, { align: 'center' }); y += 6;
+    doc.setFontSize(9).setTextColor(100);
+    doc.text(alamat, 105, y, { align: 'center' }); y += 4;
+    doc.text('Telp: ' + telp, 105, y, { align: 'center' }); y += 6;
+    doc.setDrawColor(13, 148, 136).line(20, y, 190, y); y += 10;
+    
+    const title = currentNotaData.status === 'Hutang' ? 'INVOICE / TAGIHAN' : 'STRUK PEMBAYARAN';
+    doc.setFontSize(14).setTextColor(currentNotaData.status === 'Hutang' ? 220 : 15, currentNotaData.status === 'Hutang' ? 38 : 118, currentNotaData.status === 'Hutang' ? 38 : 110);
+    doc.text(title, 105, y, { align: 'center' }); y += 10;
+    
+    doc.setFontSize(10).setTextColor(60);
+    doc.text('No: ' + currentNotaData.noNota, 20, y); doc.text(new Date().toLocaleDateString('id-ID'), 160, y); y += 10;
+    
+    // Table Header
+    doc.setFillColor(240, 253, 250).rect(20, y, 170, 8, 'F');
+    doc.setTextColor(15, 118, 110).setFont(undefined, 'bold');
+    doc.text('Item', 22, y+5); doc.text('Qty', 100, y+5); doc.text('Harga', 150, y+5, {align:'right'}); y += 8;
+    
+    // Table Body
+    doc.setTextColor(40).setFont(undefined, 'normal');
+    doc.text(currentNotaData.barang, 22, y+5); 
+    doc.text(String(currentNotaData.qty), 100, y+5); 
+    doc.text(fmt.format(currentNotaData.price), 150, y+5, {align:'right'}); y += 15;
+    
+    // Total
+    doc.setFillColor(236, 253, 245).rect(100, y, 90, 10, 'F');
+    doc.setFontSize(12).setTextColor(15, 118, 110).setFont(undefined, 'bold');
+    doc.text('TOTAL', 102, y+7);
+    doc.text(fmt.format(currentNotaData.total), 188, y+7, {align:'right'}); y += 20;
+    
+    // Status
+    if(currentNotaData.status === 'Hutang') {
+        doc.setFontSize(12).setTextColor(220, 38, 38);
+        doc.text('STATUS: BELUM LUNAS', 105, y, {align:'center'});
+    } else {
+        doc.setFontSize(12).setTextColor(5, 150, 105);
+        doc.text('STATUS: LUNAS', 105, y, {align:'center'});
+    }
+    
+    doc.save(`Nota_${currentNotaData.noNota}.pdf`);
+    speak("Nota diunduh.");
+}
+
+function shareToWhatsApp() {
+    if(!currentNotaData) return;
+    const nama = localStorage.getItem('namaLembaga') || 'Pesantren';
+    const fmt = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
+    
+    const title = currentNotaData.status === 'Hutang' ? '*INVOICE TAGIHAN*' : '*STRUK PEMBAYARAN*';
+    
+    let msg = `${title}\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `${nama}\n\n`;
+    msg += `No: ${currentNotaData.noNota}\n`;
+    msg += `Tanggal: ${new Date().toLocaleDateString('id-ID')}\n`;
+    msg += `Pembeli: ${currentNotaData.pembeli || '-'}\n\n`;
+    msg += `Item: ${currentNotaData.barang}\n`;
+    msg += `Qty: ${currentNotaData.qty} x ${fmt.format(currentNotaData.price)}\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `*TOTAL: ${fmt.format(currentNotaData.total)}*\n`;
+    msg += `Status: *${currentNotaData.status.toUpperCase()}*\n\n`;
+    msg += `Terima kasih.`;
+    
+    let waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
+    if(currentNotaData.wa) {
+        let num = currentNotaData.wa.replace(/\D/g, '');
+        if(num.startsWith('0')) num = '62' + num.substring(1);
+        waUrl = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+    }
+    
+    window.open(waUrl, '_blank');
+}
+
+// --- INVENTARIS LOGIC ---
+function tambahStok() {
+    const data = { 
+        action: "inventaris", 
+        barang: document.getElementById("barang").value, 
+        jumlah: document.getElementById("jumlah").value, 
+        tipe: "Masuk" 
+    };
+    fetch(API, { method: "POST", body: JSON.stringify(data) })
+    .then(res => res.text())
+    .then(res => { 
+        alert(res); 
+        loadInventarisData(); 
+        speak("Stok ditambahkan."); 
+    });
+}
+
+function loadInventarisData() {
+    fetch(API + "?action=riwayat_inventaris")
+    .then(res => res.json())
     .then(data => {
-        container.innerHTML = "";
-        data.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'arab-card';
-            let html = `<div class="arab-header"><span class="badge bg-teal">${item.kategori}</span><span class="badge bg-blue">${item.level}</span></div><div class="arab-title">${item.id}. ${item.judul}</div><div class="dialogue-box">`;
-            if(item.percakapan) {
-                item.percakapan.forEach(line => {
-                    html += `<div class="dialogue-item"><span class="speaker-name"><i class="fas fa-user"></i> ${line.pelaku}</span><div class="arab-text" onclick="speakArabic(\`${line.arab}\`)">${line.arab}</div><div class="harakat-text">${line.harakat}</div><div class="translation-text">${line.terjemahan}</div></div>`;
-                });
-            }
-            html += `</div>`;
-            card.innerHTML = html;
-            container.appendChild(card);
+        inventoryData = data || []; // Save for local calculation
+        renderStockSummary(data);
+        renderRiwayatInventaris(data);
+    });
+}
+
+function renderStockSummary(data) {
+    const container = document.getElementById('stockSummary');
+    if(!data || data.length === 0) {
+        container.innerHTML = "<p style='text-align:center; color:#666;'>Belum ada data stok.</p>";
+        return;
+    }
+    
+    // Calculate totals
+    const stockCount = {};
+    data.forEach(row => {
+        const name = row[1]; // Barang
+        const qty = parseInt(row[2]) || 0; // Jumlah
+        const type = row[3]; // Tipe
+        
+        if(!stockCount[name]) stockCount[name] = 0;
+        stockCount[name] += (type === 'Masuk') ? qty : -qty;
+    });
+    
+    let html = '';
+    Object.keys(stockCount).forEach(name => {
+        const val = stockCount[name];
+        const color = val > 0 ? 'var(--primary-dark)' : 'red';
+        html += `<div class="stock-item">
+            <span class="name">${name}</span>
+            <span class="qty" style="color:${color}">${val} unit</span>
+        </div>`;
+    });
+    
+    container.innerHTML = html;
+}
+
+function renderRiwayatInventaris(data) {
+    const tbody = document.querySelector("#tableInventaris tbody");
+    tbody.innerHTML = "";
+    if(data && data.length > 0){
+        // Sort by latest first (assuming data has timestamp at index 4 or similar)
+        // If not, we just display as is.
+        data.forEach(row => {
+            const tr = document.createElement("tr");
+            const isMasuk = row[3] == 'Masuk';
+            tr.innerHTML = `
+                <td>${row[4] || '-'}</td>
+                <td>${row[1]}</td>
+                <td>${row[2]}</td>
+                <td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td>
+                <td>
+                    ${!isMasuk ? `<button class='btn-3d accent tiny' onclick="cetakUlang('${row[1]}','${row[2]}','${row[4]}')"><i class='fas fa-print'></i></button>` : ''}
+                </td>`;
+            tbody.appendChild(tr);
         });
-    }).catch(err => { container.innerHTML = `<div class="status-loading" style="color:red;">Gagal memuat data JSON. Pastikan URL benar.</div>`; });
+    }
+}
+
+function cetakUlang(barang, qty, waktu) {
+    // Simple reprint logic - prompt user
+    // In real app, you'd store transaction details in a separate sheet
+    alert("Fitur cetak ulang memerlukan detail transaksi (harga, pembeli) yang disimpan di database terpisah. Untuk saat ini, gunakan fitur 'Buat Nota' untuk transaksi baru.");
 }
 
 // --- KEUANGAN LOGIC ---
@@ -468,17 +834,14 @@ function updateSubKategori() {
 }
 
 function kirimKeuangan() {
-    const id = document.getElementById("editIdKeuangan").value;
     const mainKat = document.getElementById("kategoriUtama").value;
     const subKat = document.getElementById("subKategori").value;
     
     const data = {
-        action: id ? "update_keuangan" : "keuangan",
-        id: id,
+        action: "keuangan",
         tanggal: document.getElementById("tanggal").value,
         keterangan: document.getElementById("keterangan").value,
         kategori: `${mainKat} - ${subKat}`,
-        subKategori: subKat, 
         masuk: mainKat === "Pemasukan" ? document.getElementById("jumlahUang").value : 0,
         keluar: mainKat === "Pengeluaran" ? document.getElementById("jumlahUang").value : 0,
         pelapor: document.getElementById("pelapor").value
@@ -488,38 +851,10 @@ function kirimKeuangan() {
 
     fetch(API, { method: "POST", body: JSON.stringify(data) })
     .then(res => res.text())
-    .then(res => { alert(res); loadDashboard(); loadRiwayatKeuangan(); cancelEdit(); speak("Tersimpan."); });
+    .then(res => { alert(res); loadDashboard(); loadRiwayatKeuangan(); speak("Tersimpan."); });
 }
 
-function editKeuangan(id, tgl, ket, kat, jml) {
-    document.getElementById("editIdKeuangan").value = id;
-    document.getElementById("tanggal").value = tgl;
-    document.getElementById("keterangan").value = ket;
-    document.getElementById("jumlahUang").value = jml;
-    
-    const parts = kat.split(' - ');
-    const main = parts[0].trim();
-    const sub = parts[1] ? parts[1].trim() : "";
-    
-    document.getElementById("kategoriUtama").value = main;
-    updateSubKategori();
-    document.getElementById("subKategori").value = sub;
-    
-    document.getElementById("btnCancel").classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    speak("Edit aktif.");
-}
-
-function cancelEdit() {
-    document.getElementById("editIdKeuangan").value = "";
-    document.getElementById("keterangan").value = "";
-    document.getElementById("jumlahUang").value = "";
-    document.getElementById("kategoriUtama").value = "";
-    document.getElementById("subKategori").innerHTML = "<option value=''>Pilih dulu</option>";
-    document.getElementById("btnCancel").classList.add("hidden");
-}
-
-// --- DASHBOARD LOGIC (FIXED) ---
+// --- DASHBOARD LOGIC ---
 function loadDashboard(){
     fetch(API + "?action=dashboard")
     .then(res => res.json())
@@ -528,38 +863,6 @@ function loadDashboard(){
         document.getElementById("saldo").innerText = fmt.format(data.saldo || 0);
         document.getElementById("masuk").innerText = fmt.format(data.masuk || 0);
         document.getElementById("keluar").innerText = fmt.format(data.keluar || 0);
-        
-        // Mapping ID Kartu HTML dengan Nama Sub Kategori di Sheet
-        const mapIds = {
-            "donatur": "cat-donatur",
-            "infaq / spp": "cat-infaq",
-            "hasil usaha": "cat-usaha",
-            "operasional": "cat-operasional",
-            "dapur": "cat-dapur",
-            "kegiatan outing": "cat-outing",
-            "kegiatan sosial": "cat-sosial",
-            "restok barang": "cat-restok"
-        };
-
-        // Reset semua kartu ke 0 dulu
-        Object.values(mapIds).forEach(id => {
-            const el = document.getElementById(id);
-            if(el) el.innerText = "Rp 0";
-        });
-
-        // Isi berdasarkan data breakdown dari backend
-        if(data.breakdown) {
-            data.breakdown.forEach(b => {
-                // b.kategori berisi nama sub kategori (misal: "Donatur", "Dapur")
-                const keyLookup = b.kategori.toLowerCase().trim();
-                const elementId = mapIds[keyLookup];
-                
-                if(elementId) {
-                    const el = document.getElementById(elementId);
-                    if(el) el.innerText = fmt.format(b.total);
-                }
-            });
-        }
         drawChart(data.masuk || 0, data.keluar || 0);
     });
 }
@@ -575,32 +878,35 @@ function loadRiwayatKeuangan(){
                 const isMasuk = row[3].includes("Pemasukan");
                 const jml = isMasuk ? row[4] : row[5];
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${row[1]}</td><td>${row[2]}</td><td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td><td style="color:${isMasuk ? 'green' : 'red'}; font-weight:bold;">${jml}</td><td><button class='btn-3d secondary small' onclick="editKeuangan('${row[0]}','${row[1]}','${row[2]}','${row[3]}','${jml}')"><i class='fas fa-edit'></i></button></td>`;
-                tbody.appendChild(tr);
-            });
-        } else { tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Kosong</td></tr>"; }
-    });
-}
-
-// --- INVENTARIS & OTHERS ---
-function kirimInventaris() {
-    const data = { action: "inventaris", barang: document.getElementById("barang").value, jumlah: document.getElementById("jumlah").value, tipe: document.getElementById("tipe").value };
-    fetch(API, { method: "POST", body: JSON.stringify(data) }).then(res => res.text()).then(res => { alert(res); loadRiwayatInventaris(); speak("Tersimpan."); });
-}
-
-function loadRiwayatInventaris() {
-    fetch(API + "?action=riwayat_inventaris")
-    .then(res => res.json())
-    .then(data => {
-        const tbody = document.querySelector("#tableInventaris tbody"); tbody.innerHTML = "";
-        if(data && data.length > 0){
-            data.forEach(row => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${row[1]}</td><td>${row[2]}</td><td><span class="badge ${row[3] == 'Masuk' ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td><td>${row[4]}</td>`;
+                tr.innerHTML = `<td>${row[1]}</td><td>${row[2]}</td><td><span class="badge ${isMasuk ? 'badge-success' : 'badge-danger'}">${row[3]}</span></td><td style="color:${isMasuk ? 'green' : 'red'}; font-weight:bold;">${jml}</td>`;
                 tbody.appendChild(tr);
             });
         }
     });
+}
+
+// --- OTHERS ---
+function loadPercakapan() {
+    const container = document.getElementById('arabContainer');
+    container.innerHTML = `<div class="status-loading"><i class="fas fa-spinner fa-spin"></i> Memuat...</div>`;
+    fetch(JSON_URL)
+    .then(res => { if(!res.ok) throw new Error("Gagal"); return res.json(); })
+    .then(data => {
+        container.innerHTML = "";
+        data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'arab-card';
+            let html = `<div class="arab-header"><span class="badge bg-teal">${item.kategori}</span></div><div class="arab-title">${item.id}. ${item.judul}</div><div class="dialogue-box">`;
+            if(item.percakapan) {
+                item.percakapan.forEach(line => {
+                    html += `<div class="dialogue-item"><span class="speaker-name">${line.pelaku}</span><div class="arab-text" onclick="speakArabic(\`${line.arab}\`)">${line.arab}</div><div class="translation-text">${line.terjemahan}</div></div>`;
+                });
+            }
+            html += `</div>`;
+            card.innerHTML = html;
+            container.appendChild(card);
+        });
+    }).catch(err => { container.innerHTML = `<div class="status-loading" style="color:red;">Gagal memuat data JSON.</div>`; });
 }
 
 function drawChart(masuk, keluar){
@@ -610,48 +916,6 @@ function drawChart(masuk, keluar){
         type: "doughnut",
         data: { labels: ["Pemasukan", "Pengeluaran"], datasets: [{ data: [masuk, keluar], backgroundColor: ["#0f766e", "#ef4444"], borderWidth: 0 }] },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-    });
-}
-
-// --- PDF ---
-function addKopSurat(doc) {
-    const nama = localStorage.getItem('namaLembaga') || "Nama Pesantren";
-    const alamat = localStorage.getItem('alamat') || "Alamat";
-    const logo = localStorage.getItem('logoBase64');
-    try { if(logo) doc.addImage(logo, 'PNG', 15, 10, 25, 25); } catch(e) {}
-    doc.setFontSize(18); doc.setTextColor(15, 118, 110); doc.text(nama, 45, 20);
-    doc.setFontSize(10); doc.setTextColor(100); doc.text(alamat, 45, 27);
-    doc.setDrawColor(209, 213, 219); doc.line(15, 40, 195, 40);
-    return 50;
-}
-
-function printDashboard() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    let y = addKopSurat(doc);
-    doc.setFontSize(14); doc.setTextColor(0); doc.text("Laporan Ringkasan Keuangan", 105, y, null, null, "center"); y += 15;
-    doc.setFontSize(11);
-    doc.text(`Saldo: ${document.getElementById("saldo").innerText}`, 20, y); y+=10;
-    doc.text(`Pemasukan: ${document.getElementById("masuk").innerText}`, 20, y); y+=10;
-    doc.text(`Pengeluaran: ${document.getElementById("keluar").innerText}`, 20, y); y+=10;
-    doc.save("Dashboard.pdf"); speak("PDF diunduh.");
-}
-
-function printKeuangan() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    let y = addKopSurat(doc);
-    doc.setFontSize(14); doc.text("Laporan Riwayat Transaksi", 105, y, null, null, "center"); y += 10;
-    doc.setFontSize(9);
-    doc.setTextColor(255).setFillColor(15, 118, 110); doc.rect(15, y, 180, 7, 'F');
-    doc.text("Tanggal", 17, y+5); doc.text("Keterangan", 45, y+5); doc.text("Kategori", 110, y+5); doc.text("Jumlah", 160, y+5); y += 7;
-    doc.setTextColor(0);
-    fetch(API + "?action=riwayat_keuangan").then(r=>r.json()).then(data=>{
-        data.forEach(r=>{
-            if(y > 270){ doc.addPage(); y = 20; }
-            doc.text(`${r[1]}`, 17, y); doc.text(`${String(r[2]).substring(0, 25)}`, 45, y); doc.text(`${String(r[3]).substring(0, 20)}`, 110, y); doc.text(`${r[4] || r[5]}`, 160, y); y+=7;
-        });
-        doc.save("Riwayat.pdf"); speak("PDF diunduh.");
     });
 }
 
